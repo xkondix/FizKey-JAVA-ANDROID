@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name" translatable="false">FizKey</string>
+    <string name="start">Rozpocznij</string>
+    <string name="gra">Gra</string>
+    <string name="exit">Wyjście</string>
+    <string name="menuGlowne">Menu</string>
+    <string name="menuKinematyka">Kinematyka</string>
+    <string name="rzuty">Rzuty</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="wzory">Wzory</string>
+    <string name="wykresy">Wykresy</string>
+    <string name="symuluj">Symuluj</string>
+    <string name="wyslij">Wyślij Wynik</string>
+    <string name="przyspieszenie" translatable="false">a = 9.81</string>
+    <string name="predkoscPoczatkowa" translatable="false">v0 = 0</string>
+    <string name="wysokosc" translatable="false">h</string>
+    <string name="obliczenia">Oblicz</string>
+    <string name="wynik">Wynik</string>
+    <string name="opor">Opór</string>
+    <string name="sprezystosc">Odbicie</string>
+    <string name="tittle">Wynik</string>
+</resources>
