@@ -13,10 +13,10 @@
         android:id="@+id/toolbar"
         ></include>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:id="@+id/content_frame_kinematyka">
+    </FrameLayout>
 
 </LinearLayout>

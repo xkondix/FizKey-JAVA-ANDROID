@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.MenuItem;
 
 import  com.konradkowalczyk.fizkey_java_android.R;
@@ -13,10 +15,15 @@ import com.google.android.material.tabs.TabLayout;
 
 public class RzutPionowyWykresActivity extends AppCompatActivity {
 
+    private ViewPager pager;
+    private WykresyObliczenia wykresyObliczenia;
+
     @Override
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rzut_pionowy_wykres);
+
+        wykresyObliczenia = (WykresyObliczenia) getIntent().getExtras().getSerializable("OBLICZENIA");
 
         //Dodanie paska aktywności
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
@@ -27,15 +34,28 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
                 new SectionsPagerAdapter(getSupportFragmentManager());
 
         //Stworzenie viewPagera i ustawienie jako adaptera SectionPagerAdapter
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
-        pager.getAdapter().notifyDataSetChanged(); //bez tego tez działa
+        //pager.getAdapter().notifyDataSetChanged(); //bez tego tez działa
         pager.setPageTransformer(true, new ZoomOutPageTransformer());
 
 
         // Dołączamy ViewPager do TabLayout
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
+
+        if (savedInstanceState != null) {
+            int  position= savedInstanceState.getInt("Key");
+            pager.setCurrentItem(position);
+        }
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        int position = pager.getCurrentItem();
+        savedInstanceState.putInt("Key", position );
     }
 
     @Override
@@ -74,11 +94,11 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
            //System.out.println(position);
             switch (position) {
                 case 0:
-                    return new WykresFragment();
+                    return new WykresFragment(wykresyObliczenia.getListA(),wykresyObliczenia.getListTime());
                 case 1:
-                    return new WykresFragment();
+                    return new WykresFragment(wykresyObliczenia.getListH(),wykresyObliczenia.getListTime());
                 case 2:
-                    return new WykresFragment();
+                    return new WykresFragment(wykresyObliczenia.getListV(),wykresyObliczenia.getListTime());
 
             }
             return null;

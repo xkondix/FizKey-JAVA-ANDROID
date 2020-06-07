@@ -1,8 +1,10 @@
 package com.konradkowalczyk.fizkey_java_android.Menu.Kinematyka;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import  com.konradkowalczyk.fizkey_java_android.Menu.Kinematyka.Rzuty.RzutPionowyActivity;
@@ -22,36 +24,11 @@ public class KinematykaMenuActivity extends AppCompatActivity {
 
 
         //tworzenie fragmentu
-        SectionsPagerAdapter pagerAdapter =
-                new SectionsPagerAdapter(getSupportFragmentManager());
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(pagerAdapter);
-
-
-    }
-
-
-    private class SectionsPagerAdapter extends FragmentPagerAdapter {
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public int getCount() {
-            return 1;
-        }
-
-        @Override
-        public androidx.fragment.app.Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    //tworzenie fragmentu
-                    return new RecyclerViewFragment(new String[]{"Spadek Swobodny"},
-                            new Class[]{RzutPionowyActivity.class});
-
-            }
-            return null;
-        }
+        Fragment fragment = new RecyclerViewFragment(new String[]{"Spadek Swobodny"},
+                new Class[]{RzutPionowyActivity.class});
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.content_frame_kinematyka, fragment);
+        ft.commit();
 
     }
 

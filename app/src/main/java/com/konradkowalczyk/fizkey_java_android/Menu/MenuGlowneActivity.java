@@ -3,8 +3,10 @@ package com.konradkowalczyk.fizkey_java_android.Menu;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import  com.konradkowalczyk.fizkey_java_android.Menu.Kinematyka.KinematykaMenuActivity;
@@ -31,40 +33,17 @@ public class MenuGlowneActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        SectionsPagerAdapter pagerAdapter =
-                new SectionsPagerAdapter(getSupportFragmentManager());
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(pagerAdapter);
-
-
+        Fragment fragment = new RecyclerViewFragment(list
+                ,classes);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.content_frame_glowne, fragment);
+        ft.commit();
 
 
     }
 
 
-    private class SectionsPagerAdapter extends FragmentPagerAdapter {
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
 
-        @Override
-        public int getCount() {
-            return 1;
-        }
-
-        @Override
-        public androidx.fragment.app.Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    //tworzenie fragmentu
-                    return new RecyclerViewFragment(list
-                            ,classes);
-
-            }
-            return null;
-        }
-
-    }
 
 
 

@@ -5,15 +5,22 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WykresFragment extends androidx.fragment.app.Fragment {
 
-    java.util.List<Double> f = new ArrayList<>();
-    java.util.List<Double> t = new ArrayList<>();
+    java.util.List<Float> another;
+    java.util.List<Float> time;
 
     public WykresFragment() {
-        f.add(22.0);
-        t.add(11.0);
+
+    }
+
+
+    public WykresFragment(List<Float> firstList, List<Float> secoundList) {
+        this.another=firstList;
+        this.time=secoundList;
+
     }
         private WykresView wykresView; // custom view
 
@@ -29,6 +36,7 @@ public class WykresFragment extends androidx.fragment.app.Fragment {
 
             // uzyskaj odwołanie do CannonView
             wykresView = (WykresView) view.findViewById(R.id.wykresView);
+            wykresView.setArray(another,time);
             return view;
         }
 
