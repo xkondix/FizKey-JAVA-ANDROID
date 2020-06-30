@@ -1,6 +1,8 @@
-package com.konradkowalczyk.fizkey_java_android;
+package com.konradkowalczyk.fizkey_java_android.thread;
 
 import android.view.SurfaceHolder;
+
+import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 
 public class MainThreadSimulation extends MainThread {
 

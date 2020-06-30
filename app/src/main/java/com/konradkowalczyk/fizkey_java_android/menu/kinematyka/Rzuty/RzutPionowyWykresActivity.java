@@ -1,16 +1,15 @@
-package com.konradkowalczyk.fizkey_java_android.Menu.Kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import  com.konradkowalczyk.fizkey_java_android.R;
-import  com.konradkowalczyk.fizkey_java_android.WykresFragment;
+import com.konradkowalczyk.fizkey_java_android.plot.WykresFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class RzutPionowyWykresActivity extends AppCompatActivity {

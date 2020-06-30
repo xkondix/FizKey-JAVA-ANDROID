@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android;
+package com.konradkowalczyk.fizkey_java_android.plot;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,12 +6,15 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 
+import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
+import com.konradkowalczyk.fizkey_java_android.Constants;
+import com.konradkowalczyk.fizkey_java_android.thread.MainThreadGraphs;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class WykresView extends BasicSimulation{
+public class WykresView extends BasicSimulation {
 
     private java.util.List<Float> firstList,secoundList;
     private java.util.List<Long> punktX = new ArrayList<Long>();
@@ -60,8 +63,8 @@ public class WykresView extends BasicSimulation{
 
         heigh = (int) (400 * getContext().getResources().getDisplayMetrics().density);
         width =  (int) Constants.SCREEN_WIDTH;
-        changeX = 100 + ((width%100)/2);
-        changeY = 100 + ((heigh%100)/2);
+        changeX = 100 + (width%100 > 0 ? width%100/2 : 0);
+        changeY = 100 + (heigh%100 > 0 ? heigh%100/2 : 0);
         lenX = (width-(changeX*2))/50+1;
         lenY = (heigh-(changeY*2))/50+1;
 

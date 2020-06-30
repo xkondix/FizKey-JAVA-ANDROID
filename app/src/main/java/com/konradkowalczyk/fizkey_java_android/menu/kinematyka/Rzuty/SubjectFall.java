@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.Menu.Kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
 
 import android.graphics.RectF;
 

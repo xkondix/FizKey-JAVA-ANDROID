@@ -1,10 +1,11 @@
-package com.konradkowalczyk.fizkey_java_android;
+package com.konradkowalczyk.fizkey_java_android.plot;
 
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import com.konradkowalczyk.fizkey_java_android.R;
+
 import java.util.List;
 
 public class WykresFragment extends androidx.fragment.app.Fragment {

@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.Menu.Kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,10 +10,9 @@ import android.view.SurfaceHolder;
 
 import androidx.annotation.RequiresApi;
 
-import  com.konradkowalczyk.fizkey_java_android.BasicSimulation;
+import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 import  com.konradkowalczyk.fizkey_java_android.Constants;
-import  com.konradkowalczyk.fizkey_java_android.MainThread;
-import  com.konradkowalczyk.fizkey_java_android.MainThreadSimulation;
+import com.konradkowalczyk.fizkey_java_android.thread.MainThreadSimulation;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,12 @@
-package com.konradkowalczyk.fizkey_java_android;
+package com.konradkowalczyk.fizkey_java_android.thread;
 
 import android.graphics.Canvas;
 import android.os.Build;
 import android.view.SurfaceHolder;
 
 import androidx.annotation.RequiresApi;
+
+import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 
 abstract public class MainThread extends Thread
 {

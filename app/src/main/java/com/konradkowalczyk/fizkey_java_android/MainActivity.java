@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 
-import  com.konradkowalczyk.fizkey_java_android.Menu.MenuGlowneActivity;
+import  com.konradkowalczyk.fizkey_java_android.menu.MenuGlowneActivity;
 
 public class MainActivity extends AppCompatActivity {
 

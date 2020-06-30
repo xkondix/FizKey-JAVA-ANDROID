@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
-    tools:context=".Menu.Kinematyka.KinematykaMenuActivity">
+    tools:context=".menu.kinematyka.KinematykaMenuActivity">
 
     <include
         layout="@layout/toolbar_main"

@@ -1,11 +1,13 @@
-package com.konradkowalczyk.fizkey_java_android;
+package com.konradkowalczyk.fizkey_java_android.simulation;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public abstract class BasicSimulation extends SurfaceView implements SurfaceHolder.Callback,SimulationInteface
+import com.konradkowalczyk.fizkey_java_android.thread.MainThread;
+
+public abstract class BasicSimulation extends SurfaceView implements SurfaceHolder.Callback, SimulationInteface
 {
 
     protected MainThread thread=null;
@@ -33,6 +35,7 @@ public abstract class BasicSimulation extends SurfaceView implements SurfaceHold
     public void surfaceDestroyed(SurfaceHolder holder) {
 
         thread.setRunning(false);
+
 
         try {
             thread.join();

@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.Menu.Kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
 
 import  com.konradkowalczyk.fizkey_java_android.Constants;
 import static java.lang.Math.sqrt;

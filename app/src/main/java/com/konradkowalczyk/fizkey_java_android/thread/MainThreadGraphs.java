@@ -1,9 +1,11 @@
-package com.konradkowalczyk.fizkey_java_android;
+package com.konradkowalczyk.fizkey_java_android.thread;
 
 import android.os.Build;
 import android.view.SurfaceHolder;
 
 import androidx.annotation.RequiresApi;
+
+import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 
 
 public class MainThreadGraphs extends MainThread {
