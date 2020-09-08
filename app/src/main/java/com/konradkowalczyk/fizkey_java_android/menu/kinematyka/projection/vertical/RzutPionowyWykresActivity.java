@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import  com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
 import com.konradkowalczyk.fizkey_java_android.plot.WykresFragment;
 import com.google.android.material.tabs.TabLayout;
 

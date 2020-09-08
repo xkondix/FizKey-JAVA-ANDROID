@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,9 @@ import android.content.pm.ActivityInfo;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.RzutyAtrybuty;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.RzutySymulacja;
 
 
 public class RzutPionowySymulacjaActivity extends AppCompatActivity {

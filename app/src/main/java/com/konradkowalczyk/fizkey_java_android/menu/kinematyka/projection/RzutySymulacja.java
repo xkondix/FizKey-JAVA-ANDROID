@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -27,27 +27,21 @@ public class RzutySymulacja extends BasicSimulation {
 
 
         public RzutySymulacja(Context context,RzutyAtrybuty atrybuty) {
-            super(context);
+            super(context,Type.SIMULATION);
             setFocusable(true);
             this.atrybuty=atrybuty;
             setConstans();
         }
 
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        thread = new MainThreadSimulation(getHolder(), this);
-        thread.setRunning(true);
-        thread.start();
-    }
 
 
 
 
-        @Override
+
+
         public void setConstans() {
 
             //thread od interfejsu głównego (ekran)
-            thread = new MainThreadSimulation(getHolder(),this);
             getHolder().addCallback(this);
 
             //Paint
@@ -70,7 +64,6 @@ public class RzutySymulacja extends BasicSimulation {
 
         }
 
-        @Override
         public void scale()
         {
 
@@ -135,9 +128,9 @@ public class RzutySymulacja extends BasicSimulation {
         }
 
 
+    @Override
+    public void update() {
 
-
-
-
+    }
 }
 

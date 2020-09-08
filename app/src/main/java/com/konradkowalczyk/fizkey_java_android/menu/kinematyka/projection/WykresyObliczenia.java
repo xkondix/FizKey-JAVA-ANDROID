@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +15,8 @@ public class WykresyObliczenia implements Serializable {
     private float h;
     private float v0;
     private float g;
+    private long scalaY,scalaX;
+    private int width,heigh,changeX,changeY,lenX,lenY;
 
     public List<Float> getListTime() {
         return listTime;
@@ -117,6 +119,9 @@ public class WykresyObliczenia implements Serializable {
         listH.add(0f);
         listA.add(g);
     }
+
+
+
 
 
 

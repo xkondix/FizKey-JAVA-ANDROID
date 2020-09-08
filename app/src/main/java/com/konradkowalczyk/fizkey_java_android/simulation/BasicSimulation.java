@@ -1,50 +1,93 @@
 package com.konradkowalczyk.fizkey_java_android.simulation;
 
 import android.content.Context;
+import android.nfc.Tag;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.konradkowalczyk.fizkey_java_android.thread.MainThread;
+import com.konradkowalczyk.fizkey_java_android.thread.MainThreadGraphs;
+import com.konradkowalczyk.fizkey_java_android.thread.MainThreadSimulation;
 
-public abstract class BasicSimulation extends SurfaceView implements SurfaceHolder.Callback, SimulationInteface
-{
+public abstract class BasicSimulation extends SurfaceView implements SurfaceHolder.Callback {
 
-    protected MainThread thread=null;
+    private MainThread thread;
+    private Type type;
+    public enum Type {SIMULATION,GRAPHS};
 
 
-    public BasicSimulation(Context context, AttributeSet attrs) {
-        super(context,attrs);
+    public BasicSimulation(Context context, AttributeSet attrs,Type type) {
+        super(context, attrs);
+        getHolder().addCallback(this);
+        this.type=type;
     }
-    public BasicSimulation(Context context) {
+
+    public BasicSimulation(Context context,Type type) {
         super(context);
+        getHolder().addCallback(this);
+        this.type=type;
+
     }
 
 
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        createThread();
+        thread.setRunning(true);
+        thread.start();
+    }
 
-
-    @Override  //onResume()
-    abstract public void surfaceCreated(SurfaceHolder holder);
-
-    @Override //onResume()
+    @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
     }
 
-    @Override //onPause()
+    @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-
+        boolean retry = true;
         thread.setRunning(false);
 
-
-        try {
-            thread.join();
-        } catch (Exception e) {
-            e.printStackTrace();
+        while (retry) {
+            try {
+                thread.join(); // poczekaj na zakończenie wątku cannonThread
+                retry = false;
+            }
+            catch (InterruptedException e) {
+                Log.e("surfaceDestroyed", "Thread interrupted", e);
+            }
         }
     }
 
+    public void pause() {
+        if (thread != null)
+            thread.setRunning(false);
 
+    }
+
+    private void createThread()
+    {
+        if(type.equals(Type.GRAPHS))
+        {
+            createGraphsThread();
+        }
+        else
+        {
+            createSimulationThread();
+        }
+    }
+
+    private void createSimulationThread()
+    {
+        thread = new MainThreadSimulation(getHolder(), this);
+    }
+
+    private void createGraphsThread()
+    {
+        thread = new MainThreadGraphs(getHolder(), this);
+    }
+
+    public abstract void update();
 
 
 

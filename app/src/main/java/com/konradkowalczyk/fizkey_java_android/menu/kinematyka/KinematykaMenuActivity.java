@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import  com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty.RzutPionowyActivity;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical.RzutPionowyActivity;
 import  com.konradkowalczyk.fizkey_java_android.R;
 import  com.konradkowalczyk.fizkey_java_android.RecyclerViewFragment;
 

@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,9 @@ import android.widget.RadioGroup;
 
 import com.konradkowalczyk.fizkey_java_android.Constants;
 import  com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.RzutyAtrybuty;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical.game.GameVerticalActivity;
 
 public class RzutPionowyActivity extends AppCompatActivity {
 
@@ -92,8 +95,8 @@ public class RzutPionowyActivity extends AppCompatActivity {
         atrybuty = new RzutyAtrybuty();
         atrybuty.setY(Double.parseDouble(h.getText().toString()));
         atrybuty.setX(Constants.SCREEN_HEIGHT/2);
-        Intent intent = new Intent(this, RzutPionowySymulacjaActivity.class);
-        intent.putExtra("atrybuty",atrybuty);
+        Intent intent = new Intent(this, GameVerticalActivity.class);
+        //intent.putExtra("atrybuty",atrybuty);
         startActivity(intent);
 
     }

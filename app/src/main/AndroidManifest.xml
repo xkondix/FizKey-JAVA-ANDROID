@@ -9,8 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu.kinematyka.Rzuty.RzutPionowySymulacjaActivity"></activity>
-        <activity android:name=".menu.kinematyka.Rzuty.RzutPionowyWykresActivity" />
+        <activity android:name=".menu.kinematyka.projection.vertical.game.GameVerticalActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".menu.kinematyka.projection.vertical.RzutPionowySymulacjaActivity" />
+        <activity android:name=".menu.kinematyka.projection.vertical.RzutPionowyWykresActivity" />
         <activity
             android:name=".menu.MenuGlowneActivity"
             android:label="@string/menuGlowne"
@@ -20,16 +27,15 @@
             android:label="@string/menuKinematyka"
             android:parentActivityName=".menu.MenuGlowneActivity" />
         <activity
-            android:name=".menu.kinematyka.Rzuty.RzutPionowyActivity"
+            android:name=".menu.kinematyka.projection.vertical.RzutPionowyActivity"
             android:label="@string/rzuty"
             android:parentActivityName=".menu.kinematyka.KinematykaMenuActivity" />
-        <activity android:name=".MainActivity"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MainActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
     </application>
 

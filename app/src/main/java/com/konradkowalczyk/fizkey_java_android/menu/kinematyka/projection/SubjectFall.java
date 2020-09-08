@@ -1,9 +1,9 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
 
 import android.graphics.RectF;
 
 import  com.konradkowalczyk.fizkey_java_android.Constants;
-import  com.konradkowalczyk.fizkey_java_android.Vector2D;
+import com.konradkowalczyk.fizkey_java_android.physics.Vector2D;
 import static java.lang.Math.abs;
 
 public class SubjectFall extends RectF {

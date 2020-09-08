@@ -28,7 +28,7 @@ public class WykresView extends BasicSimulation {
     private int width,heigh,changeX,changeY,lenX,lenY;
 
    public WykresView(Context context, AttributeSet attrs) {
-       super(context, attrs); // wywołaj konstruktora klasy nadrzędnej
+       super(context, attrs,Type.GRAPHS); // wywołaj konstruktora klasy nadrzędnej
 
    }
 
@@ -39,20 +39,11 @@ public class WykresView extends BasicSimulation {
        setConstans();
    }
 
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        thread = new MainThreadGraphs(getHolder(), this);
-        thread.setRunning(true);
-        thread.start();
-    }
 
 
-
-    @Override
     public void setConstans() {
 
         //thread od interfejsu głównego (ekran)
-       thread = new MainThreadGraphs(holder,this);
        holder.addCallback(this);
 
         //Paint
@@ -74,7 +65,6 @@ public class WykresView extends BasicSimulation {
 
     }
 
-    @Override
     public void scale() {
         long buforX = 0l;
         long buforY = 0l;
@@ -192,6 +182,11 @@ public class WykresView extends BasicSimulation {
             }
 
 
+
+    }
+
+    @Override
+    public void update() {
 
     }
 }

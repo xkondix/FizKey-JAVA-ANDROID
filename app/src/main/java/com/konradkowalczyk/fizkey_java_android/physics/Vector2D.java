@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android;
+package com.konradkowalczyk.fizkey_java_android.physics;
 
 public class Vector2D {
 

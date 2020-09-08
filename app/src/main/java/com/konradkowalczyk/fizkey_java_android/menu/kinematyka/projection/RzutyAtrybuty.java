@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.Rzuty;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
 
 import java.util.ArrayList;
 
@@ -90,7 +90,7 @@ public class RzutyAtrybuty implements java.io.Serializable {
 
 
 
-    void wypelnij()
+    public void wypelnij()
     {
         double i=0;
         double pos = getY();

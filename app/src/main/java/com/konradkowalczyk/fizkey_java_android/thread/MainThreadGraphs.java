@@ -39,9 +39,6 @@ public class MainThreadGraphs extends MainThread {
 
         }
 
-
-
-
     }
 
 }
