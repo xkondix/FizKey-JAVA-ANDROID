@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical.game;
+package com.konradkowalczyk.fizkey_java_android.games.kinematics.projection.vertical;
 
 import android.os.Bundle;
 
@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.plot.WykresView;
 
 
 public class GameVerticalFragment extends Fragment {

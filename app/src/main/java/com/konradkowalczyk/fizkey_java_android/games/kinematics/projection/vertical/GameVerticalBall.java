@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical.game;
+package com.konradkowalczyk.fizkey_java_android.games.kinematics.projection.vertical;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -87,6 +87,11 @@ public class GameVerticalBall {
     public int getFallY()
     {
         return (int) gameVerticalFall.getY();
+    }
+
+    public float getVelocity()
+    {
+        return gameVerticalFall.getVelocity();
     }
 
 

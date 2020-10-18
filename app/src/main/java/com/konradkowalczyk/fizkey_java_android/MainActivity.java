@@ -2,18 +2,28 @@ package com.konradkowalczyk.fizkey_java_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.util.DisplayMetrics;
 
 import  com.konradkowalczyk.fizkey_java_android.menu.MenuGlowneActivity;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Context context;
+    private Resources resources;
 
     @Override
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //ustawienie paska
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
@@ -41,24 +51,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickEnglish(android.view.View view) {
-        setLocale("en-rGB");
+        context = LocaleHelper.setLocale(MainActivity.this, "en");
+        resources = context.getResources();
+        finish();
+        startActivity(new Intent(this, getClass()));
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    public void onClickPolish(android.view.View view) {
+        context = LocaleHelper.setLocale(MainActivity.this, "pl");
+        resources = context.getResources();
+        finish();
+        startActivity(new Intent(this, getClass()));
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
 
-    public void setLocale(String lang) {
-        java.util.Locale locale;
-        if(lang.equals("not-set")){ //use any value for default
-            locale = java.util.Locale.getDefault();
-        }
-        else {
-            locale = new java.util.Locale(lang);
-        }
-        java.util.Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
-    }
+
 
 
 }

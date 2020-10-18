@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical.game;
+package com.konradkowalczyk.fizkey_java_android.games.kinematics.projection.vertical;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.WindowManager;
 
 import com.konradkowalczyk.fizkey_java_android.Constants;
 import com.konradkowalczyk.fizkey_java_android.R;

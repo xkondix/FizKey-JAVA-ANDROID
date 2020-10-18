@@ -1,24 +1,24 @@
 <resources>
     <string name="app_name" translatable="false">FizKey</string>
-    <string name="start">Rozpocznij</string>
-    <string name="gra">Gra</string>
-    <string name="exit">Wyjście</string>
+    <string name="start">Start</string>
+    <string name="exit">Exit</string>
     <string name="menuGlowne">Menu</string>
-    <string name="menuKinematyka">Kinematyka</string>
-    <string name="rzuty">Rzuty</string>
+    <string name="menuKinematyka">Kinematics</string>
+    <string name="rzuty">Projections</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="wzory">Wzory</string>
-    <string name="wykresy">Wykresy</string>
-    <string name="symuluj">Symuluj</string>
-    <string name="wyslij">Wyślij Wynik</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="wzory">Patterns</string>
+    <string name="wykresy">Plot</string>
+    <string name="symuluj">Simulate</string>
+    <string name="wyslij">Send Score</string>
     <string name="przyspieszenie" translatable="false">a = 9.81</string>
     <string name="predkoscPoczatkowa" translatable="false">v0 = 0</string>
     <string name="wysokosc" translatable="false">h</string>
-    <string name="obliczenia">Oblicz</string>
+    <string name="obliczenia">Calculate</string>
     <string name="wynik">Wynik</string>
     <string name="opor">Opór</string>
     <string name="sprezystosc">Odbicie</string>
-    <string name="tittle">Wynik</string>
+    <string name="tittle">Score</string>
+    <string name="gra">G</string>
 </resources>

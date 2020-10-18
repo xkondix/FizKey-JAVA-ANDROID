@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FizKey</string>
+    <string name="start">Rozpocznij</string>
+    <string name="gra">Gra</string>
+    <string name="exit">Wyjście</string>
+    <string name="menuGlowne">Menu</string>
+    <string name="menuKinematyka">Kinematyka</string>
+    <string name="rzuty">Rzuty</string>
+    <string name="wzory">Wzory</string>
+    <string name="wykresy">Wykresy</string>
+    <string name="symuluj">Symuluj</string>
+    <string name="wyslij">Wyślij Wynik</string>
+    <string name="obliczenia">Oblicz</string>
+    <string name="wynik">Wynik</string>
+    <string name="opor">Resistance</string>
+    <string name="sprezystosc">Sprężystość</string>
+    <string name="tittle">Wynik</string>
+
+</resources>

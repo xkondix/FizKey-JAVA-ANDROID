@@ -8,13 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu.kinematyka.projection.vertical.game.GameVerticalActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".quizzes.QuizActivity"></activity>
+        <activity android:name=".games.kinematics.projection.vertical.GameVerticalActivity">
         </activity>
         <activity android:name=".menu.kinematyka.projection.vertical.RzutPionowySymulacjaActivity" />
         <activity android:name=".menu.kinematyka.projection.vertical.RzutPionowyWykresActivity" />
@@ -31,11 +29,11 @@
             android:label="@string/rzuty"
             android:parentActivityName=".menu.kinematyka.KinematykaMenuActivity" />
         <activity android:name=".MainActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
     </application>
 

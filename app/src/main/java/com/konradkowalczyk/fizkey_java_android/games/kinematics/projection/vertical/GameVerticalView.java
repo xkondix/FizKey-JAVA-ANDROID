@@ -1,9 +1,8 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical.game;
+package com.konradkowalczyk.fizkey_java_android.games.kinematics.projection.vertical;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -50,8 +49,14 @@ public class GameVerticalView extends BasicSimulation {
 
     public void update()
     {
-       // gameVerticalBall.setY(gameVerticalBall.getY()+15);
-        gameVerticalOpponent.setY(gameVerticalOpponent.getY()+5);
+        if(gameVerticalOpponent.getY() < 0)
+        {
+            gameVerticalOpponent.setY(gameVerticalOpponent.getY() - gameVerticalBall.getVelocity());
+
+        }
+        else {
+            gameVerticalOpponent.setY(gameVerticalOpponent.getY() - gameVerticalBall.getVelocity());
+        }
         if(gameVerticalOpponent.ifPositionFromGreaterDimensions())
         {
             gameVerticalOpponent.randmomPosition();

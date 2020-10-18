@@ -17,7 +17,7 @@ import com.konradkowalczyk.fizkey_java_android.Constants;
 import  com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.RzutyAtrybuty;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical.game.GameVerticalActivity;
+import com.konradkowalczyk.fizkey_java_android.games.kinematics.projection.vertical.GameVerticalActivity;
 
 public class RzutPionowyActivity extends AppCompatActivity {
 

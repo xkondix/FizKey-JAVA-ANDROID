@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical.game;
+package com.konradkowalczyk.fizkey_java_android.games.kinematics.projection.vertical;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -13,27 +13,24 @@ import static com.konradkowalczyk.fizkey_java_android.Constants.*;
 public class GameVerticalOpponent {
 
     private float x, y, width, height;
-    private RectF opponent;
     private final static Random RANDOM = new Random();
 
 
 
     public GameVerticalOpponent() {
-
-        this.x=x;
-        this.y=y;
         randmomPosition();
-//        this.opponent = new RectF(x,y,width,height);
     }
 
 
 
     public void randmomPosition()
     {
+        int randomNumber = RANDOM.nextInt(50) + 10;
+
         this.x = RANDOM.nextInt(SCREEN_WIDTH-150);
-        this.y = RANDOM.nextInt(SCREEN_HEIGHT-150) * (-1);
-        this.width = RANDOM.nextInt(SCREEN_WIDTH-150) + this.x;
-        this.height = RANDOM.nextInt(SCREEN_HEIGHT-150) + this.y;
+        this.y = RANDOM.nextInt(SCREEN_HEIGHT + randomNumber);
+        this.width = randomNumber + this.x;
+        this.height = randomNumber + this.y;
 
     }
 
