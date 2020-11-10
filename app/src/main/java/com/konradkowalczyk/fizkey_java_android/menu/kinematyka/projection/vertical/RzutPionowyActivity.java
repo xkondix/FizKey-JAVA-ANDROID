@@ -84,7 +84,7 @@ public class RzutPionowyActivity extends AppCompatActivity {
 
     public void onClickWykresy(android.view.View view)
     {
-        WykresyObliczenia ob = new WykresyObliczenia(Float.parseFloat(h.getText().toString()),0f,9.81f);
+        WykresyObliczenia ob = new WykresyObliczenia(Double.parseDouble(h.getText().toString()),Double.parseDouble(v0.getText().toString()),9.81f,0);
         Intent intent = new Intent(this, RzutPionowyWykresActivity.class);
         intent.putExtra("OBLICZENIA", ob);
         startActivity(intent);

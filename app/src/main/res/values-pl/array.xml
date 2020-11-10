@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="phenomenon">
+        <item>Kinematyka</item>
+        <item>Elektryka</item>
+    </string-array>
+
+    <string-array name="motion">
+        <item>Czas</item>
+        <item>Przyśpieszenie</item>
+        <item>Wysokość</item>
+        <item>Prędkość</item>
+        <item>Energia Kinetyczna</item>
+        <item>Energia Potencialna</item>
+        <item>Energia Całkowita</item>
+    </string-array>
+</resources>
+

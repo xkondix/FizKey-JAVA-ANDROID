@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="phenomenon">
+        <item>Kinematics</item>
+        <item>Electricity</item>
+    </string-array>
+
+    <string-array name="motion">
+        <item>Time</item>
+        <item>Acceleration</item>
+        <item>Height</item>
+        <item>Velocity</item>
+        <item>Kinetic Energy</item>
+        <item>Potential Energy</item>
+        <item>Total Energy</item>
+    </string-array>
+</resources>

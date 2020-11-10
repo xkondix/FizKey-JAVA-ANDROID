@@ -12,8 +12,10 @@ import  com.konradkowalczyk.fizkey_java_android.RecyclerViewFragment;
 
 public class MenuGlowneActivity extends AppCompatActivity {
 
-    static String[] list = {"Kinematyka","Mechanika","Ruch Falowy","Fizyka Jądrowa","Zjawisko Fotoelektryczne"};
-    static Class[] classes = {KinematykaMenuActivity.class};
+
+    private static Class[] classes = {KinematykaMenuActivity.class};
+
+
     @Override
     protected void
     onCreate(android.os.Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class MenuGlowneActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        Fragment fragment = new RecyclerViewFragment(list
+        Fragment fragment = new RecyclerViewFragment(getResources().getStringArray(R.array.phenomenon)
                 ,classes);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_frame_glowne, fragment);
@@ -38,11 +40,6 @@ public class MenuGlowneActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
-
 
 
 

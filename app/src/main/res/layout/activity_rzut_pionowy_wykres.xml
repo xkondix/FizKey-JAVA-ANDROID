@@ -8,27 +8,34 @@
     tools:context=".menu.kinematyka.projection.vertical.RzutPionowyWykresActivity"
     >
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
         <include
             layout="@layout/toolbar_main"
             android:id="@+id/toolbar"
             ></include>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </com.google.android.material.appbar.AppBarLayout>
+    <Spinner
+        android:id="@+id/phenomenon_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="30dp"
+        android:entries="@array/motion"
+        ></Spinner>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
+    <Spinner
+        android:id="@+id/phenomenon_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:layout_gravity="center_horizontal"
+        android:entries="@array/motion"
+        ></Spinner>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        android:layout_height="400dp"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/plot_frame_layout">
+    </FrameLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

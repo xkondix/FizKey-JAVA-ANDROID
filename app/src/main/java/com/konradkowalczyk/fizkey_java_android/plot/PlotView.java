@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WykresView extends BasicSimulation {
+public class PlotView extends BasicSimulation {
 
-    private java.util.List<Float> firstList,secoundList;
+    private List<Double> firstList;
+    private List<Double> secoundList;
     private java.util.List<Long> punktX = new ArrayList<Long>();
     private java.util.List<Long> punktY = new ArrayList<Long>();
     private ArrayList<Float> punktXX = new ArrayList<Float>();
@@ -27,15 +28,18 @@ public class WykresView extends BasicSimulation {
     private SurfaceHolder holder = getHolder();
     private int width,heigh,changeX,changeY,lenX,lenY;
 
-   public WykresView(Context context, AttributeSet attrs) {
+   public PlotView(Context context, AttributeSet attrs) {
        super(context, attrs,Type.GRAPHS); // wywołaj konstruktora klasy nadrzędnej
 
    }
 
-   public void setArray(List<Float> firstList,List<Float> secoundList)
+   public void setArray(List<Double> firstList, List<Double> secoundList)
    {
        this.firstList= firstList;
        this.secoundList=secoundList;
+       System.out.println(firstList.toString());
+       System.out.println(secoundList.toString());
+
        setConstans();
    }
 
@@ -43,8 +47,7 @@ public class WykresView extends BasicSimulation {
 
     public void setConstans() {
 
-        //thread od interfejsu głównego (ekran)
-       holder.addCallback(this);
+
 
         //Paint
         paint = new Paint();
@@ -62,6 +65,9 @@ public class WykresView extends BasicSimulation {
 
         //stworzenie skali dla ekranu
         scale();
+
+        //thread od interfejsu głównego (ekran)
+        holder.addCallback(this);
 
     }
 
@@ -149,8 +155,6 @@ public class WykresView extends BasicSimulation {
             canvas.drawRGB(255, 255, 255);
 
 
-
-;
         for(int i = 0; i<lenY;i++)
             {
                 canvas.drawLine(changeX, i*50+changeY, width-changeX,i*50+changeY, paint);

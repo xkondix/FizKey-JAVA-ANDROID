@@ -4,26 +4,25 @@ package com.konradkowalczyk.fizkey_java_android.plot;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.konradkowalczyk.fizkey_java_android.R;
 
 import java.util.List;
 
-public class WykresFragment extends androidx.fragment.app.Fragment {
+public class PlotFragment extends Fragment {
 
-    java.util.List<Float> another;
-    java.util.List<Float> time;
+    private List<Double> another;
+    private List<Double> time;
 
-    public WykresFragment() {
+    public PlotFragment() {}
 
-    }
-
-
-    public WykresFragment(List<Float> firstList, List<Float> secoundList) {
-        this.another=firstList;
-        this.time=secoundList;
+    public PlotFragment(List<Double> anotherList, List<Double> timeList) {
+        this.another=anotherList;
+        this.time=timeList;
 
     }
-        private WykresView wykresView; // custom view
+        private PlotView wykresView; // custom view
 
         // metoda wywoływana w przypadku konieczności utworzenia widoku w obiekcie Fragment
         @Override
@@ -36,8 +35,11 @@ public class WykresFragment extends androidx.fragment.app.Fragment {
                     inflater.inflate(R.layout.fragment_wykres, container, false);
 
             // uzyskaj odwołanie do CannonView
-            wykresView = (WykresView) view.findViewById(R.id.wykresView);
+            wykresView = (PlotView) view.findViewById(R.id.wykresView);
             wykresView.setArray(another,time);
+
+            setRetainInstance(true);
+
             return view;
         }
 
@@ -51,12 +53,22 @@ public class WykresFragment extends androidx.fragment.app.Fragment {
         // zatrzymaj grę w przypadku wstrzymania MainActivity
         @Override
         public void onPause() {
+            wykresView.surfaceDestroyed(wykresView.getHolder());
             super.onPause();
         }
+
+        @Override
+        public void onResume() {
+            wykresView.surfaceCreated(wykresView.getHolder());
+            super.onResume();
+        }
+
+
 
         // w przypadku wstrzymania MainActivity MainActivityFragment zwalnia zasoby
         @Override
         public void onDestroyView() {
+            wykresView.surfaceDestroyed(wykresView.getHolder());
             super.onDestroyView();
         }
 

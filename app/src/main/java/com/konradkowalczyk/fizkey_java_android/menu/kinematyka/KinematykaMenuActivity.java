@@ -1,6 +1,7 @@
 package com.konradkowalczyk.fizkey_java_android.menu.kinematyka;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -16,7 +17,7 @@ public class KinematykaMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_kinematyka_menu);
 
         //pasek zadań
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 

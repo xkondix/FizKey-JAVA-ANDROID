@@ -2,6 +2,7 @@ package com.konradkowalczyk.fizkey_java_android;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,7 +50,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@androidx.annotation.NonNull ViewHolder holder, final int position) {
         CardView cardView = holder.cardView;
-        android.widget.TextView textView = (android.widget.TextView) cardView.findViewById(R.id.textMenu);
+        android.widget.TextView textView = (TextView) cardView.findViewById(R.id.textMenu);
         textView.setText(titels[position]);
         cardView.setOnClickListener(new android.view.View.OnClickListener() {
             @Override

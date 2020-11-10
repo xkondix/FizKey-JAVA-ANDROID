@@ -13,47 +13,48 @@
         android:id="@+id/toolbar"
         ></include>
 
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:src="@drawable/fiz_key_image"
+        android:layout_marginTop="60dp"
+        android:padding="5dp"
+        android:layout_marginBottom="40dp"
+        ></ImageView>
+
     <Button
         android:id="@+id/start"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:text="@string/start"
+        android:layout_margin="20dp"
         android:onClick="onClickStart"
-        ></Button>
-
-
-    <Button
-        android:id="@+id/gra"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:text="@string/gra"
-        android:onClick="onClickGame"
-
-        ></Button>
+        android:text="@string/start"
+        android:textAlignment="center"></Button>
 
 
     <Button
         android:id="@+id/exit"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:text="@string/exit"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
         android:onClick="onClickExit"
+        android:text="@string/exit"
+        android:textAlignment="center"
 
         ></Button>
 
 
     <LinearLayout
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:layout_marginBottom="20dp">
 
@@ -61,15 +62,21 @@
        <ImageButton
            android:layout_width="100dp"
            android:layout_height="60dp"
+           android:layout_margin="20dp"
            android:id="@+id/polska"
-           android:src="@drawable/polish"
+           android:src="@drawable/polish_flag"
            android:onClick="onClickPolish"
            ></ImageButton>
 
         <ImageButton
             android:layout_width="100dp"
             android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
             android:id="@+id/anglia"
+            android:src="@drawable/english_flag"
             android:onClick="onClickEnglish"
             ></ImageButton>
 

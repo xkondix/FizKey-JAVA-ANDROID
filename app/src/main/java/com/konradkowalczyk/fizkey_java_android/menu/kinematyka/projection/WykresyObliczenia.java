@@ -8,121 +8,129 @@ import static java.lang.Math.sqrt;
 
 public class WykresyObliczenia implements Serializable {
 
-    private List<Float> listTime;
-    private List<Float> listA;
-    private List<Float> listV;
-    private List<Float> listH;
-    private float h;
-    private float v0;
-    private float g;
+    private List<Double> listTime;
+    private List<Double> listAcceleration;
+    private List<Double> listVelocity;
+    private List<Double> listHeight;
+    private List<Double> listPotentialEnergy;
+    private List<Double> listKineticEnergy;
+    private List<Double> listTotalEnergy;
+    private double y0;
+    private double v0;
+    private double g;
+    private double cX;
+    private double dt;
     private long scalaY,scalaX;
     private int width,heigh,changeX,changeY,lenX,lenY;
 
-    public List<Float> getListTime() {
-        return listTime;
-    }
 
-    public void setListTime(List<Float> listTime) {
-        this.listTime = listTime;
-    }
-
-    public List<Float> getListA() {
-        return listA;
-    }
-
-    public void setListA(List<Float> listA) {
-        this.listA = listA;
-    }
-
-    public List<Float> getListV() {
-        return listV;
-    }
-
-    public void setListV(List<Float> listV) {
-        this.listV = listV;
-    }
-
-    public List<Float> getListH() {
-        return listH;
-    }
-
-    public void setListH(List<Float> listH) {
-        this.listH = listH;
-    }
-
-    public float getH() {
-        return h;
-    }
-
-    public void setH(float h) {
-        this.h = h;
-    }
-
-    public float getV0() {
-        return v0;
-    }
-
-    public void setV0(float v0) {
-        this.v0 = v0;
-    }
-
-    public float getG() {
-        return g;
-    }
-
-    public void setG(float g) {
-        this.g = g;
-    }
-
-    public WykresyObliczenia(float h, float v0, float g)
+    private double countVy(double vY)
     {
-        this.h=h;
-        this.v0=v0;
-        this.g=g;
+        return vY - (g * dt) - (cX * vY * dt);
+    }
+
+    private double countY(double y, double vY)
+    {
+        return y + (vY *dt);
+    }
+
+
+    public WykresyObliczenia(double h, double v0, double g, double cX)
+    {
+        this.y0 = h;
+        this.v0 = v0;
+        this.g = g;
+        this.cX = cX;
         listTime = new ArrayList<>();
-        listA = new ArrayList<>();
-        listV = new ArrayList<>();
-        listH = new ArrayList<>();
+        listAcceleration = new ArrayList<>();
+        listVelocity = new ArrayList<>();
+        listHeight = new ArrayList<>();
+        listPotentialEnergy = new ArrayList<>();
+        listKineticEnergy = new ArrayList<>();
+        listTotalEnergy = new ArrayList();
         wypelnij();
     }
 
 
-    void wypelnij() {
-        float i = 0;
-        float pos = h;
-        float v = v0;
-        int licznik = 0;
-        int czas = 0;
+    void wypelnij()
+    {
+        int n=1000;
+        dt = 2.1/n;
+        double licznik = 1;
+        double t=0;
+        double ep= 1 * g * y0;
+        double ek = (1* v0*v0)/2;
+        double ec = ep + ek;
+        listAcceleration.add(g);
+        listVelocity.add(v0);
+        listHeight.add(y0);
+        listKineticEnergy.add(ek);
+        listPotentialEnergy.add(ep);
+        listTotalEnergy.add(ec);
+        listTime.add(t);
+        System.out.println("ep - "+ep+"; ek - "+ek+"; ec - "+ec);
 
 
-        while (i <= sqrt(h * 2 / g)) {
 
-            if (licznik == 1000) {
-                czas++;
-                listTime.add((float) czas);
-                listV.add(v);
-                listH.add(pos);
-                listA.add(g);
-                licznik = 0;
+
+        while(y0>=0){
+            v0 = countVy(v0);
+            y0 = countY(y0,v0);
+            ep= 10 * g * y0;
+            ek = (10* v0*v0)/2;
+            ec = ep + ek;
+            t+=dt;
+            if(t>licznik)
+            {
+                listAcceleration.add(g);
+                listVelocity.add(v0);
+                listHeight.add(y0);
+                listKineticEnergy.add(ek);
+                listPotentialEnergy.add(ep);
+                listTotalEnergy.add(ec);
+                listTime.add(licznik);
+                licznik++;
+
             }
-
-            i += 0.001;
-            v = (g * i);
-            pos = h - (g * i * i / 2);
-            licznik++;
 
 
         }
 
-        listTime.add(i);
-        listV.add(v);
-        listH.add(0f);
-        listA.add(g);
+
+
     }
 
 
 
+    public List<Double> getListTime() {
+        return listTime;
+    }
+
+    public List<Double> getListAcceleration() {
+        return listAcceleration;
+    }
+
+    public List<Double> getListVelocity() {
+        return listVelocity;
+    }
+
+    public List<Double> getListHeight() {
+        return listHeight;
+    }
+
+    public List<Double> getListPotentialEnergy() {
+        return listPotentialEnergy;
+    }
+
+    public List<Double> getListKineticEnergy() {
+        return listKineticEnergy;
+    }
+
+    public List<Double> getListTotalEnergy() {
+        return listTotalEnergy;
+    }
 
 
 
 }
+

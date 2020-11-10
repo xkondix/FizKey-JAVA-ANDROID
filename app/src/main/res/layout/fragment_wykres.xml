@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".plot.WykresFragment">
+    tools:context=".plot.PlotFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -14,7 +14,7 @@
         android:layout_height="400dp"
         android:id="@+id/frameFragment">
 
-    <com.konradkowalczyk.fizkey_java_android.plot.WykresView
+    <com.konradkowalczyk.fizkey_java_android.plot.PlotView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

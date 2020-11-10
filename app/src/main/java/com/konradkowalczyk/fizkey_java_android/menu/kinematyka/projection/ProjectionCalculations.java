@@ -14,6 +14,8 @@ public class ProjectionCalculations {
     private double mass;
     private double kineticEnergy;
     private double potentialEnergy;
+    private double time;
+
 
 
     public static class Builder
@@ -28,6 +30,7 @@ public class ProjectionCalculations {
         private double mass;
         private double kineticEnergy;
         private double potentialEnergy;
+        private double time;
 
         public Builder(){}
 
@@ -79,6 +82,12 @@ public class ProjectionCalculations {
             return this;
         }
 
+        public Builder time(double time)
+        {
+            this.time=time;
+            return this;
+        }
+
 
 
 
@@ -101,5 +110,7 @@ public class ProjectionCalculations {
         this.potentialEnergy=builder.potentialEnergy;
 
     }
+
+
 
 }

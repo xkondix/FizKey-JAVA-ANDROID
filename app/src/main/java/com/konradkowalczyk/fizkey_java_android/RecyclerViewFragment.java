@@ -18,8 +18,6 @@ public class RecyclerViewFragment extends androidx.fragment.app.Fragment {
     public RecyclerViewFragment(String[] titels, Class[] classes) {
         this.titels=titels;
         this.classes=classes;
-        //zapobiega utraceniu danych -> zamiast onSaveInstanceState w Activity nadrzędnym
-        setRetainInstance(true);
     }
 
 
@@ -47,6 +45,10 @@ public class RecyclerViewFragment extends androidx.fragment.app.Fragment {
                 getActivity().startActivity(intent);
             }
         });
+
+
+        setRetainInstance(true);
+
 
         return menuView;
     }

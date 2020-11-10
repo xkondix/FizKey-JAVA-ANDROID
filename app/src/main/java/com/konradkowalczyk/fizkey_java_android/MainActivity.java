@@ -2,17 +2,14 @@ package com.konradkowalczyk.fizkey_java_android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.animation.AnimationUtils;
+import android.view.View;
 
 import  com.konradkowalczyk.fizkey_java_android.menu.MenuGlowneActivity;
-
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,11 +26,8 @@ public class MainActivity extends AppCompatActivity {
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //ustawienie na całą aplikacje statycznych wartości ekranu
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        Constants.SCREEN_HEIGHT = dm.heightPixels;
-        Constants.SCREEN_WIDTH = dm.widthPixels;
+        setScreenDimension();
+
     }
 
     public void onClickStart(android.view.View view) {
@@ -41,34 +35,33 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onClickGame(android.view.View view) {
-
-    }
-
-
     public void onClickExit(android.view.View view) {
         finish();
     }
 
     public void onClickEnglish(android.view.View view) {
-        context = LocaleHelper.setLocale(MainActivity.this, "en");
+        changeContext(view,"en");
+    }
+
+    public void onClickPolish(android.view.View view) {changeContext(view,"pl"); }
+
+
+    private void changeContext(View view, String language)
+    {
+        context = LocaleHelper.setLocale(MainActivity.this, language);
         resources = context.getResources();
         finish();
         startActivity(new Intent(this, getClass()));
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        view.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.animation_in));
+        view.startAnimation(AnimationUtils.loadAnimation(MainActivity.this,R.anim.animation_out));
     }
 
-    public void onClickPolish(android.view.View view) {
-        context = LocaleHelper.setLocale(MainActivity.this, "pl");
-        resources = context.getResources();
-        finish();
-        startActivity(new Intent(this, getClass()));
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    private void setScreenDimension()
+    {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        Constants.SCREEN_HEIGHT = dm.heightPixels;
+        Constants.SCREEN_WIDTH = dm.widthPixels;
     }
-
-
-
-
 
 }
-
