@@ -50,27 +50,7 @@ public class PlotFragment extends Fragment {
 
         }
 
-        // zatrzymaj grę w przypadku wstrzymania MainActivity
-        @Override
-        public void onPause() {
-            wykresView.surfaceDestroyed(wykresView.getHolder());
-            super.onPause();
-        }
 
-        @Override
-        public void onResume() {
-            wykresView.surfaceCreated(wykresView.getHolder());
-            super.onResume();
-        }
-
-
-
-        // w przypadku wstrzymania MainActivity MainActivityFragment zwalnia zasoby
-        @Override
-        public void onDestroyView() {
-            wykresView.surfaceDestroyed(wykresView.getHolder());
-            super.onDestroyView();
-        }
 
 
 

@@ -2,6 +2,9 @@ package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.verti
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,7 +15,7 @@ import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
 import com.konradkowalczyk.fizkey_java_android.plot.PlotFragment;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class RzutPionowyWykresActivity extends AppCompatActivity {
@@ -21,6 +24,7 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
     private WykresyObliczenia wykresyObliczenia;
     private List<List<Double>> calculations;
     private int numberPhenomenonOne, numberPhenomenonTwo;
+    private Spinner spinnerOne, spinnerTwo;
 
     @Override
     protected void onCreate(android.os.Bundle savedInstanceState) {
@@ -28,6 +32,15 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rzut_pionowy_wykres);
 
         wykresyObliczenia = (WykresyObliczenia) getIntent().getExtras().getSerializable("OBLICZENIA");
+
+
+        spinnerOne = findViewById(R.id.phenomenon_one);
+        spinnerOne.setSelection(2);
+        numberPhenomenonOne = 2;
+        spinnerTwo = findViewById(R.id.phenomenon_two);
+        spinnerTwo.setSelection(0);
+        numberPhenomenonTwo = 0;
+
 
 
         //Dodanie paska aktywności
@@ -43,8 +56,33 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             int  position= savedInstanceState.getInt("Key");
-            pager.setCurrentItem(position);
         }
+
+        spinnerOne.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                numberPhenomenonOne = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        spinnerTwo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                numberPhenomenonTwo = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
 
     }
 
@@ -74,8 +112,15 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
         }
     }
 
+
+    public void onClickChange(android.view.View view) {
+        setPlot();
+    }
+
+
     private void setCalculations()
     {
+        calculations = new ArrayList<>();
         calculations.add(wykresyObliczenia.getListTime());
         calculations.add(wykresyObliczenia.getListAcceleration());
         calculations.add(wykresyObliczenia.getListHeight());
@@ -86,12 +131,12 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
 
     }
 
-    private void setPlot(int number, int numberTwo)
+    private void setPlot()
     {
         Fragment fragment = new PlotFragment(calculations.get(numberPhenomenonOne)
                 ,calculations.get(numberPhenomenonTwo));
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.plot_frame_layout, fragment);
+        ft.replace(R.id.plot_frame_layout, fragment);
         ft.commit();
     }
 

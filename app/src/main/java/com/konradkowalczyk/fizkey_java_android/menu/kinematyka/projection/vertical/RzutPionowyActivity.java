@@ -1,8 +1,5 @@
 package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,11 +10,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
-import com.konradkowalczyk.fizkey_java_android.Constants;
-import  com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.RzutyAtrybuty;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
-import com.konradkowalczyk.fizkey_java_android.games.kinematics.projection.vertical.GameVerticalActivity;
 
 public class RzutPionowyActivity extends AppCompatActivity {
 
@@ -26,7 +23,6 @@ public class RzutPionowyActivity extends AppCompatActivity {
     Button symuluj,wykresy,wyslijWynik;
     android.widget.TextView wynik;
     android.widget.Spinner spinner;
-    RzutyAtrybuty atrybuty;
 
 
 
@@ -92,12 +88,12 @@ public class RzutPionowyActivity extends AppCompatActivity {
 
     public void onClickSymulacja(android.view.View view)
     {
-        atrybuty = new RzutyAtrybuty();
-        atrybuty.setY(Double.parseDouble(h.getText().toString()));
-        atrybuty.setX(Constants.SCREEN_HEIGHT/2);
-        Intent intent = new Intent(this, GameVerticalActivity.class);
-        //intent.putExtra("atrybuty",atrybuty);
-        startActivity(intent);
+//        atrybuty = new RzutyAtrybuty();
+//        atrybuty.setY(Double.parseDouble(h.getText().toString()));
+//        atrybuty.setX(Constants.SCREEN_HEIGHT/2);
+//        Intent intent = new Intent(this, GameVerticalActivity.class);
+//        //intent.putExtra("atrybuty",atrybuty);
+//        startActivity(intent);
 
     }
 
@@ -167,17 +163,14 @@ public class RzutPionowyActivity extends AppCompatActivity {
 
     public void onClickOblicz(android.view.View view)
     {
-        RzutyAtrybuty a1 = new RzutyAtrybuty();
-        a1.setY(Double.parseDouble(h.getText().toString()));
-        try {
-            a1.setAy(Double.parseDouble(a.getText().toString()));
-            System.out.println(a1.getAy());
+        WykresyObliczenia wykresyObliczenia = new WykresyObliczenia(Double.parseDouble(h.getText().toString()),
+                Double.parseDouble(v0.getText().toString()),
+                9.81,
+                0);
 
-        }catch (Exception e){}
-        a1.wypelnij();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,a1.getList());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,wykresyObliczenia.getListOfPhenomeno());
         spinner.setAdapter(adapter);
-        wynik.setText(a1.getList()[a1.getList().length-1]);
+        wynik.setText(wykresyObliczenia.getListOfPhenomeno()[wykresyObliczenia.getListOfPhenomeno().length-1]);
     }
 
 

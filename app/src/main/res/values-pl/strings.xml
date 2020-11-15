@@ -16,5 +16,6 @@
     <string name="opor">Resistance</string>
     <string name="sprezystosc">Sprężystość</string>
     <string name="tittle">Wynik</string>
+    <string name="changePhenomeno">Zmień</string>
 
 </resources>

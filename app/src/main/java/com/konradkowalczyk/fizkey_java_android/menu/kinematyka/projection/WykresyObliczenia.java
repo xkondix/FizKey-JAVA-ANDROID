@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Math.sqrt;
-
 public class WykresyObliczenia implements Serializable {
 
     private List<Double> listTime;
@@ -68,33 +66,41 @@ public class WykresyObliczenia implements Serializable {
         listPotentialEnergy.add(ep);
         listTotalEnergy.add(ec);
         listTime.add(t);
-        System.out.println("ep - "+ep+"; ek - "+ek+"; ec - "+ec);
 
 
 
 
-        while(y0>=0){
+        while(countY(y0,v0)>0.0){
             v0 = countVy(v0);
             y0 = countY(y0,v0);
             ep= 10 * g * y0;
             ek = (10* v0*v0)/2;
             ec = ep + ek;
             t+=dt;
+
+
             if(t>licznik)
             {
-                listAcceleration.add(g);
-                listVelocity.add(v0);
-                listHeight.add(y0);
-                listKineticEnergy.add(ek);
-                listPotentialEnergy.add(ep);
-                listTotalEnergy.add(ec);
+                listAcceleration.add(Math.round(g * 100.0) / 100.0);
+                listVelocity.add(Math.round(v0 * 100.0) / 100.0);
+                listHeight.add(Math.round(y0 * 100.0) / 100.0);
+                listKineticEnergy.add(Math.round(ek * 100.0) / 100.0);
+                listPotentialEnergy.add(Math.round(ep * 100.0) / 100.0);
+                listTotalEnergy.add(Math.round(ec * 100.0) / 100.0);
                 listTime.add(licznik);
                 licznik++;
 
             }
 
-
         }
+
+        listAcceleration.add(Math.round(g * 100.0) / 100.0);
+        listVelocity.add(Math.round(v0 * 100.0) / 100.0);
+        listHeight.add(Math.round(y0 * 100.0) / 100.0);
+        listKineticEnergy.add(Math.round(ek * 100.0) / 100.0);
+        listPotentialEnergy.add(Math.round(ep * 100.0) / 100.0);
+        listTotalEnergy.add(Math.round(ec * 100.0) / 100.0);
+        listTime.add(Math.round(t * 100.0) / 100.0);
 
 
 
@@ -129,6 +135,38 @@ public class WykresyObliczenia implements Serializable {
     public List<Double> getListTotalEnergy() {
         return listTotalEnergy;
     }
+
+
+    public String getString(double time, double velocity, double acceleration)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("t = ");
+        sb.append((String.format("%.2f", time)));
+        sb.append("s | ");
+        sb.append("v = ");
+        sb.append((String.format("%.2f", velocity)));
+        sb.append("m/s | ");
+        sb.append("y = ");
+        sb.append((String.format("%.2f", acceleration)));
+        sb.append("m");
+
+        return sb.toString();
+    }
+
+
+    public String[] getListOfPhenomeno()
+    {
+        String[] phenomenos = new String[listTime.size()];
+
+        for(int i = 0; i < listTime.size(); i++)
+        {
+            phenomenos[i] = getString(listTime.get(i),listVelocity.get(i),listHeight.get(i));
+        }
+
+        return phenomenos;
+    }
+
+
 
 
 

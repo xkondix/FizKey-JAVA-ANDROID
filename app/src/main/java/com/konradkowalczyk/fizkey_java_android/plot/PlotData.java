@@ -8,9 +8,9 @@ import java.util.TreeMap;
 
 public class PlotData implements Serializable {
 
-    private Map<Float,Float> data;
-    private List<Float> xList;
-    private List<Float> yList;
+    private Map<Integer,Integer> data;
+    private List<Double> xList;
+    private List<Double> yList;
 
     public PlotData()
     {
@@ -24,15 +24,11 @@ public class PlotData implements Serializable {
     {
         this.xList=xList;
         this.yList=yList;
+        data = new TreeMap<>();
+
     }
 
-    private void setData()
-    {
-        if(!checkInterval())
-        {
 
-        }
-    }
 
     private int getInerval()
     {
@@ -45,9 +41,6 @@ public class PlotData implements Serializable {
     }
 
 
-    public Map<Float, Float> getData() {
-        return data;
-    }
 
 
 

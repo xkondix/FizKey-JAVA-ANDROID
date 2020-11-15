@@ -1,14 +1,13 @@
 package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.pm.ActivityInfo;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.RzutyAtrybuty;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.RzutySymulacja;
+import androidx.appcompat.app.AppCompatActivity;
+
+//import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.RzutySymulacja;
 
 
 public class RzutPionowySymulacjaActivity extends AppCompatActivity {
@@ -18,8 +17,8 @@ public class RzutPionowySymulacjaActivity extends AppCompatActivity {
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RzutyAtrybuty atrybuty = (RzutyAtrybuty) getIntent().getExtras().getSerializable("atrybuty");
-        System.out.println("to jest y w atrybutach "+atrybuty.getY());
+        //RzutyAtrybuty atrybuty = (RzutyAtrybuty) getIntent().getExtras().getSerializable("atrybuty");
+       // System.out.println("to jest y w atrybutach "+atrybuty.getY());
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -29,7 +28,7 @@ public class RzutPionowySymulacjaActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //this.getActionBar().hide();
 
-        setContentView(new RzutySymulacja(this, atrybuty));
+       // setContentView(new RzutySymulacja(this, atrybuty));
     }
 
 

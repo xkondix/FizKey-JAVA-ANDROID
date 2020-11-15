@@ -6,9 +6,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 
-import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 import com.konradkowalczyk.fizkey_java_android.Constants;
-import com.konradkowalczyk.fizkey_java_android.thread.MainThreadGraphs;
+import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,11 +34,8 @@ public class PlotView extends BasicSimulation {
 
    public void setArray(List<Double> firstList, List<Double> secoundList)
    {
-       this.firstList= firstList;
-       this.secoundList=secoundList;
-       System.out.println(firstList.toString());
-       System.out.println(secoundList.toString());
-
+       this.firstList= getAbs(firstList);
+       this.secoundList=getAbs(secoundList);
        setConstans();
    }
 
@@ -48,26 +44,28 @@ public class PlotView extends BasicSimulation {
     public void setConstans() {
 
 
+        //thread od interfejsu głównego (ekran)
+        holder.addCallback(this);
 
         //Paint
         paint = new Paint();
         paint.setTextSize(30);
         paint.setColor(android.graphics.Color.rgb(22, 155, 222));
 
-
-        heigh = (int) (400 * getContext().getResources().getDisplayMetrics().density);
+        heigh = (int) (300 * getContext().getResources().getDisplayMetrics().density);
         width =  (int) Constants.SCREEN_WIDTH;
-        changeX = 100 + (width%100 > 0 ? width%100/2 : 0);
-        changeY = 100 + (heigh%100 > 0 ? heigh%100/2 : 0);
+        changeX = 100 + (width%100 > 0 ? (width%100)/2 : 0);
+        changeY = 100 + (heigh%100 > 0 ? (heigh%100)/2 : 0);
         lenX = (width-(changeX*2))/50+1;
         lenY = (heigh-(changeY*2))/50+1;
+
+
 
 
         //stworzenie skali dla ekranu
         scale();
 
-        //thread od interfejsu głównego (ekran)
-        holder.addCallback(this);
+
 
     }
 
@@ -78,10 +76,11 @@ public class PlotView extends BasicSimulation {
         scalaY=1L;
         long differenceX,differenceY;
 
+
         //szukanie skali dla y
         while(true)
         {
-            if(firstList.get(firstList.size()-1)>=buforY && firstList.get(firstList.size()-1) < scalaY*lenY)
+            if(Collections.max(firstList)>=buforY && Collections.max(firstList) < scalaY*lenY)
             {
                 break;
             }
@@ -92,7 +91,7 @@ public class PlotView extends BasicSimulation {
         //szukanie skali dla x
         while(true)
         {
-            if(secoundList.get(secoundList.size()-1)>=buforX && secoundList.get(secoundList.size()-1)< scalaX*lenX)
+            if(Collections.max(secoundList)>=buforX && Collections.max(secoundList)< scalaX*lenX)
             {
                 break;
             }
@@ -110,10 +109,6 @@ public class PlotView extends BasicSimulation {
         }
         punktX.add(0l);
         Collections.reverse(punktX);
-        System.out.println(punktX);
-
-
-
 
 
 
@@ -132,14 +127,16 @@ public class PlotView extends BasicSimulation {
         //tworzenie wspolrzednych dla y osi
         for(int i = 0; i<firstList.size();i++)
         {
-            punktYY.add((float) ((firstList.get(i)/scalaY*50)+changeX));
+            punktYY.add((float) ((firstList.get(i)*(50.0/scalaY))+changeY));
         }
 
         //tworzenie wspolrzednych dla x osi
         for(int i = 0; i<secoundList.size();i++)
         {
-            punktXX.add((float) (secoundList.get(i)/scalaX*50)+changeY);
+            punktXX.add((float) ((secoundList.get(i)*(50/scalaX))+changeX));
         }
+
+
 
 
 
@@ -181,12 +178,23 @@ public class PlotView extends BasicSimulation {
 
             for(int i = 0; i<punktYY.size();i++)
             {
-                System.out.println(punktXX.get(i)+"    "+punktYY.get(i));
-                canvas.drawCircle(punktYY.get(i),heigh-punktXX.get(i), 10, paint);
+                canvas.drawCircle(punktXX.get(i),heigh-punktYY.get(i), 10, paint);
+                //canvas.drawText("*",punktYY.get(i),heigh-punktXX.get(i), paint);
             }
 
 
 
+    }
+
+    private List<Double> getAbs(List<Double> list)
+    {
+        ArrayList<Double> d = new ArrayList<>();
+        for(int i = 0; i<list.size();i++)
+        {
+            d.add(Math.abs(list.get(i)));
+        }
+
+        return d;
     }
 
     @Override

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
     tools:context=".menu.kinematyka.projection.vertical.RzutPionowyWykresActivity"
     >
 
@@ -13,12 +14,19 @@
             android:id="@+id/toolbar"
             ></include>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="10dp">
+
     <Spinner
         android:id="@+id/phenomenon_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="30dp"
+        android:layout_margin="5dp"
         android:entries="@array/motion"
         ></Spinner>
 
@@ -26,16 +34,28 @@
         android:id="@+id/phenomenon_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
         android:layout_gravity="center_horizontal"
-        android:entries="@array/motion"
-        ></Spinner>
+        android:entries="@array/motion"></Spinner>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/start"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onClickChange"
+        android:layout_margin="5dp"
+        android:text="@string/changePhenomeno"
+        android:textAlignment="center"></Button>
+
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:layout_gravity="center_vertical"
         android:id="@+id/plot_frame_layout">
     </FrameLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

@@ -21,6 +21,7 @@
 <string name="opor">Opór</string>
 <string name="sprezystosc">Odbicie</string>
 <string name="tittle">Score</string>
-<string name="gra">GAME</string>es>
+<string name="gra">GAME</string>
+    <string name="changePhenomeno">Change</string>es>
 
 </resources>
