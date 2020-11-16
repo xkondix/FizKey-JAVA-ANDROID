@@ -42,7 +42,6 @@ public class PlotFragment extends Fragment implements OnTouchPointValue {
                                               android.os.Bundle savedInstanceState) {
             super.onCreateView(inflater, container, savedInstanceState);
 
-            // przygotuj do wyświetlenia rozkład fragment_main.xml
             View view =
                     inflater.inflate(R.layout.fragment_wykres, container, false);
 
@@ -75,11 +74,7 @@ public class PlotFragment extends Fragment implements OnTouchPointValue {
 
             return view;
         }
-
-        private void setText(String text, TextView textView) {
-            textView.setText(text);
-        }
-
+        
         @Override
         public void respondData(final float valueX, final float valueY) {
             final Handler handler = new Handler();
