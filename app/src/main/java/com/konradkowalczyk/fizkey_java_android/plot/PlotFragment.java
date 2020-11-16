@@ -15,34 +15,28 @@ import java.util.List;
 
 public class PlotFragment extends Fragment implements OnTouchPointValue {
 
-    private List<Double> another;
-    private List<Double> time;
+    private List<Double> firstList,secoundList;
+
     private TextView firstNameOfPhenomenon,secondNameOfPhenomenon
             ,firstValueOfPhenomenon,secondValueOfPhenomenon;
     private String firstName, secoundName;
+    private PlotView wykresView;
 
 
     public PlotFragment() {}
 
-    public PlotFragment(List<Double> anotherList, List<Double> timeList) {
-        this.another=anotherList;
-        this.time=timeList;
-
+    public PlotFragment(List<Double> firstList, List<Double> secoundList) {
+        this.firstList=firstList;
+        this.secoundList=secoundList;
     }
 
-    public PlotFragment(List<Double> anotherList, List<Double> timeList, String firstName, String secoundName) {
-        this.another=anotherList;
-        this.time=timeList;
+    public PlotFragment(List<Double> firstList, List<Double> secoundList, String firstName, String secoundName) {
+        this.firstList=firstList;
+        this.secoundList=secoundList;
         this.firstName=firstName;
         this.secoundName=secoundName;
-
-
-
-
     }
-        private PlotView wykresView; // custom view
 
-        // metoda wywoływana w przypadku konieczności utworzenia widoku w obiekcie Fragment
         @Override
         public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container,
                                               android.os.Bundle savedInstanceState) {
@@ -64,41 +58,27 @@ public class PlotFragment extends Fragment implements OnTouchPointValue {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if(firstName!=null)
-                        {
+
                             firstNameOfPhenomenon.setText(firstName);
                             secondNameOfPhenomenon.setText(secoundName);
-                        }
+
                     }
                 });
 
             }
 
-
-
-            // uzyskaj odwołanie do CannonView
             wykresView = (PlotView) view.findViewById(R.id.wykresView);
-            wykresView.setArray(another,time);
+            wykresView.setArray(firstList,secoundList);
             wykresView.setOnTouchPointValue(this);
-
-
 
             setRetainInstance(true);
 
             return view;
         }
 
-
         private void setText(String text, TextView textView) {
             textView.setText(text);
         }
-
-        // przygotuj możliwość sterowania głośnością po utworzeniu obiektu Activity
-        @Override
-        public void onActivityCreated(android.os.Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-        }
-
 
         @Override
         public void respondData(final float valueX, final float valueY) {
