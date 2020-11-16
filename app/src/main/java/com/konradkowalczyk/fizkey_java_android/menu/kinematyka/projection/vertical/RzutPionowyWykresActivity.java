@@ -25,6 +25,7 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
     private List<List<Double>> calculations;
     private int numberPhenomenonOne, numberPhenomenonTwo;
     private Spinner spinnerOne, spinnerTwo;
+    private  String[] phenomenonNames;
 
     @Override
     protected void onCreate(android.os.Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rzut_pionowy_wykres);
 
         wykresyObliczenia = (WykresyObliczenia) getIntent().getExtras().getSerializable("OBLICZENIA");
+        phenomenonNames = getResources().getStringArray(R.array.motion);
 
 
         spinnerOne = findViewById(R.id.phenomenon_one);
@@ -41,16 +43,18 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
         spinnerTwo.setSelection(0);
         numberPhenomenonTwo = 0;
 
+        Fragment fragment = new PlotFragment(wykresyObliczenia.getListHeight(),wykresyObliczenia.getListTime()
+                ,phenomenonNames[numberPhenomenonOne]
+                ,phenomenonNames[numberPhenomenonTwo]);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.plot_frame_layout, fragment);
+        ft.commit();
+
 
 
         //Dodanie paska aktywności
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Fragment fragment = new PlotFragment(wykresyObliczenia.getListHeight(),wykresyObliczenia.getListTime());
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.plot_frame_layout, fragment);
-        ft.commit();
 
         setCalculations();
 
@@ -83,6 +87,9 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
             }
 
         });
+
+
+
 
     }
 
@@ -134,7 +141,9 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
     private void setPlot()
     {
         Fragment fragment = new PlotFragment(calculations.get(numberPhenomenonOne)
-                ,calculations.get(numberPhenomenonTwo));
+                ,calculations.get(numberPhenomenonTwo)
+                ,phenomenonNames[numberPhenomenonOne]
+                ,phenomenonNames[numberPhenomenonTwo]);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.plot_frame_layout, fragment);
         ft.commit();

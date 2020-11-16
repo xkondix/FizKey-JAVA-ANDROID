@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import com.konradkowalczyk.fizkey_java_android.Constants;
@@ -17,18 +18,23 @@ public class PlotView extends BasicSimulation {
 
     private List<Double> firstList;
     private List<Double> secoundList;
-    private java.util.List<Long> punktX = new ArrayList<Long>();
-    private java.util.List<Long> punktY = new ArrayList<Long>();
-    private ArrayList<Float> punktXX = new ArrayList<Float>();
-    private ArrayList<Float> punktYY = new ArrayList<Float>();
+    private List<Long> pointsScaleX = new ArrayList<Long>();
+    private List<Long> pointsScaleY = new ArrayList<Long>();
+    private ArrayList<Float> valuesScaledFirstListY = new ArrayList<Float>();
+    private ArrayList<Float> valuesScaledSecoundListX = new ArrayList<Float>();
 
     private long scalaY,scalaX;
     private Paint paint;
     private SurfaceHolder holder = getHolder();
+    private Context context;
     private int width,heigh,changeX,changeY,lenX,lenY;
+    private final static double SPACE_BETWEEN_UNITS = 50.0;
+
+
+    private OnTouchPointValue onTouchPointValue;
 
    public PlotView(Context context, AttributeSet attrs) {
-       super(context, attrs,Type.GRAPHS); // wywołaj konstruktora klasy nadrzędnej
+       super(context, attrs,Type.GRAPHS);// wywołaj konstruktora klasy nadrzędnej
 
    }
 
@@ -52,12 +58,14 @@ public class PlotView extends BasicSimulation {
         paint.setTextSize(30);
         paint.setColor(android.graphics.Color.rgb(22, 155, 222));
 
+
+
         heigh = (int) (300 * getContext().getResources().getDisplayMetrics().density);
         width =  (int) Constants.SCREEN_WIDTH;
         changeX = 100 + (width%100 > 0 ? (width%100)/2 : 0);
         changeY = 100 + (heigh%100 > 0 ? (heigh%100)/2 : 0);
-        lenX = (width-(changeX*2))/50+1;
-        lenY = (heigh-(changeY*2))/50+1;
+        lenX = (width-(changeX*2))/ ((int) SPACE_BETWEEN_UNITS)+1;
+        lenY = (heigh-(changeY*2))/ ((int) SPACE_BETWEEN_UNITS)+1;
 
 
 
@@ -104,11 +112,11 @@ public class PlotView extends BasicSimulation {
         differenceX = buforX / lenX;
         for(int i = 0; i<lenX;i++)
         {
-            punktX.add(buforX);
+            pointsScaleX.add(buforX);
             buforX = buforX - differenceX;
         }
-        punktX.add(0l);
-        Collections.reverse(punktX);
+        pointsScaleX.add(0l);
+        Collections.reverse(pointsScaleX);
 
 
 
@@ -117,23 +125,23 @@ public class PlotView extends BasicSimulation {
         differenceY = buforY / lenY;
         for(int i = 0; i<lenY;i++)
         {
-            punktY.add(buforY);
+            pointsScaleY.add(buforY);
             buforY = buforY - differenceY;
         }
-        punktY.add(0l);
-        punktY.remove(0);
+        pointsScaleY.add(0l);
+        pointsScaleY.remove(0);
 
 
         //tworzenie wspolrzednych dla y osi
         for(int i = 0; i<firstList.size();i++)
         {
-            punktYY.add((float) ((firstList.get(i)*(50.0/scalaY))+changeY));
+            valuesScaledFirstListY.add((float) ((firstList.get(i)*(SPACE_BETWEEN_UNITS/scalaY))+changeY));
         }
 
         //tworzenie wspolrzednych dla x osi
         for(int i = 0; i<secoundList.size();i++)
         {
-            punktXX.add((float) ((secoundList.get(i)*(50/scalaX))+changeX));
+            valuesScaledSecoundListX.add((float) ((secoundList.get(i)*(SPACE_BETWEEN_UNITS/scalaX))+changeX));
         }
 
 
@@ -152,12 +160,14 @@ public class PlotView extends BasicSimulation {
             canvas.drawRGB(255, 255, 255);
 
 
-        for(int i = 0; i<lenY;i++)
+            //draw  X-axis
+            for(int i = 0; i<lenY;i++)
             {
                 canvas.drawLine(changeX, i*50+changeY, width-changeX,i*50+changeY, paint);
 
             }
 
+            //draw Y-axis
             for(int i = 0; i<lenX;i++)
             {
                 canvas.drawLine( i*50+changeX,changeY,i*50+changeX,heigh-changeY, paint);
@@ -165,21 +175,22 @@ public class PlotView extends BasicSimulation {
 
             paint.setColor(android.graphics.Color.rgb(255, 0, 0));
 
+            //draw
             for(int i = 0; i<lenY;i++)
             {
-                canvas.drawText(String.valueOf(punktY.get(i)), 30, i*50+changeY, paint);
+                canvas.drawText(String.valueOf(pointsScaleY.get(i)), 30, i*50+changeY, paint);
             }
 
             for(int i = 0; i<lenX;i++)
             {
-                canvas.drawText(String.valueOf(punktX.get(i)), i*50+changeX, heigh-30, paint);
+                canvas.drawText(String.valueOf(pointsScaleX.get(i)), i*50+changeX, heigh-30, paint);
             }
 
 
-            for(int i = 0; i<punktYY.size();i++)
+            for(int i = 0; i<valuesScaledFirstListY.size();i++)
             {
-                canvas.drawCircle(punktXX.get(i),heigh-punktYY.get(i), 10, paint);
-                //canvas.drawText("*",punktYY.get(i),heigh-punktXX.get(i), paint);
+                canvas.drawCircle(valuesScaledSecoundListX.get(i),heigh-valuesScaledFirstListY.get(i), 10, paint);
+
             }
 
 
@@ -197,8 +208,46 @@ public class PlotView extends BasicSimulation {
         return d;
     }
 
+    private float fromScaleXToRealValue(double x)
+    {
+        return (float) (((x - changeX) *scalaX)/SPACE_BETWEEN_UNITS);
+    }
+
+    private float fromScaleYToRealValue(double y)
+    {
+        return (float) (((heigh - y -changeY) *scalaY)/SPACE_BETWEEN_UNITS);
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+
+        float x = fromScaleXToRealValue(event.getX());
+        float y = fromScaleYToRealValue(event.getY());
+
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if(onTouchPointValue!=null)
+                    onTouchPointValue.respondData(x,y);
+                break;
+
+        }
+
+        return super.onTouchEvent(event);
+
+    }
+
+    public void setOnTouchPointValue(OnTouchPointValue onTouchPointValue)
+    {
+        this.onTouchPointValue=onTouchPointValue;
+    }
+
     @Override
     public void update() {
 
     }
+
+
 }

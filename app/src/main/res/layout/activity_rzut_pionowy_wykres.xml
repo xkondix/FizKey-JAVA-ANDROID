@@ -53,7 +53,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_gravity="center_vertical"
         android:id="@+id/plot_frame_layout">
     </FrameLayout>
