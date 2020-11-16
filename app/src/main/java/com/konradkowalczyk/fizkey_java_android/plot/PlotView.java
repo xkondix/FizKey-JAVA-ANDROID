@@ -23,18 +23,19 @@ public class PlotView extends BasicSimulation {
     private ArrayList<Float> valuesScaledFirstListY = new ArrayList<Float>();
     private ArrayList<Float> valuesScaledSecoundListX = new ArrayList<Float>();
 
-    private long scalaY,scalaX;
+    private long scalaY,scalaX,buforX,buforY;
     private Paint paint;
     private SurfaceHolder holder = getHolder();
-    private Context context;
     private int width,heigh,changeX,changeY,lenX,lenY;
-    private final static double SPACE_BETWEEN_UNITS = 50.0;
 
+    private final static double SPACE_BETWEEN_UNITS = 50.0;
 
     private OnTouchPointValue onTouchPointValue;
 
+
+
    public PlotView(Context context, AttributeSet attrs) {
-       super(context, attrs,Type.GRAPHS);// wywołaj konstruktora klasy nadrzędnej
+       super(context, attrs,Type.GRAPHS);
 
    }
 
@@ -45,19 +46,21 @@ public class PlotView extends BasicSimulation {
        setConstans();
    }
 
+    public void setOnTouchPointValue(OnTouchPointValue onTouchPointValue)
+    {
+        this.onTouchPointValue=onTouchPointValue;
+    }
 
 
-    public void setConstans() {
+    private void setConstans() {
 
 
-        //thread od interfejsu głównego (ekran)
         holder.addCallback(this);
 
-        //Paint
+
         paint = new Paint();
         paint.setTextSize(30);
         paint.setColor(android.graphics.Color.rgb(22, 155, 222));
-
 
 
         heigh = (int) (300 * getContext().getResources().getDisplayMetrics().density);
@@ -66,26 +69,40 @@ public class PlotView extends BasicSimulation {
         changeY = 100 + (heigh%100 > 0 ? (heigh%100)/2 : 0);
         lenX = (width-(changeX*2))/ ((int) SPACE_BETWEEN_UNITS)+1;
         lenY = (heigh-(changeY*2))/ ((int) SPACE_BETWEEN_UNITS)+1;
-
-
-
-
-        //stworzenie skali dla ekranu
-        scale();
-
-
-
-    }
-
-    public void scale() {
-        long buforX = 0l;
-        long buforY = 0l;
+        buforX = 0l;
+        buforY = 0l;
         scalaX=1l;
         scalaY=1L;
-        long differenceX,differenceY;
 
 
-        //szukanie skali dla y
+        scale();
+    }
+
+    private void scale() {
+       createScaleX();
+       createScaleY();
+
+       createAxisX();
+       createAxisY();
+
+       createScaledValuesX();
+       createScaledValuesY();
+    }
+
+    private List<Double> getAbs(List<Double> list)
+    {
+        ArrayList<Double> d = new ArrayList<>();
+        for(int i = 0; i<list.size();i++)
+        {
+            d.add(Math.abs(list.get(i)));
+        }
+
+        return d;
+    }
+
+
+    private void createScaleY()
+    {
         while(true)
         {
             if(Collections.max(firstList)>=buforY && Collections.max(firstList) < scalaY*lenY)
@@ -95,8 +112,10 @@ public class PlotView extends BasicSimulation {
             buforY = scalaY * lenY;
             scalaY = scalaY * 2;
         }
+    }
 
-        //szukanie skali dla x
+    private void createScaleX()
+    {
         while(true)
         {
             if(Collections.max(secoundList)>=buforX && Collections.max(secoundList)< scalaX*lenX)
@@ -106,21 +125,12 @@ public class PlotView extends BasicSimulation {
             buforX = scalaX * lenX;
             scalaX = scalaX * 2;
         }
+    }
 
-        //tworzenie x zmiennych skali
-        buforX = scalaX * (lenX);
-        differenceX = buforX / lenX;
-        for(int i = 0; i<lenX;i++)
-        {
-            pointsScaleX.add(buforX);
-            buforX = buforX - differenceX;
-        }
-        pointsScaleX.add(0l);
-        Collections.reverse(pointsScaleX);
+    private void createAxisY()
+    {
+        long differenceY;
 
-
-
-        //tworzenie y zmiennych skali
         buforY = scalaY * (lenY);
         differenceY = buforY / lenY;
         for(int i = 0; i<lenY;i++)
@@ -131,25 +141,59 @@ public class PlotView extends BasicSimulation {
         pointsScaleY.add(0l);
         pointsScaleY.remove(0);
 
+    }
 
-        //tworzenie wspolrzednych dla y osi
-        for(int i = 0; i<firstList.size();i++)
+    private void createAxisX()
+    {
+        long differenceX;
+
+        buforX = scalaX * (lenX);
+        differenceX = buforX / lenX;
+        for(int i = 0; i<lenX;i++)
         {
-            valuesScaledFirstListY.add((float) ((firstList.get(i)*(SPACE_BETWEEN_UNITS/scalaY))+changeY));
+            pointsScaleX.add(buforX);
+            buforX = buforX - differenceX;
         }
+        pointsScaleX.add(0l);
+        Collections.reverse(pointsScaleX);
+    }
 
-        //tworzenie wspolrzednych dla x osi
+    private void createScaledValuesX()
+    {
         for(int i = 0; i<secoundList.size();i++)
         {
-            valuesScaledSecoundListX.add((float) ((secoundList.get(i)*(SPACE_BETWEEN_UNITS/scalaX))+changeX));
+            valuesScaledSecoundListX.add(fromRealValueToScaleX(secoundList.get(i)));
         }
-
-
-
-
-
-
     }
+
+    private void createScaledValuesY()
+    {
+        for(int i = 0; i<firstList.size();i++)
+        {
+            valuesScaledFirstListY.add(fromRealValueToScaleY(firstList.get(i)));
+        }
+    }
+
+    private float fromScaleXToRealValue(double x)
+    {
+        return (float) (((x - changeX) *scalaX)/SPACE_BETWEEN_UNITS);
+    }
+
+    private float fromScaleYToRealValue(double y)
+    {
+        return (float) (((heigh - y -changeY) *scalaY)/SPACE_BETWEEN_UNITS);
+    }
+
+    private float fromRealValueToScaleX(double x)
+    {
+        return (float) (((x *(SPACE_BETWEEN_UNITS/scalaX))+changeX));
+    }
+
+    private float fromRealValueToScaleY(double y)
+    {
+        return (float) (heigh-((y *(SPACE_BETWEEN_UNITS/scalaY))+changeY));
+    }
+
 
 
 
@@ -175,47 +219,27 @@ public class PlotView extends BasicSimulation {
 
             paint.setColor(android.graphics.Color.rgb(255, 0, 0));
 
-            //draw
+            //draw values of scale Y
             for(int i = 0; i<lenY;i++)
             {
                 canvas.drawText(String.valueOf(pointsScaleY.get(i)), 30, i*50+changeY, paint);
             }
 
+            //draw values of scale X
             for(int i = 0; i<lenX;i++)
             {
                 canvas.drawText(String.valueOf(pointsScaleX.get(i)), i*50+changeX, heigh-30, paint);
             }
 
-
+            //draw points X Y
             for(int i = 0; i<valuesScaledFirstListY.size();i++)
             {
-                canvas.drawCircle(valuesScaledSecoundListX.get(i),heigh-valuesScaledFirstListY.get(i), 10, paint);
+                canvas.drawCircle(valuesScaledSecoundListX.get(i),valuesScaledFirstListY.get(i), 10, paint);
 
             }
 
 
 
-    }
-
-    private List<Double> getAbs(List<Double> list)
-    {
-        ArrayList<Double> d = new ArrayList<>();
-        for(int i = 0; i<list.size();i++)
-        {
-            d.add(Math.abs(list.get(i)));
-        }
-
-        return d;
-    }
-
-    private float fromScaleXToRealValue(double x)
-    {
-        return (float) (((x - changeX) *scalaX)/SPACE_BETWEEN_UNITS);
-    }
-
-    private float fromScaleYToRealValue(double y)
-    {
-        return (float) (((heigh - y -changeY) *scalaY)/SPACE_BETWEEN_UNITS);
     }
 
 
@@ -239,14 +263,9 @@ public class PlotView extends BasicSimulation {
 
     }
 
-    public void setOnTouchPointValue(OnTouchPointValue onTouchPointValue)
-    {
-        this.onTouchPointValue=onTouchPointValue;
-    }
-
     @Override
     public void update() {
-
+        throw new RuntimeException("not to implement");
     }
 
 
