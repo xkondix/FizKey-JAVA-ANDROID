@@ -1,15 +1,23 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
-
+//package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
+//
+//import android.content.Context;
+//import android.graphics.Paint;
+//import android.view.MotionEvent;
+//
+//import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
+//
+//import java.util.ArrayList;
+//
 //public class RzutySymulacja extends BasicSimulation {
 //
 //    private Paint paint = null;
-//    private RzutyAtrybuty atrybuty = null;
+//    private WykresyObliczenia atrybuty = null;
 //    private long scala;
 //    private java.util.List<Long> punkt = new ArrayList<Long>();
 //    private SubjectFall ball;
 //
 //
-//        public RzutySymulacja(Context context,RzutyAtrybuty atrybuty) {
+//        public RzutySymulacja(Context context, WykresyObliczenia atrybuty) {
 //            super(context,Type.SIMULATION);
 //            setFocusable(true);
 //            this.atrybuty=atrybuty;
@@ -36,7 +44,6 @@ package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
 //            scale();
 //
 //            //tworzenie obiektu, który się porusza
-//            System.out.println("rzuty + " + atrybuty.getY());
 //            ball = new SubjectFall(400,(float)(Constants.SCREEN_HEIGHT-((atrybuty.getY()/scala*100))),475,(float)(Constants.SCREEN_HEIGHT-(atrybuty.getY()/scala*100)-75),scala);
 //
 //
@@ -116,4 +123,4 @@ package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
 //
 //    }
 //}
-//
+

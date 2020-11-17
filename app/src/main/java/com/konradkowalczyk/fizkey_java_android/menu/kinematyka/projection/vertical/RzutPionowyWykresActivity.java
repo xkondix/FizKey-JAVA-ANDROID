@@ -7,9 +7,9 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
@@ -20,7 +20,6 @@ import java.util.List;
 
 public class RzutPionowyWykresActivity extends AppCompatActivity {
 
-    private ViewPager pager;
     private WykresyObliczenia wykresyObliczenia;
     private List<List<Double>> calculations;
     private int numberPhenomenonOne, numberPhenomenonTwo;
@@ -32,6 +31,9 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rzut_pionowy_wykres);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         wykresyObliczenia = (WykresyObliczenia) getIntent().getExtras().getSerializable("OBLICZENIA");
         phenomenonNames = getResources().getStringArray(R.array.motion);
 
@@ -39,9 +41,11 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
         spinnerOne = findViewById(R.id.phenomenon_one);
         spinnerOne.setSelection(2);
         numberPhenomenonOne = 2;
+
         spinnerTwo = findViewById(R.id.phenomenon_two);
         spinnerTwo.setSelection(0);
         numberPhenomenonTwo = 0;
+
 
         Fragment fragment = new PlotFragment(wykresyObliczenia.getListHeight(),wykresyObliczenia.getListTime()
                 ,phenomenonNames[numberPhenomenonOne]
@@ -49,12 +53,6 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.plot_frame_layout, fragment);
         ft.commit();
-
-
-
-        //Dodanie paska aktywności
-        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         setCalculations();
 
@@ -96,8 +94,6 @@ public class RzutPionowyWykresActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        int position = pager.getCurrentItem();
-        savedInstanceState.putInt("Key", position );
     }
 
     @Override

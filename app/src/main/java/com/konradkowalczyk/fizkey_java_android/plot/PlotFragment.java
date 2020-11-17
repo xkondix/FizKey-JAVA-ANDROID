@@ -74,7 +74,7 @@ public class PlotFragment extends Fragment implements OnTouchPointValue {
 
             return view;
         }
-        
+
         @Override
         public void respondData(final float valueX, final float valueY) {
             final Handler handler = new Handler();
