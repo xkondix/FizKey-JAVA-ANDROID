@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="250dp"
+    tools:context=".menu.kinematyka.projection.PhysicalFormulasFragment">
+    >
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_formulas"
+        android:layout_marginLeft="2dp"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:id="@+id/heding"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heding"
+        android:textColor="#000"
+        android:id="@+id/formulas_fragment_text"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/formulas_fragment_text"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="2dp"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:id="@+id/ok"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/formulas_fragment_text"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="2dp"
+        android:textSize="18dp"
+        android:textColor="#000"
+        android:id="@+id/cancel"/>
+
+</RelativeLayout>
+
+
+
+
+
+

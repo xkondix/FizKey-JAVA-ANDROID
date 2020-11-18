@@ -22,4 +22,7 @@
     <string name="tittle">Score</string>
     <string name="gra">G</string>
     <string name="changePhenomeno">Change</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="title_formulas">Physics formulas</string>
 </resources>

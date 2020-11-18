@@ -5,10 +5,9 @@
 
     <item
         android:id="@+id/action_wzory"
-        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/title_formulas"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"
-        android:title="@string/wzory"></item>
-
+        ></item>
 
 </menu>

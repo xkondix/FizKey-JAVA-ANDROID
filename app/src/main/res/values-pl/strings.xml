@@ -17,5 +17,8 @@
     <string name="sprezystosc">Sprężystość</string>
     <string name="tittle">Wynik</string>
     <string name="changePhenomeno">Zmień</string>
+    <string name="cancel">Anuluj</string>
+    <string name="ok">Zatwierdz</string>
+    <string name="title_formulas">Fizyczne wzory</string>
 
 </resources>

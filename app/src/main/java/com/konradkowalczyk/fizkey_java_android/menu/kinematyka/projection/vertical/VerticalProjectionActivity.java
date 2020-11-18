@@ -19,15 +19,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.PhysicalFormulasFragment;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
 
-public class RzutPionowyActivity extends AppCompatActivity {
+public class VerticalProjectionActivity extends AppCompatActivity {
 
     //variables
     private EditText heightEditText,velocityEditText,accelerationEditText, resistanceEditText,massEditText;
     private Button simulateButton, plotButton, sendScoreButton;
     private TextView scoreTextView;
     private Spinner multiScoreSpinner;
+    private static String[] formulasVertical = {"v = v0 - g * t", "h = v0 * t - 1/2 * g * t^2"};
 
 
 
@@ -73,10 +75,10 @@ public class RzutPionowyActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item)    {
         switch(item.getItemId())
         {
-           // case R.id.action_wzory:
-                //Intent intent = new Intent(this,OrderActivity.class);
-                //startActivity(intent);
-                //return true;
+            case R.id.action_wzory:
+                PhysicalFormulasFragment dialog = new PhysicalFormulasFragment(formulasVertical);
+                dialog.show(getSupportFragmentManager(), "Projection Vertical Formulas");
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -91,19 +93,22 @@ public class RzutPionowyActivity extends AppCompatActivity {
                 getAcceleration(),
                 getResistance());
 
-        Intent intent = new Intent(this, RzutPionowyWykresActivity.class);
+        Intent intent = new Intent(this, VerticalProjectionPlotActivity.class);
         intent.putExtra("OBLICZENIA", wykresyObliczenia);
         startActivity(intent);
     }
 
     public void onClickSymulacja(View view)
     {
-//        atrybuty = new RzutyAtrybuty();
-//        atrybuty.setY(Double.parseDouble(h.getText().toString()));
-//        atrybuty.setX(Constants.SCREEN_HEIGHT/2);
-//        Intent intent = new Intent(this, GameVerticalActivity.class);
-//        //intent.putExtra("atrybuty",atrybuty);
-//        startActivity(intent);
+        WykresyObliczenia wykresyObliczenia = new WykresyObliczenia(
+                getHeight(),
+                getVelocity(),
+                getAcceleration(),
+                getResistance()
+                ,0.01);
+        Intent intent = new Intent(this, VerticalProjectionSimulationActivity.class);
+        intent.putExtra("atrybuty",wykresyObliczenia);
+        startActivity(intent);
 
     }
 

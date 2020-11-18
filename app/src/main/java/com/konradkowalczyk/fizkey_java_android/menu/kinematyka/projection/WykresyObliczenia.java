@@ -13,13 +13,8 @@ public class WykresyObliczenia implements Serializable {
     private List<Double> listPotentialEnergy;
     private List<Double> listKineticEnergy;
     private List<Double> listTotalEnergy;
-    private double y0;
-    private double v0;
-    private double g;
-    private double cX;
-    private double dt;
-    private long scalaY,scalaX;
-    private int width,heigh,changeX,changeY,lenX,lenY;
+    private double y0, v0, g, cX, dt, counter;
+
 
 
     private double countVy(double vY)
@@ -33,12 +28,14 @@ public class WykresyObliczenia implements Serializable {
     }
 
 
-    public WykresyObliczenia(double h, double v0, double g, double cX)
+    public WykresyObliczenia(double h, double v0, double g, double cX, double counter)
     {
         this.y0 = h;
         this.v0 = v0;
         this.g = g;
         this.cX = cX;
+        this.counter = counter;
+
         listTime = new ArrayList<>();
         listAcceleration = new ArrayList<>();
         listVelocity = new ArrayList<>();
@@ -46,6 +43,26 @@ public class WykresyObliczenia implements Serializable {
         listPotentialEnergy = new ArrayList<>();
         listKineticEnergy = new ArrayList<>();
         listTotalEnergy = new ArrayList();
+
+        wypelnij();
+    }
+
+    public WykresyObliczenia(double h, double v0, double g, double cX)
+    {
+        this.y0 = h;
+        this.v0 = v0;
+        this.g = g;
+        this.cX = cX;
+        this.counter = 1.0;
+
+        listTime = new ArrayList<>();
+        listAcceleration = new ArrayList<>();
+        listVelocity = new ArrayList<>();
+        listHeight = new ArrayList<>();
+        listPotentialEnergy = new ArrayList<>();
+        listKineticEnergy = new ArrayList<>();
+        listTotalEnergy = new ArrayList();
+
         wypelnij();
     }
 
@@ -54,7 +71,7 @@ public class WykresyObliczenia implements Serializable {
     {
         int n=1000;
         dt = 2.1/n;
-        double licznik = 1;
+        double licznik = counter;
         double t=0;
         double ep= 1 * g * y0;
         double ek = (1* v0*v0)/2;
@@ -88,7 +105,7 @@ public class WykresyObliczenia implements Serializable {
                 listPotentialEnergy.add(Math.round(ep * 100.0) / 100.0);
                 listTotalEnergy.add(Math.round(ec * 100.0) / 100.0);
                 listTime.add(licznik);
-                licznik++;
+                licznik += counter;
 
             }
 

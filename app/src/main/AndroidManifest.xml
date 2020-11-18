@@ -14,8 +14,8 @@
         <activity android:name=".quizzes.QuizActivity"></activity>
         <activity android:name=".games.kinematics.projection.vertical.GameVerticalActivity">
         </activity>
-        <activity android:name=".menu.kinematyka.projection.vertical.RzutPionowySymulacjaActivity" />
-        <activity android:name=".menu.kinematyka.projection.vertical.RzutPionowyWykresActivity" />
+        <activity android:name=".menu.kinematyka.projection.vertical.VerticalProjectionSimulationActivity" />
+        <activity android:name=".menu.kinematyka.projection.vertical.VerticalProjectionPlotActivity" />
         <activity
             android:name=".menu.MenuGlowneActivity"
             android:label="@string/menuGlowne"
@@ -25,7 +25,7 @@
             android:label="@string/menuKinematyka"
             android:parentActivityName=".menu.MenuGlowneActivity" />
         <activity
-            android:name=".menu.kinematyka.projection.vertical.RzutPionowyActivity"
+            android:name=".menu.kinematyka.projection.vertical.VerticalProjectionActivity"
             android:label="@string/rzuty"
             android:parentActivityName=".menu.kinematyka.KinematykaMenuActivity" />
         <activity android:name=".MainActivity">

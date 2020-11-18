@@ -2,6 +2,7 @@ package com.konradkowalczyk.fizkey_java_android.plot;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -81,7 +82,7 @@ public class PlotView extends BasicSimulation {
                         , paint);
             }
 
-            paint.setColor(android.graphics.Color.rgb(255, 0, 0));
+            paint.setColor(Color.rgb(255, 0, 0));
 
             //draw values of scale Y
             for(int i = 0; i<screenScaleValueEquation.getLenY();i++)

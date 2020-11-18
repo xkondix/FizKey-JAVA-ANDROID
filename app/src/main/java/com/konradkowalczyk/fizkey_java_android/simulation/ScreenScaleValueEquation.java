@@ -27,8 +27,6 @@ public class ScreenScaleValueEquation {
         private int height = (int) Constants.SCREEN_HEIGHT;;
 
 
-
-
         public Builder(List<Double> firstList, List<Double> secoundList)
         {
             this.firstList=getAbs(firstList);
@@ -105,11 +103,12 @@ public class ScreenScaleValueEquation {
     {
         while(true)
         {
-            if(Collections.max(firstList)>=buforY && Collections.max(firstList) < scalaY*lenY)
+            if(Collections.max(firstList)>=buforY && Collections.max(firstList) < scalaY*(lenY-1))
             {
+
                 break;
             }
-            buforY = scalaY * lenY;
+            buforY = scalaY * (lenY-1);
             scalaY = scalaY * 2;
         }
     }
@@ -118,11 +117,11 @@ public class ScreenScaleValueEquation {
     {
         while(true)
         {
-            if(Collections.max(secoundList)>=buforX && Collections.max(secoundList)< scalaX*lenX)
+            if(Collections.max(secoundList)>=buforX && Collections.max(secoundList) < scalaX*(lenX-1))
             {
                 break;
             }
-            buforX = scalaX * lenX;
+            buforX = scalaX * (lenX-1);
             scalaX = scalaX * 2;
         }
     }

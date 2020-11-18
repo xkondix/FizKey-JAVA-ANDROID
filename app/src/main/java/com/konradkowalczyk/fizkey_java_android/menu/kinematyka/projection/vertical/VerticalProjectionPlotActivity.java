@@ -18,7 +18,7 @@ import com.konradkowalczyk.fizkey_java_android.plot.PlotFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RzutPionowyWykresActivity extends AppCompatActivity {
+public class VerticalProjectionPlotActivity extends AppCompatActivity {
 
     private WykresyObliczenia wykresyObliczenia;
     private List<List<Double>> calculations;
