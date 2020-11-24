@@ -1,15 +1,17 @@
 package com.konradkowalczyk.fizkey_java_android;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
-import android.view.animation.AnimationUtils;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
-import  com.konradkowalczyk.fizkey_java_android.menu.MenuGlowneActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.konradkowalczyk.fizkey_java_android.menu.MenuGlowneActivity;
+import com.konradkowalczyk.fizkey_java_android.quizzes.QuizActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,27 +25,32 @@ public class MainActivity extends AppCompatActivity {
 
 
         //ustawienie paska
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         setScreenDimension();
 
     }
 
-    public void onClickStart(android.view.View view) {
+    public void onClickStart(View view) {
         Intent intent = new Intent(this, MenuGlowneActivity.class);
         startActivity(intent);
     }
 
-    public void onClickExit(android.view.View view) {
+    public void onClickQuizy(View view) {
+        Intent intent = new Intent(this, QuizActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickExit(View view) {
         finish();
     }
 
-    public void onClickEnglish(android.view.View view) {
+    public void onClickEnglish(View view) {
         changeContext(view,"en");
     }
 
-    public void onClickPolish(android.view.View view) {changeContext(view,"pl"); }
+    public void onClickPolish(View view) {changeContext(view,"pl"); }
 
 
     private void changeContext(View view, String language)

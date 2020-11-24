@@ -34,6 +34,17 @@
         android:text="@string/start"
         android:textAlignment="center"></Button>
 
+    <Button
+        android:id="@+id/quizy_main"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:onClick="onClickQuizy"
+        android:text="@string/quizy"
+        android:textAlignment="center"></Button>
+
 
     <Button
         android:id="@+id/exit"

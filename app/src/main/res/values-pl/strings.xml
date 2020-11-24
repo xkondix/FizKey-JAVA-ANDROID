@@ -20,5 +20,18 @@
     <string name="cancel">Anuluj</string>
     <string name="ok">Zatwierdz</string>
     <string name="title_formulas">Fizyczne wzory</string>
+    <string name="open">Otwórz</string>
+    <string name="close">Zamknij</string>
+    <string name="quizy">Quizy</string>
+
+
+    <string name="falldown_one">Wysokość początkowa wynosi 0 0 , przy przyspieszaniu 0 0 .
+        W ile 0  obiekt doleci do ziemi?</string>
+    <string name="falldown_two">Wysokość początkowa wynosi 0 0 , przy przyspieszaniu 0 0 .
+        Jaka jest końcowa prędkość obiektu?</string>
+    <string name="falldown_three">Wysokość początkowa wynosi 0 0 , przy przyspieszaniu 0 0 .
+        Jaka jest prędkość w 0 0  spadku?</string>
+    <string name="falldown_four">Wysokość początkowa wynosi 0 0 , przy przyspieszaniu 0 0 .
+        Jaka jest wysokość w 0 0  spadku?</string>
 
 </resources>

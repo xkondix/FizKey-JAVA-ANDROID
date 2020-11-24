@@ -1,21 +1,20 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link QuizTextFragment#newInstance} factory method to
+ * Use the {@link QuizMenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QuizTextFragment extends Fragment {
+public class QuizMenuFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +25,7 @@ public class QuizTextFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public QuizTextFragment() {
+    public QuizMenuFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +35,11 @@ public class QuizTextFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment QuizTextFragment.
+     * @return A new instance of fragment QuizMenuFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static QuizTextFragment newInstance(String param1, String param2) {
-        QuizTextFragment fragment = new QuizTextFragment();
+    public static QuizMenuFragment newInstance(String param1, String param2) {
+        QuizMenuFragment fragment = new QuizMenuFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +60,6 @@ public class QuizTextFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_quiz_text, container, false);
+        return inflater.inflate(R.layout.fragment_quiz_menu, container, false);
     }
 }
