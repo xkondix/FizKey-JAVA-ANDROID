@@ -25,13 +25,36 @@
     <string name="quizy">Quizy</string>
 
 
-    <string name="falldown_one">Wysokość początkowa wynosi 0 0 , przy przyspieszaniu 0 0 .
-        W ile 0  obiekt doleci do ziemi?</string>
-    <string name="falldown_two">Wysokość początkowa wynosi 0 0 , przy przyspieszaniu 0 0 .
+    <string name="falldown_one">Wysokość początkowa wynosi 0 0, przy przyspieszaniu 0 0
+        i początkowej prędkości równej 0 m/s.
+        W ile 0 obiekt doleci do ziemi?</string>
+    <string name="falldown_two">Wysokość początkowa wynosi 0 0, przy przyspieszaniu 0 0
+        i początkowej prędkości równej 0 m/s.
         Jaka jest końcowa prędkość obiektu?</string>
-    <string name="falldown_three">Wysokość początkowa wynosi 0 0 , przy przyspieszaniu 0 0 .
-        Jaka jest prędkość w 0 0  spadku?</string>
-    <string name="falldown_four">Wysokość początkowa wynosi 0 0 , przy przyspieszaniu 0 0 .
-        Jaka jest wysokość w 0 0  spadku?</string>
+    <string name="falldown_three">Wysokość początkowa wynosi 0 0, przy przyspieszaniu 0 0
+        i początkowej prędkości równej 0 m/s.
+        Jaka jest prędkość w 0 0 spadku?</string>
+    <string name="falldown_four">Wysokość początkowa wynosi 0 0, przy przyspieszaniu 0 0
+        i początkowej prędkości równej 0 m/s.
+        Jaka jest wysokość w 00 spadku?</string>
+
+    <string name="throwup_one">Prędkość początkowa wynosi 0 0, przy przyspieszaniu 0 0
+        i początkowej wysokości równej 0 0.
+        W ile 0 obiekt doleci do ziemi?</string>
+    <string name="throwup_two">Prędkość początkowa wynosi 0 0, przy przyspieszaniu 0 0
+        i początkowej wysokości równej 0 0.
+        Jaka jest końcowa prędkość obiektu?</string>
+    <string name="throwup_three">Prędkość początkowa wynosi 0 0, przy przyspieszaniu 0 0
+        i początkowej wysokości równej 0 0.
+        Jaka jest prędkość w 0 0 rzutu?</string>
+    <string name="throwup_four">Prędkość początkowa wynosi 0 0, przy przyspieszaniu 0 0
+        i początkowej wysokości równej 0 0.
+        Jaka jest wysokość w 0 0 rzutu?</string>
+    <string name="throwup_five">Prędkość początkowa wynosi 0 0, przy przyspieszaniu 0 0
+        i początkowej wysokości równej 0 0.
+        Ile 0 obiekt będzie się wznosił?</string>
+    <string name="throwup_six">Prędkość początkowa wynosi 0 0, przy przyspieszaniu 0 0
+        i początkowej wysokości równej 0 0.
+        Jaka jest maksymalna wysokość rzutu?</string>
 
 </resources>

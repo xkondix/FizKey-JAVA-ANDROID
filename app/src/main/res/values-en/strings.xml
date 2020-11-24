@@ -31,13 +31,37 @@
     <string name="quizy">Quizzes</string>
 
 
-    <string name="falldown_one">The starting height is 0 0 , under acceleration 0 0 .
-        How many 0  the object will reach the ground?</string>
-    <string name="falldown_two">The starting height is 0 0 , under acceleration 0 0 .
+    <string name="falldown_one">The starting height is 0 0, under acceleration 0 0
+        and an initial speed equal to 0 m/s.
+        How many 0 the object will reach the ground?</string>
+    <string name="falldown_two">The starting height is 0 0, under acceleration 0 0
+        and an initial speed equal to 0 m/s.
         What is its final speed?</string>
-    <string name="falldown_three">The starting height is 0 0 , under acceleration 0 0 .
-        What is its speed in the 0 0  fall?</string>
-    <string name="falldown_four">The starting height is 0 0 , under acceleration 0 0 .
-        What is its height in the 0 0  fall?</string>
+    <string name="falldown_three">The starting height is 0 0, under acceleration 0 0
+        and an initial speed equal to 0 m/s.
+        What is its speed in the 0 0 fall?</string>
+    <string name="falldown_four">The starting height is 0 0, under acceleration 0 0
+        and an initial speed equal to 0 m/s.
+        What is its height in the 0 0 fall?</string>
+
+
+    <string name="throwup_one">The starting speed is 0 0, under acceleration 0 0
+        and an initial height equal to 0 0.
+         How many 0 the object will reach the ground?</string>
+    <string name="throwup_two">The starting speed is 0 0, under acceleration 0 0
+        and an initial height equal to 0 0.
+        What is its final speed?</string>
+    <string name="throwup_three">The starting speed is 0 0, under acceleration 0 0
+        and an initial height equal to 0 0.
+        What is its speed in the 0 0 throw?</string>
+    <string name="throwup_four">The starting speed is 0 0, under acceleration 0 0
+        and an initial height equal to 0 0.
+        What is its height in the 0 0 throw?</string>
+    <string name="throwup_five">The starting speed is 0 0, under acceleration 0 0
+        and an initial height equal to 0 0.
+        How many 0 the object will be rising?</string>
+    <string name="throwup_six">The starting speed is 0 0, under acceleration 0 0
+        and an initial height equal to 0 0.
+        What is the maximum height?</string>
 
 </resources>

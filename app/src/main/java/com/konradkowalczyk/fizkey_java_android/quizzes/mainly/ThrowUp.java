@@ -13,16 +13,16 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class FallDown implements Question {
+public class ThrowUp implements Question{
 
     private static double acceleration = 9.81;
     private static int countQuestion =  4;
 
     private Random random = new Random();
-    private double heightStart,velocity,height,time;
-    private List<String> units;
+    private double velocity,height,time;
+    private List<String> units, helpList;
     private double[] converters = new double[]{1000,3.6,3600};
-    private int convertNumber;
+    private int convertNumber,heightStart,velocityStart;
 
     private List<String> answers;
     private String question;
@@ -31,101 +31,110 @@ public class FallDown implements Question {
     private Context context;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public FallDown(Context context)
+    public ThrowUp(Context context)
     {
         this.context = context;
-        heightStart = random.nextInt(10000)+10;
+        velocityStart =  random.nextInt(100)+1;
+        heightStart = 0;
+
         randUnits();
         selectQuestion();
     }
 
-    private void countLocationFromRandomTime()
-    {
 
-        time = random.nextInt();
+    private double countFinalTimeMove()
+    {
+        return (2 * velocityStart) / acceleration;
     }
 
-    private double countFinalTimeFall()
+    private double countFinalTimeRise()
     {
-        return Math.sqrt((2*heightStart)/acceleration);
+        return velocityStart / acceleration;
+    }
+
+    private double countMaxHeight()
+    {
+        return (velocityStart*velocityStart)/(2 * acceleration);
     }
 
     private double countFinalVelocityFall()
     {
-        return  Math.sqrt(2 * heightStart * acceleration);
+        time = countFinalTimeMove();
+        return velocity = velocityStart - acceleration * time;
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void countVelocityFromTime()
     {
-        time = ThreadLocalRandom.current().nextInt(1, (int)countFinalTimeFall() - 1);
-        velocity = acceleration * time  ;
+        time = ThreadLocalRandom.current().nextInt(1, (int)countFinalTimeMove() - 1);
+        velocity = velocityStart - acceleration * time;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void countHeightFromTime()
     {
-        time = ThreadLocalRandom.current().nextInt(1, (int)countFinalTimeFall() - 1);
-        height = heightStart - ((acceleration/2)*(time*time));
+        time = ThreadLocalRandom.current().nextInt(1, (int)countFinalTimeMove() - 1);
+        height = velocityStart * time - ((acceleration/2)*(time*time));
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void selectQuestion()
     {
-        List<String> helpList = new ArrayList<>();
+        helpList = new ArrayList<>();
+        createSkeatch();
 
         switch(random.nextInt(countQuestion))
         {
             case 0:
             {
-                helpList.add(doubleToString(heightStart));
-                helpList.add(units.get(0));
-                helpList.add(doubleToString(acceleration));
-                helpList.add(units.get(1));
                 helpList.add(units.get(2));
                 convertNumber=2;
-                question = replaceZeroToValue(context.getResources().getString(R.string.falldown_one),helpList);
-                createAnwsers(countFinalTimeFall());
+                question = replaceZeroToValue(context.getResources().getString(R.string.throwup_one),helpList);
+                createAnwsers(countFinalTimeMove());
                 break;
             }
             case 1:
             {
-                helpList.add(doubleToString(heightStart));
-                helpList.add(units.get(0));
-                helpList.add(doubleToString(acceleration));
-                helpList.add(units.get(1));
                 convertNumber=1;
-                question = replaceZeroToValue(context.getResources().getString(R.string.falldown_two),helpList);
+                question = replaceZeroToValue(context.getResources().getString(R.string.throwup_two),helpList);
                 createAnwsers(countFinalVelocityFall());
                 break;
             }
             case 2:
             {
                 countVelocityFromTime();
-                helpList.add(doubleToString(heightStart));
-                helpList.add(units.get(0));
-                helpList.add(doubleToString(acceleration));
-                helpList.add(units.get(1));
                 helpList.add(doubleToString(time));
                 helpList.add(units.get(2));
                 convertNumber=1;
-                question = replaceZeroToValue(context.getResources().getString(R.string.falldown_three),helpList);
+                question = replaceZeroToValue(context.getResources().getString(R.string.throwup_three),helpList);
                 createAnwsers(velocity);
                 break;
             }
             case 3:
             {
                 countHeightFromTime();
-                helpList.add(doubleToString(heightStart));
-                helpList.add(units.get(0));
-                helpList.add(doubleToString(acceleration));
-                helpList.add(units.get(1));
                 helpList.add(doubleToString(time));
                 helpList.add(units.get(2));
                 convertNumber=0;
-                question = replaceZeroToValue(context.getResources().getString(R.string.falldown_four),helpList);
+                question = replaceZeroToValue(context.getResources().getString(R.string.throwup_four),helpList);
                 createAnwsers(height);
+                break;
+            }
+            case 4:
+            {
+                helpList.add(units.get(2));
+                convertNumber=2;
+                question = replaceZeroToValue(context.getResources().getString(R.string.throwup_five),helpList);
+                createAnwsers(countFinalTimeRise());
+                break;
+            }
+            case 5:
+            {
+                convertNumber=0;
+                question = replaceZeroToValue(context.getResources().getString(R.string.throwup_six),helpList);
+                createAnwsers(countMaxHeight());
                 break;
             }
         }
@@ -203,13 +212,23 @@ public class FallDown implements Question {
     {
         if(random.nextInt(1) == 0)
         {
-            units = new ArrayList<>(Arrays.asList(new String[]{"m","m/s","s","kg"}));
+            units = new ArrayList<>(Arrays.asList(new String[]{"m","m/s","s","m/s^2","kg"}));
         }
         else
         {
-            units = new ArrayList<>(Arrays.asList(new String[]{"km","km/h","h","kg"}));
+            units = new ArrayList<>(Arrays.asList(new String[]{"km","km/h","h","km/h^2","kg"}));
 
         }
+    }
+
+    private void createSkeatch()
+    {
+        helpList.add(doubleToString(velocityStart));
+        helpList.add(units.get(1));
+        helpList.add(Double.toString(acceleration));
+        helpList.add(units.get(3));
+        helpList.add(Integer.toString(heightStart));
+        helpList.add(units.get(0));
     }
 
     @Override

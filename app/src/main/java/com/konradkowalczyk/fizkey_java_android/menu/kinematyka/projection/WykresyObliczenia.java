@@ -73,8 +73,8 @@ public class WykresyObliczenia implements Serializable {
         dt = 2.1/n;
         double licznik = counter;
         double t=0;
-        double ep= 10 * g * y0;
-        double ek = (10* v0*v0)/2;
+        double ep= 1 * g * y0;
+        double ek = (1* v0*v0)/2;
         double ec = ep + ek;
         listAcceleration.add(g);
         listVelocity.add(v0);
@@ -90,8 +90,8 @@ public class WykresyObliczenia implements Serializable {
         while(countY(y0,v0)>0.0){
             v0 = countVy(v0);
             y0 = countY(y0,v0);
-            ep= 10 * g * y0;
-            ek = (10* v0*v0)/2;
+            ep= 1 * g * y0;
+            ek = (1* v0*v0)/2;
             ec = ep + ek;
             t+=dt;
 
