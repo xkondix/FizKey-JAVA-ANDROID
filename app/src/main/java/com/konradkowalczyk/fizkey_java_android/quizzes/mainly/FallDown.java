@@ -82,7 +82,8 @@ public class FallDown implements Question {
                 helpList.add(doubleToString(heightStart));
                 helpList.add(units.get(0));
                 helpList.add(doubleToString(acceleration));
-                helpList.add(units.get(1));
+                helpList.add(units.get(3));
+                helpList.add("0");
                 helpList.add(units.get(2));
                 convertNumber=2;
                 question = replaceZeroToValue(context.getResources().getString(R.string.falldown_one),helpList);
@@ -94,7 +95,8 @@ public class FallDown implements Question {
                 helpList.add(doubleToString(heightStart));
                 helpList.add(units.get(0));
                 helpList.add(doubleToString(acceleration));
-                helpList.add(units.get(1));
+                helpList.add(units.get(3));
+                helpList.add("0");
                 convertNumber=1;
                 question = replaceZeroToValue(context.getResources().getString(R.string.falldown_two),helpList);
                 createAnwsers(countFinalVelocityFall());
@@ -106,7 +108,8 @@ public class FallDown implements Question {
                 helpList.add(doubleToString(heightStart));
                 helpList.add(units.get(0));
                 helpList.add(doubleToString(acceleration));
-                helpList.add(units.get(1));
+                helpList.add(units.get(3));
+                helpList.add("0");
                 helpList.add(doubleToString(time));
                 helpList.add(units.get(2));
                 convertNumber=1;
@@ -120,7 +123,8 @@ public class FallDown implements Question {
                 helpList.add(doubleToString(heightStart));
                 helpList.add(units.get(0));
                 helpList.add(doubleToString(acceleration));
-                helpList.add(units.get(1));
+                helpList.add(units.get(3));
+                helpList.add("0");
                 helpList.add(doubleToString(time));
                 helpList.add(units.get(2));
                 convertNumber=0;
@@ -203,11 +207,11 @@ public class FallDown implements Question {
     {
         if(random.nextInt(1) == 0)
         {
-            units = new ArrayList<>(Arrays.asList(new String[]{"m","m/s","s","kg"}));
+            units = new ArrayList<>(Arrays.asList(new String[]{"m","m/s","s","m/s^2","kg"}));
         }
         else
         {
-            units = new ArrayList<>(Arrays.asList(new String[]{"km","km/h","h","kg"}));
+            units = new ArrayList<>(Arrays.asList(new String[]{"km","km/h","h","km/h^2","kg"}));
 
         }
     }

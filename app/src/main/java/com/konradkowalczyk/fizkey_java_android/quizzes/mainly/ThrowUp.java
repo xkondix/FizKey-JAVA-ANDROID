@@ -172,7 +172,7 @@ public class ThrowUp implements Question{
 
         for(int i = 0; i< array.length; i++)
         {
-            array[i] = createFakeAnswer(convertAnwser);
+            array[i] = createFakeAnswer(Math.abs(convertAnwser));
         }
 
         array[positivNumber] = Integer.toString(convertAnwser);
