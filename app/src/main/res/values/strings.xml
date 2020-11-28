@@ -62,5 +62,18 @@
         and an initial height equal to 0 0.
         What is the maximum height?</string>
 
+    <string name="quiz_menu_welcome">Welcome to quizzes part \nCustom your quiz</string>
+    <string name="select_quiz_range">Select a quiz range</string>
+    <string name="begin_quizzes">Start the quiz</string>
+    <string name="title_select_phenomenon">Check the phenomena to be included</string>
+    <string name="quiz_menu_quanity_block">Quantity of responses</string>
+    <string name="quiz_menu_quanity_question">Quantity of questions</string>
+
+    <string name="save">The changes have been saved</string>
+    <string name="not_save">The changes have not been saved</string>
+
+
+
+
 
 </resources>

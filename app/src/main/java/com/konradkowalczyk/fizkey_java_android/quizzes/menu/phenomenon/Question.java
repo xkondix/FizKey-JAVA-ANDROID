@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.quizzes.mainly;
+package com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon;
 
 import java.util.List;
 

@@ -3,12 +3,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".quizzes.QuizMenuFragment">
+    tools:context=".quizzes.menu.QuizMenuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_margin="25dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/quiz_menu_welcome"
+        android:layout_margin="25dp"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:background="@drawable/border"/>
+
+        <Button
+            android:id="@+id/select_quiz_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_quiz_range"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textAlignment="center"
+            android:layout_margin="25dp">
+
+        </Button>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_menu_quanity_block"
+            android:layout_margin="25dp"
+            android:textAlignment="center" />
+
+        <Spinner
+            android:id="@+id/quanity_block_quiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+            android:entries="@array/quanity_block_quiz">
+        </Spinner>
+
+    </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/quiz_menu_quanity_question"
+                android:layout_margin="25dp"
+                android:textAlignment="center"
+                />
+
+            <Spinner
+                android:id="@+id/quanity_block_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+                android:entries="@array/quanity_block_question">
+            </Spinner>
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/begin_quizzes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/begin_quizzes"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:textAlignment="center"
+            android:layout_margin="25dp">
+
+        </Button>
+
+    </LinearLayout>
 
 </FrameLayout>

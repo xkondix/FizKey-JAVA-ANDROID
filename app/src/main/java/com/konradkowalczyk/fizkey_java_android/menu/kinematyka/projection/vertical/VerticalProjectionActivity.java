@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.PhysicalFormulasFragment;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.PhysicalFormulasDialogFragment;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
 
 public class VerticalProjectionActivity extends AppCompatActivity {
@@ -76,7 +76,7 @@ public class VerticalProjectionActivity extends AppCompatActivity {
         switch(item.getItemId())
         {
             case R.id.action_wzory:
-                PhysicalFormulasFragment dialog = new PhysicalFormulasFragment(formulasVertical);
+                PhysicalFormulasDialogFragment dialog = new PhysicalFormulasDialogFragment(formulasVertical);
                 dialog.show(getSupportFragmentManager(), "Projection Vertical Formulas");
                 return true;
 

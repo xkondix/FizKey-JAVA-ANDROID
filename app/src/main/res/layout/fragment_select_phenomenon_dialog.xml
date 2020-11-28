@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+android:layout_height="match_parent"
+android:layout_width="match_parent"
+tools:context=".quizzes.menu.SelectPhenomenonDialogFragment"
+android:fillViewport="true">
+<LinearLayout
+    android:id="@+id/LinearLayout01"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_select_phenomenon"
+        android:textSize="18sp"
+        android:textColor="#000"
+        android:background="@drawable/border"
+        android:id="@+id/heding_quiz_dialog"/>
+
+    <TableLayout
+        android:id="@+id/quiz_table_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_below="@+id/heding_quiz_dialog">
+    </TableLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="2dp"
+            android:textColor="#000"
+            android:textSize="18dp"
+            android:id="@+id/ok_quiz_dialog"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="2dp"
+            android:textSize="18dp"
+            android:textColor="#000"
+            android:id="@+id/cancel_quiz_dialog"/>
+    </RelativeLayout>
+</LinearLayout>
+</ScrollView>
+
+
+
+
+
+
+
+
+

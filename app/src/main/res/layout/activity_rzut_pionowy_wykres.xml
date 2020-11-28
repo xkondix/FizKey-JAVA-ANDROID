@@ -50,7 +50,6 @@
         android:text="@string/changePhenomeno"
         android:textAlignment="center"></Button>
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="400dp"

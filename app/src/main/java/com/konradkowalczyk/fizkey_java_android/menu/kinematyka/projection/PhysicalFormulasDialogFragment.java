@@ -10,16 +10,16 @@ import androidx.fragment.app.DialogFragment;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 
-public class PhysicalFormulasFragment extends DialogFragment {
+public class PhysicalFormulasDialogFragment extends DialogFragment {
 
     private TextView okTextView,cancelTextView,formulasTextView;
     private String[] formulas;
 
-    public PhysicalFormulasFragment() {
+    public PhysicalFormulasDialogFragment() {
         // Required empty public constructor
     }
 
-    public PhysicalFormulasFragment(String[] formulasVertical) {
+    public PhysicalFormulasDialogFragment(String[] formulasVertical) {
         this.formulas=formulasVertical;
     }
 
@@ -33,7 +33,7 @@ public class PhysicalFormulasFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_physical_formulas, container, false);
+        View view = inflater.inflate(R.layout.fragment_dialog_physical_formulas, container, false);
 
         cancelTextView = view.findViewById(R.id.cancel);
         okTextView = view.findViewById(R.id.ok);

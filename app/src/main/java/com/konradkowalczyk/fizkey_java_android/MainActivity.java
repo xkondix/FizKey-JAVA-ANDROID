@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.konradkowalczyk.fizkey_java_android.menu.MenuGlowneActivity;
-import com.konradkowalczyk.fizkey_java_android.quizzes.QuizGameActivity;
+import com.konradkowalczyk.fizkey_java_android.quizzes.QuizActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickQuizy(View view) {
-        Intent intent = new Intent(this, QuizGameActivity.class);
+        Intent intent = new Intent(this, QuizActivity.class);
         startActivity(intent);
     }
 

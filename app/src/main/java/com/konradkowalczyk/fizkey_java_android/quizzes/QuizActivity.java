@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizMenuFragment;
 
 public class QuizActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -50,7 +51,7 @@ public class QuizActivity extends AppCompatActivity implements NavigationView.On
 
 
         //stworzenie bazowego fragmentu
-        Fragment fragment = new QuizChoiceFragment();
+        Fragment fragment = new QuizMenuFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_frame, fragment);
         ft.commit();

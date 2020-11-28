@@ -1,13 +1,13 @@
-package com.konradkowalczyk.fizkey_java_android.quizzes;
+package com.konradkowalczyk.fizkey_java_android.quizzes.menu;
 
 import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
-import com.konradkowalczyk.fizkey_java_android.quizzes.mainly.FallDown;
-import com.konradkowalczyk.fizkey_java_android.quizzes.mainly.Question;
-import com.konradkowalczyk.fizkey_java_android.quizzes.mainly.ThrowUp;
+import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.FallDown;
+import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.Question;
+import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.ThrowUp;
 
 import java.util.Random;
 
