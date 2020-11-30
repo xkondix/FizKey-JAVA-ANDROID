@@ -15,6 +15,20 @@
         <item>Total Energy</item>
     </string-array>
 
+    <string-array name="quanity_block">
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="quanity_question" >
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>50</item>
+        <item>100</item>
+    </string-array>
+
     <string-array name="phenomenons_for_quizzes">
         <item>Kinematics 2</item>
     </string-array>

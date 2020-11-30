@@ -10,31 +10,29 @@ import com.konradkowalczyk.fizkey_java_android.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ThrowUp implements Question{
+public class ThrowUp extends AbstractQuestion{
 
     private static double acceleration = 9.81;
-    private static int countQuestion =  4;
+    private int countQuestion;
 
-    private Random random = new Random();
     private double velocity,height,time;
     private List<String> units, helpList;
     private double[] converters = new double[]{1000,3.6,3600};
     private int convertNumber,heightStart,velocityStart;
 
-    private List<String> answers;
     private String question;
-    private int positivNumber;
+
 
     private Context context;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public ThrowUp(Context context)
+    public ThrowUp(Context context, int countQuestion)
     {
+        super(countQuestion);
         this.context = context;
-        velocityStart =  random.nextInt(100)+1;
+        velocityStart =  RANDOM.nextInt(100)+1;
         heightStart = 0;
 
         randUnits();
@@ -82,24 +80,25 @@ public class ThrowUp implements Question{
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void selectQuestion()
     {
+
         helpList = new ArrayList<>();
         createSkeatch();
 
-        switch(random.nextInt(countQuestion))
+        switch(RANDOM.nextInt(6))
         {
             case 0:
             {
                 helpList.add(units.get(2));
                 convertNumber=2;
                 question = replaceZeroToValue(context.getResources().getString(R.string.throwup_one),helpList);
-                createAnwsers(countFinalTimeMove());
+                createAnwsers(countFinalTimeMove(),"s");
                 break;
             }
             case 1:
             {
                 convertNumber=1;
                 question = replaceZeroToValue(context.getResources().getString(R.string.throwup_two),helpList);
-                createAnwsers(countFinalVelocityFall());
+                createAnwsers(countFinalVelocityFall(),"m/s");
                 break;
             }
             case 2:
@@ -109,7 +108,7 @@ public class ThrowUp implements Question{
                 helpList.add(units.get(2));
                 convertNumber=1;
                 question = replaceZeroToValue(context.getResources().getString(R.string.throwup_three),helpList);
-                createAnwsers(velocity);
+                createAnwsers(velocity,"m/s");
                 break;
             }
             case 3:
@@ -119,7 +118,7 @@ public class ThrowUp implements Question{
                 helpList.add(units.get(2));
                 convertNumber=0;
                 question = replaceZeroToValue(context.getResources().getString(R.string.throwup_four),helpList);
-                createAnwsers(height);
+                createAnwsers(height,"m");
                 break;
             }
             case 4:
@@ -127,70 +126,19 @@ public class ThrowUp implements Question{
                 helpList.add(units.get(2));
                 convertNumber=2;
                 question = replaceZeroToValue(context.getResources().getString(R.string.throwup_five),helpList);
-                createAnwsers(countFinalTimeRise());
+                createAnwsers(countFinalTimeRise(),"s");
                 break;
             }
             case 5:
             {
                 convertNumber=0;
                 question = replaceZeroToValue(context.getResources().getString(R.string.throwup_six),helpList);
-                createAnwsers(countMaxHeight());
+                createAnwsers(countMaxHeight(),"m");
                 break;
             }
         }
     }
 
-    private String replaceZeroToValue(String quest, List<String> forces)
-    {
-        StringBuilder newQuestion = new StringBuilder();
-        int counter = 0;
-
-        for(String word : quest.split(""))
-        {
-            if(word.equals("0"))
-            {
-                newQuestion.append(forces.get(counter));
-                counter++;
-            }
-            else
-            {
-                newQuestion.append(word);
-            }
-        }
-
-        return newQuestion.toString();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void createAnwsers(double anwser)
-    {
-
-        int convertAnwser = convertValueToUnit(anwser);
-
-        String array[] = new String[4];
-        positivNumber = random.nextInt(4);
-
-        for(int i = 0; i< array.length; i++)
-        {
-            array[i] = createFakeAnswer(Math.abs(convertAnwser));
-        }
-
-        array[positivNumber] = Integer.toString(convertAnwser);
-        answers = Arrays.asList(array);
-
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private String createFakeAnswer(int anwser)
-    {
-        int min = anwser - random.nextInt(anwser / 2);
-        int max = anwser + random.nextInt(anwser * 2)+1;
-
-
-        return Integer.toString(
-                ThreadLocalRandom.current().nextInt(min,max));
-    }
 
 
     private int convertValueToUnit(double anwser)
@@ -203,14 +151,10 @@ public class ThrowUp implements Question{
         return (int) anwser;
     }
 
-    private String doubleToString(double force)
-    {
-        return String.format("%.1f",force);
-    }
 
     private void randUnits()
     {
-        if(random.nextInt(1) == 0)
+        if(RANDOM.nextInt(1) == 0)
         {
             units = new ArrayList<>(Arrays.asList(new String[]{"m","m/s","s","m/s^2","kg"}));
         }
@@ -236,13 +180,5 @@ public class ThrowUp implements Question{
         return question;
     }
 
-    @Override
-    public int getPositiveNumber() {
-        return positivNumber;
-    }
 
-    @Override
-    public List<String> getAnswers() {
-        return answers;
-    }
 }

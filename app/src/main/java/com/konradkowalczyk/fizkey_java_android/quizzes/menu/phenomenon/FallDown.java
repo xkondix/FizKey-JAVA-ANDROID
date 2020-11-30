@@ -10,31 +10,26 @@ import com.konradkowalczyk.fizkey_java_android.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class FallDown implements Question {
+public class FallDown extends AbstractQuestion {
 
     private static double acceleration = 9.81;
-    private static int countQuestion =  4;
+    private int countQuestion;
 
-    private Random random = new Random();
     private double heightStart,velocity,height,time;
     private List<String> units;
     private double[] converters = new double[]{1000,3.6,3600};
     private int convertNumber;
-
-    private List<String> answers;
     private String question;
-    private int positivNumber;
-
     private Context context;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public FallDown(Context context)
+    public FallDown(Context context, int countQuestion)
     {
+        super(countQuestion);
         this.context = context;
-        heightStart = random.nextInt(10000)+10;
+        heightStart = RANDOM.nextInt(10000)+10;
         randUnits();
         selectQuestion();
     }
@@ -42,7 +37,7 @@ public class FallDown implements Question {
     private void countLocationFromRandomTime()
     {
 
-        time = random.nextInt();
+        time = RANDOM.nextInt();
     }
 
     private double countFinalTimeFall()
@@ -75,7 +70,7 @@ public class FallDown implements Question {
     {
         List<String> helpList = new ArrayList<>();
 
-        switch(random.nextInt(countQuestion))
+        switch(RANDOM.nextInt(4))
         {
             case 0:
             {
@@ -87,7 +82,7 @@ public class FallDown implements Question {
                 helpList.add(units.get(2));
                 convertNumber=2;
                 question = replaceZeroToValue(context.getResources().getString(R.string.falldown_one),helpList);
-                createAnwsers(countFinalTimeFall());
+                createAnwsers(countFinalTimeFall(),"s");
                 break;
             }
             case 1:
@@ -99,7 +94,7 @@ public class FallDown implements Question {
                 helpList.add("0");
                 convertNumber=1;
                 question = replaceZeroToValue(context.getResources().getString(R.string.falldown_two),helpList);
-                createAnwsers(countFinalVelocityFall());
+                createAnwsers(countFinalVelocityFall(), "m/s");
                 break;
             }
             case 2:
@@ -114,7 +109,7 @@ public class FallDown implements Question {
                 helpList.add(units.get(2));
                 convertNumber=1;
                 question = replaceZeroToValue(context.getResources().getString(R.string.falldown_three),helpList);
-                createAnwsers(velocity);
+                createAnwsers(velocity, "m/s");
                 break;
             }
             case 3:
@@ -129,63 +124,13 @@ public class FallDown implements Question {
                 helpList.add(units.get(2));
                 convertNumber=0;
                 question = replaceZeroToValue(context.getResources().getString(R.string.falldown_four),helpList);
-                createAnwsers(height);
+                createAnwsers(height, "m");
                 break;
             }
         }
     }
 
-    private String replaceZeroToValue(String quest, List<String> forces)
-    {
-        StringBuilder newQuestion = new StringBuilder();
-        int counter = 0;
 
-        for(String word : quest.split(""))
-        {
-            if(word.equals("0"))
-            {
-                newQuestion.append(forces.get(counter));
-                counter++;
-            }
-            else
-            {
-                newQuestion.append(word);
-            }
-        }
-
-        return newQuestion.toString();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void createAnwsers(double anwser)
-    {
-
-        int convertAnwser = convertValueToUnit(anwser);
-
-        String array[] = new String[4];
-        positivNumber = random.nextInt(4);
-
-        for(int i = 0; i< array.length; i++)
-        {
-            array[i] = createFakeAnswer(convertAnwser);
-        }
-
-        array[positivNumber] = Integer.toString(convertAnwser);
-        answers = Arrays.asList(array);
-
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private String createFakeAnswer(int anwser)
-    {
-        int min = anwser - random.nextInt(anwser / 2);
-        int max = anwser + random.nextInt(anwser * 2)+1;
-
-
-        return Integer.toString(
-                ThreadLocalRandom.current().nextInt(min,max));
-    }
 
 
     private int convertValueToUnit(double anwser)
@@ -198,14 +143,10 @@ public class FallDown implements Question {
         return (int) anwser;
     }
 
-    private String doubleToString(double force)
-    {
-        return String.format("%.1f",force);
-    }
 
     private void randUnits()
     {
-        if(random.nextInt(1) == 0)
+        if(RANDOM.nextInt(2) == 0)
         {
             units = new ArrayList<>(Arrays.asList(new String[]{"m","m/s","s","m/s^2","kg"}));
         }
@@ -221,13 +162,4 @@ public class FallDown implements Question {
         return question;
     }
 
-    @Override
-    public int getPositiveNumber() {
-        return positivNumber;
-    }
-
-    @Override
-    public List<String> getAnswers() {
-        return answers;
-    }
 }

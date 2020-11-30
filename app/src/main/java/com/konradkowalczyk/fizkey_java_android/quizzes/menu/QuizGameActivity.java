@@ -10,16 +10,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.Question;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class QuizGameActivity extends AppCompatActivity implements QuizFragment.SendData {
 
-    int counter = 1;
+    public static final String EXTRA_MODELID = "model";
+    private QuizModel quizModel;
+    private QuizFactory quizFactory;
     private QuizFragment fragment;
-    List<Question> q;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -30,15 +27,24 @@ public class QuizGameActivity extends AppCompatActivity implements QuizFragment.
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        QuizFactory qo = new QuizFactory(getApplicationContext());
-        q = new ArrayList<>();
-        for(int i = 0; i < 10; i++)
-        {
-            q.add(qo.getQuestion());
-        }
+        quizModel= (QuizModel) getIntent().getParcelableExtra(QuizGameActivity.EXTRA_MODELID);
+        quizFactory = new QuizFactory(getApplication().getApplicationContext(),quizModel.getBlockNumber());
+        quizFactory.acceptForces(quizModel.getActivePhenomena());
+        quizFactory.generateQuestions(quizModel.getMaxNumber());
+
+        System.out.println(quizFactory.getDataQuestionAnwser());
+        System.out.println(quizModel.getBlockNumber());
+        System.out.println(quizModel.getMaxNumber());
+        System.out.println(quizModel.getCurrentNumber());
 
 
-        fragment =  QuizFragment.newInstance(4,q.get(0).getAnswers(),q.get(0).getQuestion(),q.get(0).getPositiveNumber());
+
+
+        fragment =  QuizFragment.newInstance(quizModel.getBlockNumber()
+                ,quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getAnswers()
+                ,quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getQuestion()
+                ,quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getPositiveNumber());
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.quiz_frame, fragment);
         ft.commit();
@@ -54,16 +60,17 @@ public class QuizGameActivity extends AppCompatActivity implements QuizFragment.
             }
 
             public void onFinish() {
-                fragment.setQuestion(q.get(counter).getQuestion());
-                fragment.setAnwsers(q.get(counter).getAnswers());
-                fragment.setPositiveNumber(q.get(counter).getPositiveNumber());
-                fragment.setButtonsBasicColor();
-                if(counter<10)
+                quizModel.setCurrentNumber(quizModel.getCurrentNumber()+1);
+
+                if(!(quizModel.getCurrentNumber()<quizModel.getMaxNumber()))
                 {
-                    counter++;
+                finish();
                 }
-                else
-                    finish();
+
+                fragment.setQuestion(quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getQuestion());
+                fragment.setAnwsers(quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getAnswers());
+                fragment.setPositiveNumber(quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getPositiveNumber());
+                fragment.setButtonsBasicColor();
 
             }
         }.start();

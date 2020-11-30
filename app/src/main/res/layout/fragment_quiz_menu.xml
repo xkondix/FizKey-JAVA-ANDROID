@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
-            android:entries="@array/quanity_block_quiz">
+            android:entries="@array/quanity_block">
         </Spinner>
 
     </LinearLayout>
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="25dp"
                 style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
-                android:entries="@array/quanity_block_question">
+                android:entries="@array/quanity_question">
             </Spinner>
 
         </LinearLayout>

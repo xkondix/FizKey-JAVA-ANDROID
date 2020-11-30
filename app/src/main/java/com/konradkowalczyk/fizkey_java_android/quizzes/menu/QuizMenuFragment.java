@@ -1,6 +1,7 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.menu;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 
@@ -23,11 +23,10 @@ import java.util.List;
 public class QuizMenuFragment extends Fragment implements View.OnClickListener, SelectPhenomenonDialogFragment.OnFeedBack {
 
     private Button startQuizButton, selectRangeButton;
-    private TextView welcomeTextView;
     private Spinner quanityQuizzesSpinner, quanityBlockQuizzesSpinner;
     private List<Integer> quanityBlock, quanityQuizess;
 
-    private QuizViewModel quizViewModel;
+    private QuizModel quizViewModel;
 
 
     public QuizMenuFragment() {
@@ -38,22 +37,6 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        quizViewModel = new ViewModelProvider(this).get(QuizViewModel.class);
-
-        quanityBlock = new ArrayList();
-        for (int i : getContext().getResources().getIntArray(R.array.quanity_block_quiz))
-        {
-            quanityBlock.add(i);
-        }
-
-        quanityQuizess = new ArrayList();
-        for (int i : getContext().getResources().getIntArray(R.array.quanity_block_question))
-        {
-            quanityQuizess.add(i);
-        }
-
-
     }
 
     @Override
@@ -69,6 +52,11 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
         quanityBlockQuizzesSpinner =  view.findViewById(R.id.quanity_block_quiz); //2 4 6
 
 
+        quizViewModel = new QuizModel();
+        quanityBlock = getList(getContext().getResources().getStringArray(R.array.quanity_question));
+        quanityQuizess = getList(getContext().getResources().getStringArray(R.array.quanity_block));
+
+
         startQuizButton.setOnClickListener(this);
         selectRangeButton.setOnClickListener(this);
 
@@ -77,7 +65,7 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                quizViewModel.setMaxNumber(quanityQuizess.get(position));
+                quizViewModel.setMaxNumber(quanityBlock.get(position));
             }
 
             @Override
@@ -103,13 +91,15 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
             return view;
         }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
             case R.id.begin_quizzes:
                 Intent intent = new Intent(getActivity(), QuizGameActivity.class);
-                startActivity(intent);
+                intent.putExtra(QuizGameActivity.EXTRA_MODELID, quizViewModel);
+                getActivity().startActivity(intent);
                 break;
             case R.id.select_quiz_range:
                 SelectPhenomenonDialogFragment dialog = SelectPhenomenonDialogFragment
@@ -133,4 +123,16 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
     public void sendActivePhenomena(List<String> activePhenomena) {
         quizViewModel.setActivePhenomena(activePhenomena);
     }
+
+    private List<Integer> getList(String[] array)
+    {
+        List<Integer> list = new ArrayList<>();
+
+        for(String string : array)
+            list.add(Integer.valueOf(string));
+
+        return list;
+    }
+
+
 }

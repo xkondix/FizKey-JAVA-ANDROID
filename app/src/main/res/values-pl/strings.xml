@@ -61,8 +61,8 @@
     <string name="select_quiz_range">Wybierz zakres quizu</string>
     <string name="begin_quizzes">Rozpocznij quiz</string>
     <string name="title_select_phenomenon">Zaznacz zjawiska, które mają być uwzględnione</string>
-    <string name="quiz_menu_quanity_block">Quantity of responses</string>
-    <string name="quiz_menu_quanity_question">Quantity of questions</string>
+    <string name="quiz_menu_quanity_block">Ilość pól na odpowiedzi</string>
+    <string name="quiz_menu_quanity_question">Ilość pytań</string>
 
     <string name="save">Zmiany zostały zapisane</string>
     <string name="not_save">Zmiany nie zostały zapisane</string>
