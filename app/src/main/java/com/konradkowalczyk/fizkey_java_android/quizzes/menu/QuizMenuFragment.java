@@ -27,7 +27,8 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
     private Spinner quanityQuizzesSpinner, quanityBlockQuizzesSpinner;
     private List<Integer> quanityBlock, quanityQuizess;
 
-    private QuizModel quizViewModel;
+    private QuizModelBase quizViewModel;
+    private QuizFactory quizFactory;
 
 
     public QuizMenuFragment() {
@@ -53,7 +54,7 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
         quanityBlockQuizzesSpinner =  view.findViewById(R.id.quanity_block_quiz); //2 4 6
 
 
-        quizViewModel = new QuizModel();
+        quizViewModel = new QuizModelBase();
         quanityBlock = getList(getContext().getResources().getStringArray(R.array.quanity_question));
         quanityQuizess = getList(getContext().getResources().getStringArray(R.array.quanity_block));
 
@@ -104,9 +105,10 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
                     Toast.makeText(getContext(), getContext().getResources()
                                     .getString(R.string.select_phenomena)
                             ,Toast.LENGTH_LONG).show();
-
                 }
                 else {
+
+                    setQuestions();
                     Intent intent = new Intent(getActivity(), QuizGameActivity.class);
                     intent.putExtra(QuizGameActivity.EXTRA_MODELID, quizViewModel);
                     getActivity().startActivity(intent);
@@ -136,6 +138,15 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void sendActivePhenomena(List<String> activePhenomena) {
         quizViewModel.setActivePhenomena(activePhenomena);
+    }
+
+    private void setQuestions()
+    {
+        quizFactory = new QuizFactory(getContext(), quizViewModel.getBlockNumber());
+        quizFactory.acceptForces(quizViewModel.getActivePhenomena());
+        quizFactory.generateQuestions(quizViewModel.getMaxNumber());
+        quizViewModel.setQuestion(quizFactory.getDataQuestionAnwser());
+        System.out.println(quizViewModel.toString());
     }
 
     private List<Integer> getList(String[] array)

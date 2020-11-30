@@ -10,15 +10,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizFactory;
-import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizModel;
+import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizModelBase;
 
 public class QuizGameActivity extends AppCompatActivity implements QuizFragment.SendData {
 
     public static final String EXTRA_MODELID = "model";
 
-    private QuizModel quizModel;
-    private QuizFactory quizFactory;
+    private QuizModelInteface quizModelBase;
 
     private QuizFragment fragment;
     private TextView counterTextView;
@@ -34,18 +32,19 @@ public class QuizGameActivity extends AppCompatActivity implements QuizFragment.
 
         counterTextView = findViewById(R.id.counter_question);
 
-        quizModel= (QuizModel) getIntent().getParcelableExtra(QuizGameActivity.EXTRA_MODELID);
-        quizFactory = new QuizFactory(getApplication().getApplicationContext(),quizModel.getBlockNumber());
-        quizFactory.acceptForces(quizModel.getActivePhenomena());
-        quizFactory.generateQuestions(quizModel.getMaxNumber());
+        quizModelBase = (QuizModelBase) getIntent().getParcelableExtra(QuizGameActivity.EXTRA_MODELID);
         setText();
 
+        System.out.println(quizModelBase.toString());
 
 
-        fragment =  QuizFragment.newInstance(quizModel.getBlockNumber()
-                ,quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getAnswers()
-                ,quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getQuestion()
-                ,quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getPositiveNumber());
+
+
+
+        fragment =  QuizFragment.newInstance(quizModelBase.getBlockNumber()
+                ,quizModelBase.getListAnswers().get(quizModelBase.getCurrentNumber())
+                ,quizModelBase.getQuestions().get(quizModelBase.getCurrentNumber())
+                ,quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentNumber()));
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.quiz_frame, fragment);
@@ -63,20 +62,20 @@ public class QuizGameActivity extends AppCompatActivity implements QuizFragment.
 
             public void onFinish() {
 
-                quizModel.addAnwsers(quizModel.getCurrentNumber(),anwser);
+                quizModelBase.addAnwsers(quizModelBase.getCurrentNumber(),anwser);
 
-                if(quizModel.getCurrentNumber()>=quizModel.getMaxNumber()-1)
+                if(quizModelBase.getCurrentNumber()>= quizModelBase.getMaxNumber()-1)
                 {
                     finish();
                 }
                 else {
 
-                    quizModel.setCurrentNumber(quizModel.getCurrentNumber() + 1);
+                    quizModelBase.setCurrentNumber(quizModelBase.getCurrentNumber() + 1);
                     setText();
 
-                    fragment.setQuestion(quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getQuestion());
-                    fragment.setAnwsers(quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getAnswers());
-                    fragment.setPositiveNumber(quizFactory.getDataQuestionAnwser().get(quizModel.getCurrentNumber()).getPositiveNumber());
+                    fragment.setQuestion(quizModelBase.getQuestions().get(quizModelBase.getCurrentNumber()));
+                    fragment.setAnwsers(quizModelBase.getListAnswers().get(quizModelBase.getCurrentNumber()));
+                    fragment.setPositiveNumber(quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentNumber()));
                     fragment.setButtonsBasicColorAndUnlock();
                 }
 
@@ -92,7 +91,7 @@ public class QuizGameActivity extends AppCompatActivity implements QuizFragment.
             @Override
             public void run() {
 
-                counterTextView.setText((quizModel.getCurrentNumber() + 1) + "/" + quizModel.getMaxNumber());
+                counterTextView.setText((quizModelBase.getCurrentNumber() + 1) + "/" + quizModelBase.getMaxNumber());
 
             }
         });
