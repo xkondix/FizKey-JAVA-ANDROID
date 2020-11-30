@@ -16,7 +16,6 @@ public class QuizModel implements Parcelable {
 
 
     public QuizModel() {
-        anwsers = new TreeMap<>();
         activePhenomena = new ArrayList<>();
         maxNumber = 5;
         blockNumber = 2;
@@ -97,6 +96,15 @@ public class QuizModel implements Parcelable {
 
     public void setAnwsers(Map<Integer, Boolean> anwsers) {
         this.anwsers = anwsers;
+    }
+
+    public void addAnwsers(Integer index, boolean score)
+    {
+        if(anwsers == null)
+        {
+            anwsers = new TreeMap<>();
+        }
+        this.anwsers.put(index,score);
     }
 
     public List<String> getActivePhenomena() {

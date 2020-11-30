@@ -1,9 +1,6 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon;
 
 import android.content.Context;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 
@@ -24,7 +21,6 @@ public class FallDown extends AbstractQuestion {
     private String question;
     private Context context;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public FallDown(Context context, int countQuestion)
     {
         super(countQuestion);

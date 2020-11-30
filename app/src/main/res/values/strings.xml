@@ -71,9 +71,7 @@
 
     <string name="save">The changes have been saved</string>
     <string name="not_save">The changes have not been saved</string>
-
-
-
+    <string name="select_phenomena">Select phenomena</string>
 
 
 </resources>

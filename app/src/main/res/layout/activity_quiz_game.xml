@@ -4,13 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".quizzes.menu.QuizGameActivity"
+    tools:context=".quizzes.quizy.QuizGameActivity"
     android:orientation="vertical">
 
     <include
         layout="@layout/toolbar_main"
         android:id="@+id/toolbar"
         ></include>
+
+    <TextView
+        android:id="@+id/counter_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:layout_margin="10dp"
+        android:textSize="30sp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:background="@drawable/border"
+        ></TextView>
 
     <FrameLayout
         android:layout_width="match_parent"

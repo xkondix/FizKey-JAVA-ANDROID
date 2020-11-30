@@ -1,7 +1,8 @@
-package com.konradkowalczyk.fizkey_java_android.quizzes.menu;
+package com.konradkowalczyk.fizkey_java_android.quizzes.quizy;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -98,19 +99,16 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
 
 
-        for (int i = 0, c = 0, r = 0; i < quanity; i++, c++) {
-
-            if(c == column)
-            {
-                c = 0;
-                r++;
-            }
+        for (int i = 0; i < quanity; i++) {
 
             Button button = new Button(getActivity().getApplicationContext());
             button.setText(anwsers.get(i));
+            button.setAllCaps(false);
+            button.setTypeface(null, Typeface.BOLD);
             button.setId(i);
             button.setOnClickListener(this);
             anwserButtons.put(i,button);
+
             gridLayout.addView(button);
 
             GridLayout.LayoutParams param= new GridLayout.LayoutParams(GridLayout.spec(
@@ -130,7 +128,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
         }
 
-        setButtonsBasicColor();
+        setButtonsBasicColorAndUnlock();
 
         return view;
     }
@@ -140,6 +138,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
         colorAnwser(v.getId(),anwserButtons.get(v.getId()));
         sendData.getBooleanAnwser(v.getId() == positiveNumber);
+        lockButtons();
     }
 
     private void colorAnwser(int number, Button button)
@@ -147,11 +146,16 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         if(number == positiveNumber)
         {
             button.setBackgroundColor(Color.GREEN);
+            button.setTextColor(Color.BLACK);
         }
         else
         {
             button.setBackgroundColor(Color.RED);
             anwserButtons.get(positiveNumber).setBackgroundColor(Color.GREEN);
+
+            button.setTextColor(Color.BLACK);
+            anwserButtons.get(positiveNumber).setTextColor(Color.BLACK);
+
         }
     }
 
@@ -175,11 +179,13 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         this.positiveNumber = positiveNumber;
     }
 
-    public void setButtonsBasicColor()
+    public void setButtonsBasicColorAndUnlock()
     {
         for(Button b : anwserButtons.values())
         {
+            b.setTextColor(Color.WHITE);
             b.setBackgroundColor(Color.GRAY);
+            b.setEnabled(true);
         }
     }
 
@@ -197,5 +203,15 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         super.onDetach();
         this.sendData = null;
     }
+
+    private void lockButtons()
+    {
+        for(Button button : anwserButtons.values())
+        {
+            button.setEnabled(false);
+        }
+    }
+
+
 
 }

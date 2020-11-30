@@ -1,9 +1,6 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.menu;
 
 import android.content.Context;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.FallDown;
@@ -11,9 +8,7 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.Question;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.ThrowUp;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class QuizFactory {
@@ -23,7 +18,7 @@ public class QuizFactory {
     private int quanityBlocks;
     private List<Question> dataQuestionAnwser;
     private String[] resourceForces;
-    private Map<Integer,Boolean> acceptedForceNumbers;
+    private List<Integer> acceptedForceNumbers;
 
 
     public QuizFactory(Context context, int quanityBlocks)
@@ -32,11 +27,10 @@ public class QuizFactory {
         this.quanityBlocks = quanityBlocks;
         random = new Random();
         dataQuestionAnwser = new ArrayList<>();
-        acceptedForceNumbers = new HashMap<>();
+        acceptedForceNumbers = new ArrayList<>();
         resourceForces = context.getResources().getStringArray(R.array.force_for_quizzes);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public Question getQuestion()
     {
         int randomNumber;
@@ -44,12 +38,11 @@ public class QuizFactory {
         while(true)
         {
             randomNumber = random.nextInt(2);
-            if(acceptedForceNumbers.keySet().contains(randomNumber))
+            if(acceptedForceNumbers.contains(randomNumber))
             {
                 break;
             }
         }
-        System.out.println(randomNumber);
 
         switch(randomNumber)
         {
@@ -69,14 +62,11 @@ public class QuizFactory {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void generateQuestions(int maxNumber)
     {
-        System.out.println(maxNumber);
         for(int i = 0; i < maxNumber; i++)
         {
             this.dataQuestionAnwser.add(getQuestion());
-            System.out.println(dataQuestionAnwser.get(i).getQuestion());
         }
     }
 
@@ -86,13 +76,9 @@ public class QuizFactory {
         {
             if(actives.contains(resourceForces[i]))
             {
-                acceptedForceNumbers.put(i,true);
+                acceptedForceNumbers.add(i);
             }
-            else
-            {
-                acceptedForceNumbers.put(i,false);
 
-            }
         }
     }
 

@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizGameActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,16 +98,29 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
 
         switch (v.getId()) {
             case R.id.begin_quizzes:
-                Intent intent = new Intent(getActivity(), QuizGameActivity.class);
-                intent.putExtra(QuizGameActivity.EXTRA_MODELID, quizViewModel);
-                getActivity().startActivity(intent);
+
+                if(quizViewModel.getActivePhenomena().isEmpty())
+                {
+                    Toast.makeText(getContext(), getContext().getResources()
+                                    .getString(R.string.select_phenomena)
+                            ,Toast.LENGTH_LONG).show();
+
+                }
+                else {
+                    Intent intent = new Intent(getActivity(), QuizGameActivity.class);
+                    intent.putExtra(QuizGameActivity.EXTRA_MODELID, quizViewModel);
+                    getActivity().startActivity(intent);
+                }
                 break;
+
             case R.id.select_quiz_range:
+
                 SelectPhenomenonDialogFragment dialog = SelectPhenomenonDialogFragment
                         .newInstance(quizViewModel.getActivePhenomena());
                 dialog.setTargetFragment(QuizMenuFragment.this, 1);
                 dialog.show(getActivity().getSupportFragmentManager(), "Quiz phenomena selector");
                 break;
+
             default:
                 break;
 

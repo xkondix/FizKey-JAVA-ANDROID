@@ -1,9 +1,6 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon;
 
 import android.content.Context;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 
@@ -25,7 +22,6 @@ public class ThrowUp extends AbstractQuestion{
 
     private Context context;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ThrowUp(Context context, int countQuestion)
     {
         super(countQuestion);
@@ -62,7 +58,6 @@ public class ThrowUp extends AbstractQuestion{
         return velocity = velocityStart - ACCELERATION_KM * time;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void countVelocityFromTime()
     {
         int min = 1;
@@ -71,7 +66,6 @@ public class ThrowUp extends AbstractQuestion{
         velocity = velocityStart - ACCELERATION_KM * time;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void countHeightFromTime()
     {
         int min = 1;
@@ -81,7 +75,6 @@ public class ThrowUp extends AbstractQuestion{
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void selectQuestion()
     {
 

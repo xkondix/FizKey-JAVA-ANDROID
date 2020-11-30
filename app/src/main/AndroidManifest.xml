@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".quizzes.menu.QuizGameActivity"></activity>
+        <activity android:name=".quizzes.quizy.QuizGameActivity"></activity>
         <activity android:name=".quizzes.QuizActivity" />
         <activity android:name=".games.kinematics.projection.vertical.GameVerticalActivity"></activity>
         <activity android:name=".menu.kinematyka.projection.vertical.VerticalProjectionSimulationActivity" />

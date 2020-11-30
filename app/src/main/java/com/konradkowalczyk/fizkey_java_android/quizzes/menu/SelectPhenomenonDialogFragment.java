@@ -12,7 +12,6 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 
@@ -21,11 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SelectPhenomenonDialogFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class SelectPhenomenonDialogFragment extends DialogFragment {
 
 
