@@ -31,7 +31,7 @@
 
     <string name="falldown_one">The starting height is 0 0, under acceleration 0 0
         and an initial speed equal to 0 m/s.
-        How many 0 the object will reach the ground?</string>
+        How many time the object will reach the ground?</string>
     <string name="falldown_two">The starting height is 0 0, under acceleration 0 0
         and an initial speed equal to 0 m/s.
         What is its final speed?</string>

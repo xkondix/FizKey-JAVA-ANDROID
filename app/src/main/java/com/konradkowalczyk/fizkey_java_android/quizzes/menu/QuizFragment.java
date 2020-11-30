@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +97,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         gridLayout.setRowCount(row+1);
 
 
+
         for (int i = 0, c = 0, r = 0; i < quanity; i++, c++) {
 
             if(c == column)
@@ -113,16 +113,17 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             anwserButtons.put(i,button);
             gridLayout.addView(button);
 
-            GridLayout.LayoutParams param =new GridLayout.LayoutParams();
-            param.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            param.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            GridLayout.LayoutParams param= new GridLayout.LayoutParams(GridLayout.spec(
+                    GridLayout.UNDEFINED,GridLayout.FILL,1f),
+                    GridLayout.spec(GridLayout.UNDEFINED,GridLayout.FILL,1f));
+            param.height = 0;
+            param.width = 0;
+
             param.bottomMargin = 5;
             param.leftMargin = 5;
             param.rightMargin = 5;
             param.topMargin = 5;
-            param.setGravity(Gravity.FILL);
-            param.columnSpec = GridLayout.spec(c);
-            param.rowSpec = GridLayout.spec(r);
+
             button.setLayoutParams(param);
 
 

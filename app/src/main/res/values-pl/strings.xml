@@ -27,7 +27,7 @@
 
     <string name="falldown_one">Wysokość początkowa wynosi 0 0, przy przyspieszaniu 0 0
         i początkowej prędkości równej 0 m/s.
-        W ile 0 obiekt doleci do ziemi?</string>
+        W ile czasu obiekt doleci do ziemi?</string>
     <string name="falldown_two">Wysokość początkowa wynosi 0 0, przy przyspieszaniu 0 0
         i początkowej prędkości równej 0 m/s.
         Jaka jest końcowa prędkość obiektu?</string>
