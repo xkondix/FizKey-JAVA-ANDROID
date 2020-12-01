@@ -73,5 +73,13 @@
     <string name="not_save">The changes have not been saved</string>
     <string name="select_phenomena">Select phenomena</string>
 
+    <!-- CardViewResultQuestion   -->
+
+    <string name="card_view_good_answer">Good answer : </string>
+    <string name="card_view_your_answer">Your answer : </string>
+    <string name="card_view_number_question">Question number  </string>
+    <string name="card_view_question">Question :  </string>
+    <string name="dialog_quiz_result_welcome">Your results</string>
+
 
 </resources>

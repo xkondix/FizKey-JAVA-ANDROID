@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".quizzes.quizy.QuizResultDialog">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".quizzes.quizy.QuizResultDialog">
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/dialog_quiz_result_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"
+        android:text="@string/cancel"
+       ></TextView>
+
+    <TextView
+        android:id="@+id/dialog_quiz_result_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/dialog_quiz_result_close"
+        app:layout_constraintStart_toEndOf="@+id/dialog_quiz_result_welcome"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/dialog_quiz_result_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
+        android:background="@drawable/border"
+        android:text="@string/dialog_quiz_result_welcome"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+       ></TextView>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_quiz_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        android:scrollbars="vertical"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/dialog_quiz_result_close"
+        tools:listitem="@layout/card_view_quiz_result_item" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

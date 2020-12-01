@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".quizzes.quizy.QuizGameActivity"
+        <activity android:name=".quizzes.quizy.QuizActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".quizzes.QuizActivity"
+        <activity android:name=".quizzes.QuizMenuActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".games.kinematics.projection.vertical.GameVerticalActivity"
             android:screenOrientation="portrait"></activity>

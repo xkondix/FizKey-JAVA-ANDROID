@@ -1,11 +1,13 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,8 +19,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizMenuFragment;
+import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizActivity;
+import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizResultDialog;
+import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizResults;
 
-public class QuizActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class QuizMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private Toolbar toolbar;
@@ -134,6 +139,24 @@ public class QuizActivity extends AppCompatActivity implements NavigationView.On
         {
             super.onBackPressed();
         }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if(requestCode == QuizMenuFragment.GET_RESULTS_REQUEST && resultCode == RESULT_OK) {
+            QuizResults quizResults = data.getParcelableExtra(QuizActivity.RESULTS);
+
+            QuizResultDialog dialog = QuizResultDialog
+                    .newInstance(quizResults);
+            dialog.show(getSupportFragmentManager(), "Results View");
+        }
+
+
+
     }
 }
 

@@ -8,14 +8,10 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizModelInteface;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class QuizModelBase implements Parcelable, QuizModelInteface {
 
-    private int currentNumber, maxNumber, percent, blockNumber;
-
-    private Map<Integer, Boolean> anwsers;
+    private int currentNumber, maxNumber, blockNumber;
 
     private List<String> activePhenomena;
     private List<String> questions;
@@ -33,14 +29,12 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
         this.maxNumber = 5;
         this.blockNumber = 2;
         this.currentNumber = 0;
-        this.percent = 0;
     }
 
 
     protected QuizModelBase(Parcel in) {
         currentNumber = in.readInt();
         maxNumber = in.readInt();
-        percent = in.readInt();
         blockNumber = in.readInt();
         activePhenomena = in.createStringArrayList();
         questions = in.createStringArrayList();
@@ -55,7 +49,6 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(currentNumber);
         dest.writeInt(maxNumber);
-        dest.writeInt(percent);
         dest.writeInt(blockNumber);
         dest.writeStringList(activePhenomena);
         dest.writeStringList(questions);
@@ -109,40 +102,12 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
     }
 
     @Override
-    public int getPercent() {
-        return percent;
-    }
-
-    public void setPercent(int percent) {
-        this.percent = percent;
-    }
-
-    @Override
     public int getBlockNumber() {
         return blockNumber;
     }
 
     public void setBlockNumber(int blockNumber) {
         this.blockNumber = blockNumber;
-    }
-
-    @Override
-    public Map<Integer, Boolean> getAnwsers() {
-        return anwsers;
-    }
-
-    public void setAnwsers(Map<Integer, Boolean> anwsers) {
-        this.anwsers = anwsers;
-    }
-
-    @Override
-    public void addAnwsers(Integer index, boolean score)
-    {
-        if(anwsers == null)
-        {
-            anwsers = new TreeMap<>();
-        }
-        this.anwsers.put(index,score);
     }
 
     public List<String> getActivePhenomena() {

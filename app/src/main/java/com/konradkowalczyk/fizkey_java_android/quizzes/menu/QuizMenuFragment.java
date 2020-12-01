@@ -15,13 +15,16 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizGameActivity;
+import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class QuizMenuFragment extends Fragment implements View.OnClickListener, SelectPhenomenonDialogFragment.OnFeedBack {
+
+    public static final int GET_RESULTS_REQUEST = 1;
+
 
     private Button startQuizButton, selectRangeButton;
     private Spinner quanityQuizzesSpinner, quanityBlockQuizzesSpinner;
@@ -109,9 +112,9 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
                 else {
 
                     setQuestions();
-                    Intent intent = new Intent(getActivity(), QuizGameActivity.class);
-                    intent.putExtra(QuizGameActivity.EXTRA_MODELID, quizViewModel);
-                    getActivity().startActivity(intent);
+                    Intent intent = new Intent(getActivity(), QuizActivity.class);
+                    intent.putExtra(QuizActivity.EXTRA_MODEL_ID, quizViewModel);
+                    getActivity().startActivityForResult(intent,GET_RESULTS_REQUEST);
                 }
                 break;
 

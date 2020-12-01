@@ -1,5 +1,6 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.quizy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -12,15 +13,18 @@ import androidx.fragment.app.FragmentTransaction;
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizModelBase;
 
-public class QuizGameActivity extends AppCompatActivity implements QuizFragment.SendData {
+public class QuizActivity extends AppCompatActivity implements QuizFragment.SendData {
 
-    public static final String EXTRA_MODELID = "model";
+    public static final String EXTRA_MODEL_ID = "model";
+    public static final String RESULTS = "results";
 
     private QuizModelInteface quizModelBase;
 
     private QuizFragment fragment;
     private TextView counterTextView;
     private Toolbar toolbar;
+
+    private QuizResults quizResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,8 @@ public class QuizGameActivity extends AppCompatActivity implements QuizFragment.
 
         counterTextView = findViewById(R.id.counter_question);
 
-        quizModelBase = (QuizModelBase) getIntent().getParcelableExtra(QuizGameActivity.EXTRA_MODELID);
+        quizModelBase = (QuizModelBase) getIntent().getParcelableExtra(QuizActivity.EXTRA_MODEL_ID);
+        quizResults = new QuizResults();
         setText();
 
 
@@ -48,7 +53,10 @@ public class QuizGameActivity extends AppCompatActivity implements QuizFragment.
     }
 
     @Override
-    public void getBooleanAnwser(final boolean anwser) {
+    public void getBooleanAnwser(final String question
+            ,final String yourAnswer
+            ,final String goodAnswer
+            ,final boolean boolAnswer) {
 
         new CountDownTimer(3000, 1000) {
 
@@ -58,17 +66,23 @@ public class QuizGameActivity extends AppCompatActivity implements QuizFragment.
 
             public void onFinish() {
 
-                quizModelBase.addAnwsers(quizModelBase.getCurrentNumber(),anwser);
+                quizResults.addQuestion(question);
+                quizResults.addGoodAnswer(goodAnswer);
+                quizResults.addYourAnswer(yourAnswer);
+                quizResults.addBooleanAnswer(boolAnswer);
+
 
                 if(quizModelBase.getCurrentNumber()>= quizModelBase.getMaxNumber()-1)
                 {
+                    Intent intent = new Intent();
+                    intent.putExtra(RESULTS, quizResults);
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
                 else {
 
                     quizModelBase.setCurrentNumber(quizModelBase.getCurrentNumber() + 1);
                     setText();
-
                     fragment.setQuestion(quizModelBase.getQuestions().get(quizModelBase.getCurrentNumber()));
                     fragment.setAnwsers(quizModelBase.getListAnswers().get(quizModelBase.getCurrentNumber()));
                     fragment.setPositiveNumber(quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentNumber()));
@@ -91,6 +105,11 @@ public class QuizGameActivity extends AppCompatActivity implements QuizFragment.
 
             }
         });
+    }
+
+    private void addDataToResult(String question, String yourAnswer, String goodAnswer, boolean boolAnswer)
+    {
+
     }
 
 }

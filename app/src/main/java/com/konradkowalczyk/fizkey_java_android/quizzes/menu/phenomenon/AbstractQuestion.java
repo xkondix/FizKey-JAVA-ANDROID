@@ -79,7 +79,7 @@ public abstract class AbstractQuestion implements Question {
 
         return Integer.toString(RANDOM.nextInt(max - min + 1) + min);
     }
-    
+
     public static final String doubleToString(double force)
     {
         return String.format("%.2f",force);

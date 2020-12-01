@@ -13,12 +13,16 @@ import java.util.Random;
 
 public class QuizFactory {
 
+    private static final int QUANITY_FORTUNE = 2;
+
     private Random random;
     private Context context;
     private int quanityBlocks;
+
     private List<Question> dataQuestionAnwser;
-    private String[] resourceForces;
     private List<Integer> acceptedForceNumbers;
+    private String[] resourceForces;
+
 
 
     public QuizFactory(Context context, int quanityBlocks)
@@ -31,13 +35,13 @@ public class QuizFactory {
         resourceForces = context.getResources().getStringArray(R.array.force_for_quizzes);
     }
 
-    public Question getQuestion()
+    private Question getQuestion()
     {
         int randomNumber;
 
         while(true)
         {
-            randomNumber = random.nextInt(2);
+            randomNumber = random.nextInt(QUANITY_FORTUNE);
             if(acceptedForceNumbers.contains(randomNumber))
             {
                 break;

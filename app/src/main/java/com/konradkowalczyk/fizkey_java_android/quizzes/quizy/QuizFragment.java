@@ -44,7 +44,7 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
 
     public interface SendData {
-        void getBooleanAnwser(boolean anwser);
+        void getBooleanAnwser(String question, String yourAnswer, String goodAnswer, boolean boolAnswer);
     }
 
 
@@ -124,8 +124,6 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
             button.setLayoutParams(param);
 
-
-
         }
 
         setButtonsBasicColorAndUnlock();
@@ -137,7 +135,10 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         colorAnwser(v.getId(),anwserButtons.get(v.getId()));
-        sendData.getBooleanAnwser(v.getId() == positiveNumber);
+        sendData.getBooleanAnwser(question
+                , anwsers.get(v.getId())
+                , anwsers.get(positiveNumber)
+                ,v.getId() == positiveNumber);
         lockButtons();
     }
 
