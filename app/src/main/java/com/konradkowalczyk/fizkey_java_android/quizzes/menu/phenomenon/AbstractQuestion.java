@@ -1,7 +1,6 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -47,29 +46,27 @@ public abstract class AbstractQuestion implements Question {
     {
         int convertAnwser = (int) Math.abs(anwser);
 
-        String array[] = new String[countQuestion];
+        List<String> array = new ArrayList<>();
         positivNumber = RANDOM.nextInt(countQuestion);
         String fakeNumber;
 
-        for(int i = 0; i< array.length; i++)
+        for(int i = 0; i < countQuestion; i++)
         {
            while(true)
            {
                fakeNumber = createFakeAnswer(convertAnwser);
-               if(!(fakeNumber.equals(Integer.toString(convertAnwser)))  && !(containsValueOfArray(fakeNumber,array,i)))
+               if( (!(fakeNumber.equals(Integer.toString(convertAnwser)))  && !(array.contains(fakeNumber + " " + unit))))
                {
-//                   System.out.println(fakeNumber.equals(Integer.toString(convertAnwser)));
-//                   System.out.println((containsValueOfArray(fakeNumber,array,i)));
-//                   System.out.println(fakeNumber);
+
                    break;
                }
            }
-            array[i] = createFakeAnswer(convertAnwser) + " " + unit;
+            array.add(fakeNumber + " " + unit);
 
         }
 
-        array[positivNumber] = Integer.toString(convertAnwser)+ " " + unit;
-        answers = Arrays.asList(array);
+        array.set(positivNumber,(convertAnwser+ " " + unit));
+        answers = new ArrayList<>(array);
 
     }
 
@@ -82,34 +79,17 @@ public abstract class AbstractQuestion implements Question {
 
         return Integer.toString(RANDOM.nextInt(max - min + 1) + min);
     }
-
-
-
+    
     public static final String doubleToString(double force)
     {
         return String.format("%.2f",force);
     }
 
 
-    private boolean containsValueOfArray(String value, String[] array, int range)
-    {
-        for(int i = 0; i < range; i++)
-        {
-            if(array[i].equals(value))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     protected void changeValueAnswes(double unitValue, String unitName)
     {
         int quantityNumbersToChange = RANDOM.nextInt(answers.size());
         List<Integer> listOfIndexes = fortuneIndexes(quantityNumbersToChange);
-
-
 
         for(int i = 0; i < listOfIndexes.size(); i++)
         {

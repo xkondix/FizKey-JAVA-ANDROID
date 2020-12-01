@@ -146,7 +146,6 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
         quizFactory.acceptForces(quizViewModel.getActivePhenomena());
         quizFactory.generateQuestions(quizViewModel.getMaxNumber());
         quizViewModel.setQuestion(quizFactory.getDataQuestionAnwser());
-        System.out.println(quizViewModel.toString());
     }
 
     private List<Integer> getList(String[] array)

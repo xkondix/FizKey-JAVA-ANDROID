@@ -35,10 +35,6 @@ public class QuizGameActivity extends AppCompatActivity implements QuizFragment.
         quizModelBase = (QuizModelBase) getIntent().getParcelableExtra(QuizGameActivity.EXTRA_MODELID);
         setText();
 
-        System.out.println(quizModelBase.toString());
-
-
-
 
 
         fragment =  QuizFragment.newInstance(quizModelBase.getBlockNumber()

@@ -11,24 +11,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".quizzes.quizy.QuizGameActivity"></activity>
-        <activity android:name=".quizzes.QuizActivity" />
-        <activity android:name=".games.kinematics.projection.vertical.GameVerticalActivity"></activity>
-        <activity android:name=".menu.kinematyka.projection.vertical.VerticalProjectionSimulationActivity" />
-        <activity android:name=".menu.kinematyka.projection.vertical.VerticalProjectionPlotActivity" />
+        <activity android:name=".quizzes.quizy.QuizGameActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".quizzes.QuizActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".games.kinematics.projection.vertical.GameVerticalActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".menu.kinematyka.projection.vertical.VerticalProjectionSimulationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".menu.kinematyka.projection.vertical.VerticalProjectionPlotActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".menu.MenuGlowneActivity"
             android:label="@string/menuGlowne"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".menu.kinematyka.KinematykaMenuActivity"
             android:label="@string/menuKinematyka"
+            android:screenOrientation="portrait"
             android:parentActivityName=".menu.MenuGlowneActivity" />
         <activity
             android:name=".menu.kinematyka.projection.vertical.VerticalProjectionActivity"
             android:label="@string/rzuty"
+            android:screenOrientation="portrait"
             android:parentActivityName=".menu.kinematyka.KinematykaMenuActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

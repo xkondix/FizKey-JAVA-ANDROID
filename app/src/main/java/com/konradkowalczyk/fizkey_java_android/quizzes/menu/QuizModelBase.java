@@ -171,18 +171,5 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
     }
 
 
-    @Override
-    public String toString() {
-        return "QuizModelBase{" +
-                "currentNumber=" + currentNumber + "\n" +
-                ", maxNumber=" + maxNumber + "\n" +
-                ", percent=" + percent + "\n" +
-                ", blockNumber=" + blockNumber + "\n" +
-                ", anwsers=" + anwsers + "\n" +
-                ", activePhenomena=" + activePhenomena + "\n" +
-                ", questions=" + questions + "\n" +
-                ", positiveNumbers=" + positiveNumbers + "\n" +
-                ", listAnswers=" + listAnswers + "\n" +
-                '}';
-    }
+
 }
