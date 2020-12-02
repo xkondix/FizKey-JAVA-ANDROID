@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,9 +27,15 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
     public static final int GET_RESULTS_REQUEST = 1;
 
 
+
     private Button startQuizButton, selectRangeButton;
     private Spinner quanityQuizzesSpinner, quanityBlockQuizzesSpinner;
+    private RadioGroup levelRadioGroup;
+
     private List<Integer> quanityBlock, quanityQuizess;
+    private List<String> activesPhenomena;
+    private QuizFactory.Level level;
+
 
     private QuizModelBase quizViewModel;
     private QuizFactory quizFactory;
@@ -54,12 +61,35 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
         selectRangeButton= view.findViewById(R.id.select_quiz_range);
 
         quanityQuizzesSpinner = view.findViewById(R.id.quanity_block_question);
-        quanityBlockQuizzesSpinner =  view.findViewById(R.id.quanity_block_quiz); //2 4 6
+        quanityBlockQuizzesSpinner =  view.findViewById(R.id.quanity_block_quiz);
+
+        level = QuizFactory.Level.NORMAL;
+        levelRadioGroup = view.findViewById(R.id.quiz_menu_fragment_lvl);
+        levelRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.quiz_menu_fragment_hard:
+                        level = QuizFactory.Level.HARD;
+                        System.out.println(level);
+
+                        break;
+                    case R.id.quiz_menu_fragment_normal:
+                        level = QuizFactory.Level.NORMAL;
+                        System.out.println(level);
+
+                        break;
+                }
+            }
+        });
 
 
         quizViewModel = new QuizModelBase();
         quanityBlock = getList(getContext().getResources().getStringArray(R.array.quanity_question));
         quanityQuizess = getList(getContext().getResources().getStringArray(R.array.quanity_block));
+
+
+        activesPhenomena = new ArrayList<>();
 
 
         startQuizButton.setOnClickListener(this);
@@ -103,7 +133,7 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
         switch (v.getId()) {
             case R.id.begin_quizzes:
 
-                if(quizViewModel.getActivePhenomena().isEmpty())
+                if(activesPhenomena.isEmpty())
                 {
                     Toast.makeText(getContext(), getContext().getResources()
                                     .getString(R.string.select_phenomena)
@@ -115,13 +145,14 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
                     Intent intent = new Intent(getActivity(), QuizActivity.class);
                     intent.putExtra(QuizActivity.EXTRA_MODEL_ID, quizViewModel);
                     getActivity().startActivityForResult(intent,GET_RESULTS_REQUEST);
+
                 }
                 break;
 
             case R.id.select_quiz_range:
 
                 SelectPhenomenonDialogFragment dialog = SelectPhenomenonDialogFragment
-                        .newInstance(quizViewModel.getActivePhenomena());
+                        .newInstance(activesPhenomena);
                 dialog.setTargetFragment(QuizMenuFragment.this, 1);
                 dialog.show(getActivity().getSupportFragmentManager(), "Quiz phenomena selector");
                 break;
@@ -133,6 +164,12 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        quizViewModel.restartQuizQuestionsData();
+    }
+
+    @Override
     public void sendStatusMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
 
@@ -140,15 +177,17 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void sendActivePhenomena(List<String> activePhenomena) {
-        quizViewModel.setActivePhenomena(activePhenomena);
+        this.activesPhenomena = activePhenomena;
     }
 
     private void setQuestions()
     {
         quizFactory = new QuizFactory(getContext(), quizViewModel.getBlockNumber());
-        quizFactory.acceptForces(quizViewModel.getActivePhenomena());
+        quizFactory.setLevel(level);
+        quizFactory.acceptForces(activesPhenomena);
         quizFactory.generateQuestions(quizViewModel.getMaxNumber());
         quizViewModel.setQuestion(quizFactory.getDataQuestionAnwser());
+
     }
 
     private List<Integer> getList(String[] array)

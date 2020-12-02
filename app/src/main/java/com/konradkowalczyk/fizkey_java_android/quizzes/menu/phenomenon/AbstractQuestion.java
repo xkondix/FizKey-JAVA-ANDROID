@@ -2,6 +2,7 @@ package com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public abstract class AbstractQuestion implements Question {
@@ -17,8 +18,6 @@ public abstract class AbstractQuestion implements Question {
     {
         this.countQuestion = countQuestion;
     }
-
-
 
 
     protected String replaceZeroToValue(String quest, List<String> forces)
@@ -44,63 +43,38 @@ public abstract class AbstractQuestion implements Question {
 
     protected void createAnwsers(double anwser, String unit)
     {
-        int convertAnwser = (int) Math.abs(anwser);
-
-        List<String> array = new ArrayList<>();
         positivNumber = RANDOM.nextInt(countQuestion);
-        String fakeNumber;
+        List<Integer> array = getFakerList(anwser,countQuestion);
 
-        for(int i = 0; i < countQuestion; i++)
-        {
-           while(true)
-           {
-               fakeNumber = createFakeAnswer(convertAnwser);
-               if( (!(fakeNumber.equals(Integer.toString(convertAnwser)))  && !(array.contains(fakeNumber + " " + unit))))
-               {
+        answers = addUnitToValue(array, unit);
+        answers.set(positivNumber,(doubleToString(anwser)+ " " + unit));
 
-                   break;
-               }
-           }
-            array.add(fakeNumber + " " + unit);
-
-        }
-
-        array.set(positivNumber,(convertAnwser+ " " + unit));
-        answers = new ArrayList<>(array);
 
     }
 
-
-    protected String createFakeAnswer(int anwser)
+    protected void changeValueAnswes(Map<String,Double> unitNameAndValue)
     {
+        int randomIndex, quantityNumbersToChange;
+        double valueOfIndex, newValue;
+        String nameOfIndex;
 
-        int min = anwser - RANDOM.nextInt( (anwser / 2) == 0 ? 1 : (anwser / 2));
-        int max = anwser + RANDOM.nextInt((anwser * 2) == 0 ? min+10 : (anwser * 2) )+10;
-
-        return Integer.toString(RANDOM.nextInt(max - min + 1) + min);
-    }
-
-    public static final String doubleToString(double force)
-    {
-        return String.format("%.2f",force);
-    }
-
-
-    protected void changeValueAnswes(double unitValue, String unitName)
-    {
-        int quantityNumbersToChange = RANDOM.nextInt(answers.size());
+        quantityNumbersToChange = RANDOM.nextInt(answers.size());
         List<Integer> listOfIndexes = fortuneIndexes(quantityNumbersToChange);
 
         for(int i = 0; i < listOfIndexes.size(); i++)
         {
-            double value = Integer.parseInt(answers.get(listOfIndexes.get(i)).split(" ")[0]) * unitValue;
-            answers.set(
-                    listOfIndexes.get(i)
-                    ,(unitName.equals("m/s") ? doubleToString(value) : (int) value)+" "+ unitName);
+            randomIndex = RANDOM.nextInt(unitNameAndValue.size());
+            nameOfIndex = (String) unitNameAndValue.keySet().toArray()[randomIndex];
+            valueOfIndex = unitNameAndValue.get(nameOfIndex);
+
+            newValue = Double.parseDouble(answers.get(listOfIndexes.get(i)).split(" ")[0]) * valueOfIndex;
+
+            answers.set(listOfIndexes.get(i) , newValue +" "+ nameOfIndex );
         }
 
-
     }
+
+
 
     private List<Integer> fortuneIndexes(int quanity)
     {
@@ -119,6 +93,64 @@ public abstract class AbstractQuestion implements Question {
         }
 
         return list;
+    }
+
+    private  List<Integer> getFakerList(double anwser, int countQuestion)
+    {
+
+        List<Integer> fakeValues = new ArrayList<>();
+
+        int convertAnwser = (int) Math.abs(anwser);
+        int fakeNumber;
+
+        for(int i = 0; i < countQuestion; i++)
+        {
+            while(true)
+            {
+                fakeNumber = createFakeAnswer(convertAnwser);
+                if( ((fakeNumber !=convertAnwser) && !(fakeValues.contains(fakeNumber))))
+                {
+                    break;
+                }
+            }
+            fakeValues.add(fakeNumber);
+
+        }
+
+        return fakeValues;
+    }
+
+    private  List<String> addUnitToValue(List<Integer> valuesInt, String unit)
+    {
+        List<String> valuesString = new ArrayList<>();
+
+        for(int value : valuesInt)
+        {
+            valuesString.add(addRandomDouble(value) + " " + unit);
+        }
+
+        return valuesString;
+    }
+
+    private String addRandomDouble(int value)
+    {
+        return doubleToString((RANDOM.nextDouble() + value));
+    }
+
+    private int createFakeAnswer(int anwser)
+    {
+        int min = anwser - RANDOM.nextInt((anwser / 2) == 0 ? 1 : (anwser / 2));
+        int max = anwser + RANDOM.nextInt((anwser * 2) == 0 ? min+10 : (anwser * 2) )+10;
+
+        return randomBeetwen(min,max);
+    }
+
+    protected int randomBeetwen(int min, int max) {
+        return RANDOM.nextInt( max - min + 1 > 0 ? max - min + 1 : 1) + min;
+    }
+
+    protected static final String doubleToString(double force) {
+        return String.format("%.2f",force);
     }
 
     @Override

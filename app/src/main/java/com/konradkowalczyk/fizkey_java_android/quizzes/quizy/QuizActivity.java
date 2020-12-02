@@ -41,6 +41,7 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
         setText();
 
 
+        System.out.println(quizModelBase.getListAnswers());
 
         fragment =  QuizFragment.newInstance(quizModelBase.getBlockNumber()
                 ,quizModelBase.getListAnswers().get(quizModelBase.getCurrentNumber())
@@ -87,6 +88,7 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
                     fragment.setAnwsers(quizModelBase.getListAnswers().get(quizModelBase.getCurrentNumber()));
                     fragment.setPositiveNumber(quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentNumber()));
                     fragment.setButtonsBasicColorAndUnlock();
+
                 }
 
             }

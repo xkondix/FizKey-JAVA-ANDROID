@@ -13,7 +13,6 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
 
     private int currentNumber, maxNumber, blockNumber;
 
-    private List<String> activePhenomena;
     private List<String> questions;
     private List<Integer> positiveNumbers;
     private List<List<String>> listAnswers;
@@ -21,7 +20,6 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
 
     public QuizModelBase() {
 
-        this.activePhenomena = new ArrayList<>();
         this.questions = new ArrayList<>();
         this.positiveNumbers = new ArrayList<>();
         this.listAnswers = new ArrayList<>();
@@ -36,7 +34,6 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
         currentNumber = in.readInt();
         maxNumber = in.readInt();
         blockNumber = in.readInt();
-        activePhenomena = in.createStringArrayList();
         questions = in.createStringArrayList();
         positiveNumbers = new ArrayList<Integer>();
         in.readList(positiveNumbers, null);
@@ -50,7 +47,6 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
         dest.writeInt(currentNumber);
         dest.writeInt(maxNumber);
         dest.writeInt(blockNumber);
-        dest.writeStringList(activePhenomena);
         dest.writeStringList(questions);
         dest.writeList(positiveNumbers);
         dest.writeList(listAnswers);
@@ -79,6 +75,7 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
             this.questions.add(question.getQuestion());
             this.listAnswers.add(question.getAnswers());
             this.positiveNumbers.add(question.getPositiveNumber());
+
         }
     }
 
@@ -110,13 +107,6 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
         this.blockNumber = blockNumber;
     }
 
-    public List<String> getActivePhenomena() {
-        return activePhenomena;
-    }
-
-    public void setActivePhenomena(List<String> activePhenomena) {
-        this.activePhenomena = activePhenomena;
-    }
 
     @Override
     public List<String> getQuestions() {
@@ -136,5 +126,9 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
     }
 
 
-
+    public void restartQuizQuestionsData() {
+        this.questions = new ArrayList<>();
+        this.listAnswers = new ArrayList<>();
+        this.positiveNumbers = new ArrayList<>();
+    }
 }

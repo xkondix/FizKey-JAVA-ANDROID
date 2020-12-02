@@ -76,5 +76,9 @@
     <string name="card_view_question">Pytanie :  </string>
     <string name="dialog_quiz_result_welcome">Your results</string>
 
+    <string name="quiz_menu_level">Poziom trudnośći</string>
+    <string name="normal">Normalny</string>
+    <string name="hard">Trudny</string>
+
 
 </resources>

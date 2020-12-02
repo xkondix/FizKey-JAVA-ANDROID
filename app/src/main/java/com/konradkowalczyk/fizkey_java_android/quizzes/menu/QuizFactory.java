@@ -3,15 +3,17 @@ package com.konradkowalczyk.fizkey_java_android.quizzes.menu;
 import android.content.Context;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.FallDown;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.Question;
-import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.ThrowUp;
+import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.kinematics.FallDown;
+import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.kinematics.ThrowUp;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class QuizFactory {
+
+    public static enum Level {NORMAL, HARD};
 
     private static final int QUANITY_FORTUNE = 2;
 
@@ -22,6 +24,8 @@ public class QuizFactory {
     private List<Question> dataQuestionAnwser;
     private List<Integer> acceptedForceNumbers;
     private String[] resourceForces;
+    private List<String> activesPhenomena;
+    private Level level;
 
 
 
@@ -52,14 +56,14 @@ public class QuizFactory {
         {
             case 0:
             {
-                return new FallDown(context,quanityBlocks);
+                return new FallDown(context,quanityBlocks,level);
             }
             case 1:
             {
-                return new ThrowUp(context,quanityBlocks);
+                return new ThrowUp(context,quanityBlocks,level);
             }
             default:
-                return new FallDown(context,quanityBlocks);
+                return new FallDown(context,quanityBlocks,level);
 
         }
 
@@ -86,10 +90,13 @@ public class QuizFactory {
         }
     }
 
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
     public List<Question> getDataQuestionAnwser() {
         return dataQuestionAnwser;
     }
-
 
 
 }

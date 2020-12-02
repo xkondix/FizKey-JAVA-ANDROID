@@ -80,6 +80,9 @@
     <string name="card_view_number_question">Question number  </string>
     <string name="card_view_question">Question :  </string>
     <string name="dialog_quiz_result_welcome">Your results</string>
+    <string name="quiz_menu_level">Difficulty level</string>
+    <string name="normal">Normal</string>
+    <string name="hard">Hard</string>
 
 
 </resources>
