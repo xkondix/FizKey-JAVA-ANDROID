@@ -3,11 +3,14 @@ package com.konradkowalczyk.fizkey_java_android.quizzes.menu;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -30,11 +33,13 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
 
     private Button startQuizButton, selectRangeButton;
     private Spinner quanityQuizzesSpinner, quanityBlockQuizzesSpinner;
-    private RadioGroup levelRadioGroup;
+    private RadioGroup levelRadioGroup, timerRadioGroup;
+    private EditText secondsValueEditText;
 
     private List<Integer> quanityBlock, quanityQuizess;
     private List<String> activesPhenomena;
     private QuizFactory.Level level;
+    private int onOff = 0;
 
 
     private QuizModelBase quizViewModel;
@@ -50,6 +55,8 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,6 +90,29 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
             }
         });
 
+        timerRadioGroup = view.findViewById(R.id.quiz_menu_fragment_timer);
+        timerRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch(checkedId){
+                    case R.id.quiz_menu_fragment_OFF:
+                        onOff = 0;
+                        secondsValueEditText.setFocusable(false);
+
+
+                        break;
+                    case R.id.quiz_menu_fragment_ON:
+                        onOff = 1;
+                        secondsValueEditText.setFocusableInTouchMode(true);
+
+                        break;
+                }
+            }
+        });
+
+
+        secondsValueEditText = view.findViewById(R.id.quiz_menu_fragment_timer_value);
+        secondsValueEditText.addTextChangedListener(generalTextWatcher);
 
         quizViewModel = new QuizModelBase();
         quanityBlock = getList(getContext().getResources().getStringArray(R.array.quanity_question));
@@ -199,6 +229,34 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
 
         return list;
     }
+
+    private TextWatcher generalTextWatcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            System.out.println(secondsValueEditText.getText().toString());
+            System.out.println(s);
+            if(Integer.parseInt(secondsValueEditText.getText().toString()) >= 5
+            && Integer.parseInt(secondsValueEditText.getText().toString()) <= 600){
+            quizViewModel.setTimerValue(Integer.parseInt(secondsValueEditText.getText().toString()));
+            }
+            else
+            {
+                Toast.makeText(getContext(), "5 - 600 secounds", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    };
 
 
 }

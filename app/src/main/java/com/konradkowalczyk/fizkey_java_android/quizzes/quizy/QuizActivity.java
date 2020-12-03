@@ -21,7 +21,7 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
     private QuizModelInteface quizModelBase;
 
     private QuizFragment fragment;
-    private TextView counterTextView;
+    private TextView counterTextView, timerTextView;
     private Toolbar toolbar;
 
     private QuizResults quizResults;
@@ -35,18 +35,19 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
         setSupportActionBar(toolbar);
 
         counterTextView = findViewById(R.id.counter_question);
+        timerTextView = findViewById(R.id.quiz_activity_timer);
+
 
         quizModelBase = (QuizModelBase) getIntent().getParcelableExtra(QuizActivity.EXTRA_MODEL_ID);
         quizResults = new QuizResults();
-        setText();
+        setNumberOfQuestionTextView();
 
-
-        System.out.println(quizModelBase.getListAnswers());
 
         fragment =  QuizFragment.newInstance(quizModelBase.getBlockNumber()
                 ,quizModelBase.getListAnswers().get(quizModelBase.getCurrentNumber())
                 ,quizModelBase.getQuestions().get(quizModelBase.getCurrentNumber())
-                ,quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentNumber()));
+                ,quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentNumber())
+                ,quizModelBase.getTimerValue());
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.quiz_frame, fragment);
@@ -54,10 +55,10 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
     }
 
     @Override
-    public void getBooleanAnwser(final String question
-            ,final String yourAnswer
-            ,final String goodAnswer
-            ,final boolean boolAnswer) {
+    public void getResults(final String question
+            , final String yourAnswer
+            , final String goodAnswer
+            , final boolean boolAnswer) {
 
         new CountDownTimer(3000, 1000) {
 
@@ -75,6 +76,9 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
 
                 if(quizModelBase.getCurrentNumber()>= quizModelBase.getMaxNumber()-1)
                 {
+
+                    fragment.removeHandler();
+
                     Intent intent = new Intent();
                     intent.putExtra(RESULTS, quizResults);
                     setResult(RESULT_OK, intent);
@@ -83,11 +87,17 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
                 else {
 
                     quizModelBase.setCurrentNumber(quizModelBase.getCurrentNumber() + 1);
-                    setText();
+                    setNumberOfQuestionTextView();
                     fragment.setQuestion(quizModelBase.getQuestions().get(quizModelBase.getCurrentNumber()));
                     fragment.setAnwsers(quizModelBase.getListAnswers().get(quizModelBase.getCurrentNumber()));
                     fragment.setPositiveNumber(quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentNumber()));
                     fragment.setButtonsBasicColorAndUnlock();
+
+                    if(quizModelBase.getTimerValue() != 0)
+                    {
+                        fragment.setSecounds(quizModelBase.getTimerValue());
+                        fragment.resume();
+                    }
 
                 }
 
@@ -96,7 +106,12 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
 
     }
 
-    private void setText()
+    @Override
+    public void sendActualTime(int secounds) {
+        setTimeTextView(secounds);
+    }
+
+    private void setNumberOfQuestionTextView()
     {
         final Handler handler = new Handler();
         handler.post(new Runnable() {
@@ -109,9 +124,17 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
         });
     }
 
-    private void addDataToResult(String question, String yourAnswer, String goodAnswer, boolean boolAnswer)
+    private void setTimeTextView(final int secounds)
     {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
 
+                timerTextView.setText("time :"+" "+ secounds);
+
+            }
+        });
     }
 
 }

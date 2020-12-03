@@ -11,7 +11,7 @@ import java.util.List;
 
 public class QuizModelBase implements Parcelable, QuizModelInteface {
 
-    private int currentNumber, maxNumber, blockNumber;
+    private int currentNumber, maxNumber, blockNumber, timerValue;
 
     private List<String> questions;
     private List<Integer> positiveNumbers;
@@ -27,10 +27,12 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
         this.maxNumber = 5;
         this.blockNumber = 2;
         this.currentNumber = 0;
+        this.timerValue = 0;
     }
 
 
     protected QuizModelBase(Parcel in) {
+        timerValue = in.readInt();
         currentNumber = in.readInt();
         maxNumber = in.readInt();
         blockNumber = in.readInt();
@@ -44,6 +46,7 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(timerValue);
         dest.writeInt(currentNumber);
         dest.writeInt(maxNumber);
         dest.writeInt(blockNumber);
@@ -125,6 +128,14 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
         return listAnswers;
     }
 
+    @Override
+    public int getTimerValue() {
+        return timerValue;
+    }
+
+    public void setTimerValue(int secounds) {
+        this.timerValue = secounds;
+    }
 
     public void restartQuizQuestionsData() {
         this.questions = new ArrayList<>();

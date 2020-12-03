@@ -79,6 +79,9 @@
     <string name="quiz_menu_level">Poziom trudnośći</string>
     <string name="normal">Normalny</string>
     <string name="hard">Trudny</string>
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
+    <string name="quiz_menu_timer">Timer</string>
 
 
 </resources>

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,16 +36,31 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     private static final String QUESTION = "question";
     private static final String ANWSERS = "anwsers";
 
+    private static final String TIMER_ON = "timerOn";
+    private static final String SECOUNDS = "secounds";
+    private static final String RUNNING = "running";
+    private static final String WAS_RUNNING = "wasRunning";
+
+
 
     private int positiveNumber;
     private String question;
     private List<String> anwsers;
     private int quanity;
 
+    private int secound;
+    private boolean timerOn;
+    private boolean running;
+    private boolean wasRunning;
+
+    private final Handler handler = new Handler();
+
+
 
 
     public interface SendData {
-        void getBooleanAnwser(String question, String yourAnswer, String goodAnswer, boolean boolAnswer);
+        void getResults(String question, String yourAnswer, String goodAnswer, boolean boolAnswer);
+        void sendActualTime(int secounds);
     }
 
 
@@ -55,6 +71,30 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         args.putInt(POSITIVE_NUMBER, positiveNumber);
         args.putString(QUESTION, question);
         args.putStringArrayList(ANWSERS, new ArrayList<>(anwsers));
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static QuizFragment newInstance(int quanity,List<String> anwsers
+            ,String question
+            ,int positiveNumber
+            ,int timerValue) {
+
+        QuizFragment fragment = new QuizFragment();
+        Bundle args = new Bundle();
+
+        args.putInt(QUANITY_ANWSERS, quanity);
+        args.putInt(POSITIVE_NUMBER, positiveNumber);
+        args.putString(QUESTION, question);
+        args.putStringArrayList(ANWSERS, new ArrayList<>(anwsers));
+
+        args.putBoolean(TIMER_ON, timerValue != 0);
+        if(timerValue != 0) {
+            args.putInt(SECOUNDS, timerValue);
+            args.putBoolean(WAS_RUNNING, false);
+            args.putBoolean(RUNNING, true);
+        }
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,8 +113,19 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
             positiveNumber = getArguments().getInt(POSITIVE_NUMBER);
             question = getArguments().getString(QUESTION);
             anwsers = getArguments().getStringArrayList(ANWSERS);
+
+            timerOn = getArguments().getBoolean(TIMER_ON);
+
+            if(timerOn == true) {
+                secound = getArguments().getInt(SECOUNDS);
+                wasRunning = getArguments().getBoolean(WAS_RUNNING);
+                running = getArguments().getBoolean(RUNNING);
+                timer();
+            }
         }
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -135,11 +186,12 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         colorAnwser(v.getId(),anwserButtons.get(v.getId()));
-        sendData.getBooleanAnwser(question
+        sendData.getResults(question
                 , anwsers.get(v.getId())
                 , anwsers.get(positiveNumber)
                 ,v.getId() == positiveNumber);
         lockButtons();
+        pause();
     }
 
     private void colorAnwser(int number, Button button)
@@ -190,6 +242,44 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void timer()
+    {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                if(running)
+                {
+                    secound--;
+                    if(secound <= 0)
+                    {
+                        sendData.getResults(question
+                                , "null"
+                                , anwsers.get(positiveNumber)
+                                ,false);
+                        pause();
+                    }
+                }
+
+                sendData.sendActualTime(secound);
+
+                handler.postDelayed(this,1000);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        resume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        pause();
+    }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -211,6 +301,29 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
         {
             button.setEnabled(false);
         }
+    }
+
+    public void setSecounds(int secounds)
+    {
+        this.secound = secounds;
+    }
+
+    public void pause()
+    {
+        wasRunning = running;
+        running = false;
+    }
+
+    public void resume()
+    {
+        if (wasRunning){
+            running = true;
+        }
+    }
+
+    public void removeHandler()
+    {
+        handler.removeCallbacksAndMessages(null);
     }
 
 

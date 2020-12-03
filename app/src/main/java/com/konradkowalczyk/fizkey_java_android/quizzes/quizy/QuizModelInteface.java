@@ -12,9 +12,12 @@ public interface QuizModelInteface {
     public int getCurrentNumber();
     public int getMaxNumber();
     public int getBlockNumber();
+    public int getTimerValue();
+
 
 
     public void setCurrentNumber(int currentNumber);
+
 
 
 
