@@ -259,9 +259,10 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
                                 ,false);
                         pause();
                     }
+
+                    sendData.sendActualTime(secound);
                 }
 
-                sendData.sendActualTime(secound);
 
                 handler.postDelayed(this,1000);
             }
@@ -310,14 +311,14 @@ public class QuizFragment extends Fragment implements View.OnClickListener {
 
     public void pause()
     {
-        wasRunning = running;
-        running = false;
+        this.wasRunning = running;
+        this.running = false;
     }
 
     public void resume()
     {
         if (wasRunning){
-            running = true;
+            this.running = true;
         }
     }
 

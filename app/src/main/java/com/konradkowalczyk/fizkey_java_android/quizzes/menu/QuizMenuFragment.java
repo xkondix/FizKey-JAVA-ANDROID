@@ -39,7 +39,6 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
     private List<Integer> quanityBlock, quanityQuizess;
     private List<String> activesPhenomena;
     private QuizFactory.Level level;
-    private int onOff = 0;
 
 
     private QuizModelBase quizViewModel;
@@ -96,15 +95,12 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId){
                     case R.id.quiz_menu_fragment_OFF:
-                        onOff = 0;
-                        secondsValueEditText.setFocusable(false);
-
-
+                        quizViewModel.setTimerValue(0);
+                        secondsValueEditText.setEnabled(false);
                         break;
-                    case R.id.quiz_menu_fragment_ON:
-                        onOff = 1;
-                        secondsValueEditText.setFocusableInTouchMode(true);
 
+                    case R.id.quiz_menu_fragment_ON:
+                        secondsValueEditText.setEnabled(true);
                         break;
                 }
             }
@@ -244,8 +240,7 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
 
         @Override
         public void afterTextChanged(Editable s) {
-            System.out.println(secondsValueEditText.getText().toString());
-            System.out.println(s);
+
             if(Integer.parseInt(secondsValueEditText.getText().toString()) >= 5
             && Integer.parseInt(secondsValueEditText.getText().toString()) <= 600){
             quizViewModel.setTimerValue(Integer.parseInt(secondsValueEditText.getText().toString()));

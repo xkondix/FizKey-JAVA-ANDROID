@@ -90,7 +90,8 @@
                 android:id="@+id/quiz_menu_fragment_timer_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:enabled="false"
+                android:inputType="numberDecimal"
                 android:textAlignment="center" />
 
             <RadioGroup
