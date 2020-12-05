@@ -77,12 +77,10 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
                 switch(checkedId){
                     case R.id.quiz_menu_fragment_hard:
                         level = QuizFactory.Level.HARD;
-                        System.out.println(level);
 
                         break;
                     case R.id.quiz_menu_fragment_normal:
                         level = QuizFactory.Level.NORMAL;
-                        System.out.println(level);
 
                         break;
                 }
@@ -101,6 +99,9 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
 
                     case R.id.quiz_menu_fragment_ON:
                         secondsValueEditText.setEnabled(true);
+                        if(!(secondsValueEditText.getText().toString().equals(""))) {
+                            setTimer(Integer.parseInt(secondsValueEditText.getText().toString()));
+                        }
                         break;
                 }
             }
@@ -241,17 +242,32 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
         @Override
         public void afterTextChanged(Editable s) {
 
-            if(Integer.parseInt(secondsValueEditText.getText().toString()) >= 5
-            && Integer.parseInt(secondsValueEditText.getText().toString()) <= 600){
-            quizViewModel.setTimerValue(Integer.parseInt(secondsValueEditText.getText().toString()));
-            }
-            else
+            int value;
+
+            try {
+
+                value = Integer.parseInt(secondsValueEditText.getText().toString());
+                setTimer(value);
+
+            }catch (NumberFormatException e)
             {
-                Toast.makeText(getContext(), "5 - 600 secounds", Toast.LENGTH_SHORT).show();
+                System.out.println(e);
             }
+
         }
 
     };
+
+    private void setTimer(int value)
+    {
+        if(value >= 5 && value <= 300){
+            quizViewModel.setTimerValue(value);
+        }
+        else
+        {
+            Toast.makeText(getContext(), "5 - 600 secounds", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 }
