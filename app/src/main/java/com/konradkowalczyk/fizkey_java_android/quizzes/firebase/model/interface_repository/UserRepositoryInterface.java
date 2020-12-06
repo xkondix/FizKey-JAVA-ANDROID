@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository;
+package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_repository;
 
 import com.google.common.base.Optional;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Group;
@@ -9,7 +9,6 @@ import java.util.List;
 public interface UserRepositoryInterface {
 
     public Optional<User> getUserByUUID(String uuid);
-    public Optional<User> getUserByEmail(String email);
     public List<Group> getGroupsByUserUUID(String uuid);
     public List<User> getUsers();
 

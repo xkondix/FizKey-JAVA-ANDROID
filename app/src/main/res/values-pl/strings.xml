@@ -82,6 +82,13 @@
     <string name="off">OFF</string>
     <string name="on">ON</string>
     <string name="quiz_menu_timer">Timer</string>
+    <string name="sign_up_register">Sign up</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="sign_in_login">Sign in</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="title_name_first_login_dialog_fragment">Your profile</string>
 
 
 </resources>

@@ -5,20 +5,17 @@ import android.os.AsyncTask;
 import com.google.common.base.Optional;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Group;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.User;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.dao.UserDAO;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_repository.UserRepositoryInterface;
 
 import java.util.List;
 
 public class UserRepository implements UserRepositoryInterface {
 
-    private final static  UserDAO userDao = new UserDAO();
+    private final static UserDAO userDao = new UserDAO();
 
     @Override
     public Optional<User> getUserByUUID(String uuid) {
-        return null;
-    }
-
-    @Override
-    public Optional<User> getUserByEmail(String email) {
         return null;
     }
 
@@ -52,8 +49,6 @@ public class UserRepository implements UserRepositoryInterface {
     public void setUUID(User user, String uuid) {
 
     }
-
-
 
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {
