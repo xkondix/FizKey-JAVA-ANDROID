@@ -48,23 +48,22 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         emailEditText = view.findViewById(R.id.email_register);
         passwordEditText = view.findViewById(R.id.password_register);
 
+        signUpButton.setOnClickListener(this);
+
         return view;
     }
 
     @Override
     public void onClick(View v) {
-
+        System.out.println("xd");
         viewModelAuth.registerUser(new Account(getEmailFromEditText(),getPasswordFromEditText()));
-
     }
 
-    private String getEmailFromEditText()
-    {
+    private String getEmailFromEditText() {
         return emailEditText.getText().toString().trim();
     }
 
-    private String getPasswordFromEditText()
-    {
+    private String getPasswordFromEditText() {
         return passwordEditText.getText().toString().trim();
     }
 }

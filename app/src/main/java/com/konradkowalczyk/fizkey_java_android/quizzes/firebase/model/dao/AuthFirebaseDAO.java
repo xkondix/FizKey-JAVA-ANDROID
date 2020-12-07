@@ -43,13 +43,14 @@ public class AuthFirebaseDAO implements AuthFirebaseRepositoryInterface {
                         Log.i("checkIfTheUserExists", "Users exists");
                     }});
 
+        System.out.println(isNewUser.get());
         return isNewUser.get();
     }
 
     private void authAccount(Account account)
     {
 
-        if(checkIfTheUserExists(account.getEmail())) {
+        if(!checkIfTheUserExists(account.getEmail())) {
             firebaseAuth.createUserWithEmailAndPassword(account.getEmail(), account.getPassword())
                     .addOnCompleteListener(authTask -> {
                         if (authTask.isSuccessful()) {

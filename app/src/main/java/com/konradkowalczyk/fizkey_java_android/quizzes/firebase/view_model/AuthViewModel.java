@@ -26,7 +26,7 @@ public class AuthViewModel extends AndroidViewModel {
 
     public void loginUser(Account account)
     {
-        authFirebaseRepository.registerUser(account);
+        authFirebaseRepository.loginUser(account);
     }
 
     public FirebaseUser getCurrentlyUser()

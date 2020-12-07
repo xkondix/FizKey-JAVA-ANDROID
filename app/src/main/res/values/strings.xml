@@ -93,6 +93,8 @@
     <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="title_name_first_login_dialog_fragment">Your profile</string>
+    <string name="quiz_menu">Quiz Menu</string>
+    <string name="value_of_login">You need to provide data to create an account</string>
 
 
 </resources>

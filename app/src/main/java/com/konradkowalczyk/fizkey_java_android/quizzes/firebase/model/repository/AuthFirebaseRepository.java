@@ -32,6 +32,7 @@ public class AuthFirebaseRepository implements AuthFirebaseRepositoryInterface {
         private RegisterUserAsyncTask() {}
         @Override
         protected Void doInBackground(Account... accounts) {
+            System.out.println("xd 3");
             authFirebaseDAO.registerUser(accounts[0]);
             return null;
         }

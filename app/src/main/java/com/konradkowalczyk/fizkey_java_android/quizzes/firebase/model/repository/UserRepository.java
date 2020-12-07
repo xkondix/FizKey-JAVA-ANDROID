@@ -2,10 +2,11 @@ package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repositor
 
 import android.os.AsyncTask;
 
-import com.google.common.base.Optional;
+import androidx.lifecycle.MutableLiveData;
+
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.dao.UserDAO;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Group;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.User;
-import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.dao.UserDAO;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_repository.UserRepositoryInterface;
 
 import java.util.List;
@@ -15,8 +16,8 @@ public class UserRepository implements UserRepositoryInterface {
     private final static UserDAO userDao = new UserDAO();
 
     @Override
-    public Optional<User> getUserByUUID(String uuid) {
-        return null;
+    public MutableLiveData<User> getUserByUUID(String uuid) {
+        return userDao.getUserByUUID(uuid);
     }
 
     @Override

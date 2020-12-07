@@ -1,6 +1,7 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_repository;
 
-import com.google.common.base.Optional;
+import androidx.lifecycle.MutableLiveData;
+
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Group;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.User;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface UserRepositoryInterface {
 
-    public Optional<User> getUserByUUID(String uuid);
+    public MutableLiveData<User> getUserByUUID(String uuid);
     public List<Group> getGroupsByUserUUID(String uuid);
     public List<User> getUsers();
 

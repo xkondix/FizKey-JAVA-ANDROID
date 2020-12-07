@@ -79,16 +79,18 @@
     <string name="quiz_menu_level">Poziom trudnośći</string>
     <string name="normal">Normalny</string>
     <string name="hard">Trudny</string>
-    <string name="off">OFF</string>
-    <string name="on">ON</string>
+    <string name="off">Wyłączony</string>
+    <string name="on">Włączony</string>
     <string name="quiz_menu_timer">Timer</string>
-    <string name="sign_up_register">Sign up</string>
-    <string name="password">Password</string>
+    <string name="sign_up_register">Zajestruj</string>
+    <string name="password">Hasło</string>
     <string name="email">Email</string>
-    <string name="sign_in_login">Sign in</string>
-    <string name="name">Name</string>
-    <string name="surname">Surname</string>
-    <string name="title_name_first_login_dialog_fragment">Your profile</string>
+    <string name="sign_in_login">Zaloguj</string>
+    <string name="name">Imie</string>
+    <string name="surname">Nazwisko</string>
+    <string name="title_name_first_login_dialog_fragment">Twój profil</string>
+    <string name="quiz_menu">Meni quizu</string>
+    <string name="value_of_login">Musisz podać dane, aby założyć konto</string>
 
 
 </resources>

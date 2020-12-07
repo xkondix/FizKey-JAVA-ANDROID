@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.User;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_repository.AuthFirebaseRepositoryInterface;
@@ -12,6 +13,8 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository.UserRepository;
 
 public class UserViewModel extends AndroidViewModel {
+
+    public LiveData<User> liveDataUser;
 
     private UserRepositoryInterface userRepository;
     private AuthFirebaseRepositoryInterface authFirebaseRepository;
@@ -24,10 +27,15 @@ public class UserViewModel extends AndroidViewModel {
 
     }
 
-    public void insertAccount(User user)
+    public void insertUser(User user)
     {
         user.setUuid(authFirebaseRepository.getCurrentlyUser().getUid());
         userRepository.insertUser(user);
+    }
+
+    public void getCurrentlyUser()
+    {
+        this.liveDataUser = userRepository.getUserByUUID(authFirebaseRepository.getCurrentlyUser().getUid());
     }
 
 

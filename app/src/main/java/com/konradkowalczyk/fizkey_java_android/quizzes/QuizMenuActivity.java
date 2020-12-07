@@ -18,6 +18,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.LoginFragment;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.RegisterFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizMenuFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizActivity;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizResultDialog;
@@ -69,57 +71,28 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
         int id = menuItem.getItemId();
         Fragment fragment = null;
 
-        switch (id)
+        switch(id)
         {
-//            case R.id.mainFrag:
-//                fragment = new MainFragment();
-//                break;
-//            case R.id.wyszukajFrag:
-//                fragment = new SearchFragment();
-//                break;
-//            case R.id.klaserFrag:
-//                fragment = new LibFragment(toolbar);
-//                break;
-//            case R.id.ulubioneFrag:
-//                fragment = new FavouriteFragment();
-//                break;
-//            case R.id.trzeFrag:
-//                fragment = new AlkoPercentFragment();
-//                break;
-//            case R.id.rej:
-//                fragment = new RegisterFragment(status);
-//                break;
-//            case R.id.wyl:
-//                if(User.iflog)
-//                {
-//                    FirebaseAuth auch = FirebaseAuth.getInstance();
-//                    try{
-//                        auch.signOut();
-//                        User.iflog=false;
-//                        Toast.makeText(this, "Wylogowano", Toast.LENGTH_SHORT).show();
-//                        status.setText((User.iflog==true ? "Zalogowany" : "Wylogowany"));
-//                    }catch (Exception e) {
-//                    }
-//                }
-//                break;
-//            case R.id.zal:
-//                fragment = new LoginFragment(status);
-//                break;
-//
-//            case R.id.profil:
-//                fragment = new EditFragment();
-//                break;
-//            default:
-//                fragment = new MainFragment();
+            case R.id.menu_quiz:
+                fragment = new QuizMenuFragment();
+                break;
+            case R.id.register:
+                fragment = new RegisterFragment();
+                break;
+            case R.id.login:
+                fragment = new LoginFragment();
+                break;
+            default:
+                fragment = new QuizMenuFragment();
 
         }
 
-//        if(fragment != null)
-//        {
-//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.content_frame,fragment);
-//            ft.commit();
-//        }
+        if(fragment != null)
+        {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame,fragment);
+            ft.commit();
+        }
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);

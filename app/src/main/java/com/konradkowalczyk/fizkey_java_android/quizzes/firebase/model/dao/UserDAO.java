@@ -2,7 +2,8 @@ package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.dao;
 
 import android.util.Log;
 
-import com.google.common.base.Optional;
+import androidx.lifecycle.MutableLiveData;
+
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -19,8 +20,27 @@ public class UserDAO implements UserRepositoryInterface {
     private final static CollectionReference usersRef = rootRef.collection("users");
 
     @Override
-    public Optional<User> getUserByUUID(String uuid) {
-        return null;
+    public MutableLiveData<User> getUserByUUID(String uuid) {
+        MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
+
+        DocumentReference uuidRef = usersRef.document(uuid);
+        uuidRef.get().addOnCompleteListener(uuidTask -> {
+            if (uuidTask.isSuccessful()) {
+                DocumentSnapshot document = uuidTask.getResult();
+                if (!document.exists()) {
+                    Log.i("getUserByUUID", "Document not exists");
+                    userMutableLiveData.setValue(null);
+                } else {
+                    Log.i("getUserByUUID", "Document exists");
+                    User user = document.toObject(User.class);
+                    userMutableLiveData.setValue(user);
+                }
+            } else {
+                Log.i("getUserByUUID", "ref uuid error");
+            }
+        });
+
+        return userMutableLiveData;
     }
 
     @Override
