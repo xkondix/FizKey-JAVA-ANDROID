@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view;
+package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.register;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

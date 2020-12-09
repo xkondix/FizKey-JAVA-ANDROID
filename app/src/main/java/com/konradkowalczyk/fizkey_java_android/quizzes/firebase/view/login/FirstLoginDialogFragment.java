@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view;
+package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.login;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -29,7 +29,7 @@ public class FirstLoginDialogFragment extends DialogFragment {
     private TextView okTextView, cancelTextView;
     private EditText nameEditText, surnameEditText;
 
-    public static FirstLoginDialogFragment newInstance(String param1, String param2) {
+    public static FirstLoginDialogFragment newInstance() {
         FirstLoginDialogFragment fragment = new FirstLoginDialogFragment();
         return fragment;
     }

@@ -26,6 +26,11 @@ public class AuthFirebaseDAO implements AuthFirebaseRepositoryInterface {
     }
 
     @Override
+    public void changePassword(String email) {
+        changePasswordUser(email);
+    }
+
+    @Override
     public FirebaseUser getCurrentlyUser() {
         return firebaseAuth.getCurrentUser();
     }
@@ -43,7 +48,6 @@ public class AuthFirebaseDAO implements AuthFirebaseRepositoryInterface {
                         Log.i("checkIfTheUserExists", "Users exists");
                     }});
 
-        System.out.println(isNewUser.get());
         return isNewUser.get();
     }
 
@@ -99,6 +103,19 @@ public class AuthFirebaseDAO implements AuthFirebaseRepositoryInterface {
                         Log.i("login", "Login error");
                     }
                 });
+    }
+
+    private void changePasswordUser(String email) {
+        if(checkIfTheUserExists(email)) {
+            firebaseAuth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener(loginTask -> {
+                        if (loginTask.isSuccessful()) {
+                            Log.i("changePasswordUser", "sendPasswordResetEmail success");
+                        } else {
+                            Log.i("changePasswordUser", "sendPasswordResetEmail failure");
+                        }
+                    });
+        }
     }
 
 

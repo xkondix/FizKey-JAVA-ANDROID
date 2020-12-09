@@ -29,6 +29,11 @@ public class AuthViewModel extends AndroidViewModel {
         authFirebaseRepository.loginUser(account);
     }
 
+    public void changePassword(String email)
+    {
+        authFirebaseRepository.changePassword(email);
+    }
+
     public FirebaseUser getCurrentlyUser()
     {
         return getCurrentlyUser();

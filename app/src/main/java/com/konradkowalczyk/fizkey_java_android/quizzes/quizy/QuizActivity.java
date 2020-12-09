@@ -43,10 +43,10 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
         setNumberOfQuestionTextView();
 
 
-        fragment =  QuizFragment.newInstance(quizModelBase.getBlockNumber()
-                ,quizModelBase.getListAnswers().get(quizModelBase.getCurrentNumber())
-                ,quizModelBase.getQuestions().get(quizModelBase.getCurrentNumber())
-                ,quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentNumber())
+        fragment =  QuizFragment.newInstance(quizModelBase.getNumberOfFields()
+                ,quizModelBase.getListAnswers().get(quizModelBase.getCurrentlyNumber())
+                ,quizModelBase.getQuestions().get(quizModelBase.getCurrentlyNumber())
+                ,quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentlyNumber())
                 ,quizModelBase.getTimerValue());
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -74,7 +74,7 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
                 quizResults.addBooleanAnswer(boolAnswer);
 
 
-                if(quizModelBase.getCurrentNumber()>= quizModelBase.getMaxNumber()-1)
+                if(quizModelBase.getCurrentlyNumber()>= quizModelBase.getMaxNumber()-1)
                 {
 
                     fragment.removeHandler();
@@ -86,11 +86,11 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
                 }
                 else {
 
-                    quizModelBase.setCurrentNumber(quizModelBase.getCurrentNumber() + 1);
+                    quizModelBase.setCurrentlyNumber(quizModelBase.getCurrentlyNumber() + 1);
                     setNumberOfQuestionTextView();
-                    fragment.setQuestion(quizModelBase.getQuestions().get(quizModelBase.getCurrentNumber()));
-                    fragment.setAnwsers(quizModelBase.getListAnswers().get(quizModelBase.getCurrentNumber()));
-                    fragment.setPositiveNumber(quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentNumber()));
+                    fragment.setQuestion(quizModelBase.getQuestions().get(quizModelBase.getCurrentlyNumber()));
+                    fragment.setAnwsers(quizModelBase.getListAnswers().get(quizModelBase.getCurrentlyNumber()));
+                    fragment.setPositiveNumber(quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentlyNumber()));
                     fragment.setButtonsBasicColorAndUnlock();
 
                     if(quizModelBase.getTimerValue() != 0)
@@ -118,7 +118,7 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
             @Override
             public void run() {
 
-                counterTextView.setText((quizModelBase.getCurrentNumber() + 1) + "/" + quizModelBase.getMaxNumber());
+                counterTextView.setText((quizModelBase.getCurrentlyNumber() + 1) + "/" + quizModelBase.getMaxNumber());
 
             }
         });

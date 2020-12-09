@@ -107,7 +107,7 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
             }
         });
 
-
+//s
         secondsValueEditText = view.findViewById(R.id.quiz_menu_fragment_timer_value);
         secondsValueEditText.addTextChangedListener(generalTextWatcher);
 
@@ -209,7 +209,7 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
 
     private void setQuestions()
     {
-        quizFactory = new QuizFactory(getContext(), quizViewModel.getBlockNumber());
+        quizFactory = new QuizFactory(getContext(), quizViewModel.getNumberOfFields());
         quizFactory.setLevel(level);
         quizFactory.acceptForces(activesPhenomena);
         quizFactory.generateQuestions(quizViewModel.getMaxNumber());

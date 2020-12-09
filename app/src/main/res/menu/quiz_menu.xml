@@ -23,4 +23,18 @@
         android:orderInCategory="1"
         app:showAsAction="ifRoom"
         ></item>
+
+    <item
+        android:id="@+id/create_custom_quiz_fragment"
+        android:title="@string/create_custom_quiz_fragment"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        ></item>
+
+    <item
+        android:id="@+id/solve_custom_quiz_fragment"
+        android:title="@string/solve_custom_quiz_fragment"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        ></item>
 </menu>

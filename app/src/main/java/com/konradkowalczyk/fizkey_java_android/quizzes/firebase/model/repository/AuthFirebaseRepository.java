@@ -12,13 +12,19 @@ public class AuthFirebaseRepository implements AuthFirebaseRepositoryInterface {
     private static AuthFirebaseDAO authFirebaseDAO = new AuthFirebaseDAO();
 
 
-
+    @Override
     public void registerUser(Account account) {
         new RegisterUserAsyncTask().execute(account);
     }
 
+    @Override
     public void loginUser(Account account){
         new LoginUserAsyncTask().execute(account);
+    }
+
+    @Override
+    public void changePassword(String email) {
+        new ChangePasswordAsyncTask().execute(email);
     }
 
     @Override
@@ -44,6 +50,17 @@ public class AuthFirebaseRepository implements AuthFirebaseRepositoryInterface {
         @Override
         protected Void doInBackground(Account... accounts) {
             authFirebaseDAO.loginUser(accounts[0]);
+            return null;
+        }
+    }
+
+    private static class ChangePasswordAsyncTask extends AsyncTask<String, Void, Void> {
+
+        private ChangePasswordAsyncTask() {}
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            authFirebaseDAO.changePassword(strings[0]);
             return null;
         }
     }

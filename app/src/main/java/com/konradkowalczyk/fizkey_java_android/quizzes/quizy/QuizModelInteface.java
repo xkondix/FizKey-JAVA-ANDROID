@@ -9,14 +9,14 @@ public interface QuizModelInteface {
     public List<Integer> getPositiveNumbers();
     public List<List<String>> getListAnswers();
 
-    public int getCurrentNumber();
+    public int getCurrentlyNumber();
     public int getMaxNumber();
-    public int getBlockNumber();
+    public int getNumberOfFields();
     public int getTimerValue();
 
 
 
-    public void setCurrentNumber(int currentNumber);
+    public void setCurrentlyNumber(int currentlyNumber);
 
 
 

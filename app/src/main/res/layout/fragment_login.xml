@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    tools:context=".quizzes.firebase.view.LoginFragment">
+    tools:context=".quizzes.firebase.view.login.LoginFragment">
 
     <EditText
         android:id="@+id/email_login"
@@ -26,12 +26,31 @@
         android:inputType="textPassword"
         android:hint="@string/password" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        android:layout_gravity="center_horizontal">
+
     <Button
         android:id="@+id/sign_in_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
         android:text="@string/sign_in_login"></Button>
+
+        <Button
+            android:id="@+id/forgot_password_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:text="@string/forgot_password_login"></Button>
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -18,8 +18,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.LoginFragment;
-import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.RegisterFragment;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz.CreateCustomQuizFragment;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz.SolveCustomQuizFragment;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.login.LoginFragment;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.register.RegisterFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizMenuFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizActivity;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizResultDialog;
@@ -81,6 +83,12 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.login:
                 fragment = new LoginFragment();
+                break;
+            case R.id.create_custom_quiz_fragment:
+                fragment = new CreateCustomQuizFragment();
+                break;
+            case R.id.solve_custom_quiz_fragment:
+                fragment = new SolveCustomQuizFragment();
                 break;
             default:
                 fragment = new QuizMenuFragment();

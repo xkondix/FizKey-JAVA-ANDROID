@@ -7,5 +7,7 @@ public interface AuthFirebaseRepositoryInterface {
 
     public void registerUser(Account account);
     public void loginUser(Account account);
+    public void changePassword(String email);
+
     public FirebaseUser getCurrentlyUser();
 }

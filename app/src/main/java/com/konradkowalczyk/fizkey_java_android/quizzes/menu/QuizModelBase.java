@@ -83,13 +83,13 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
     }
 
     @Override
-    public int getCurrentNumber() {
+    public int getCurrentlyNumber() {
         return currentNumber;
     }
 
     @Override
-    public void setCurrentNumber(int currentNumber) {
-        this.currentNumber = currentNumber;
+    public void setCurrentlyNumber(int currentlyNumber) {
+        this.currentNumber = currentlyNumber;
     }
 
     @Override
@@ -102,7 +102,7 @@ public class QuizModelBase implements Parcelable, QuizModelInteface {
     }
 
     @Override
-    public int getBlockNumber() {
+    public int getNumberOfFields() {
         return blockNumber;
     }
 

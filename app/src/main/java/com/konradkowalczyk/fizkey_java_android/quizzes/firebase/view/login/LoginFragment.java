@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view;
+package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.login;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,11 +14,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Account;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.User;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.register.ResetPasswordDialogFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.AuthViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.UserViewModel;
 
 
-public class LoginFragment extends Fragment implements View.OnClickListener, FirstLoginDialogFragment.OnSendPersonalData {
+public class LoginFragment extends Fragment implements View.OnClickListener
+        , FirstLoginDialogFragment.OnSendPersonalData
+        , ResetPasswordDialogFragment.OnSendResetEmail {
 
     private EditText emailEditText ,passwordEditText;
     private Button signInButton;
@@ -64,12 +67,37 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Fir
 
     @Override
     public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.sign_in_login:
+                authViewModel.loginUser(new Account(getEmailFromEditText(),getPasswordFromEditText()));
+
+                userViewModel.getCurrentlyUser();
+                userViewModel.liveDataUser.observe(this, user -> {
+                    if (user == null) {
+                        FirstLoginDialogFragment dialog =  FirstLoginDialogFragment.newInstance();
+                        dialog.setTargetFragment(LoginFragment.this, 1);
+                        dialog.show(getFragmentManager(), "First Login Dialog");
+                    } else {
+                    }
+                });
+                break;
+
+            case R.id.forgot_password_login:
+
+                ResetPasswordDialogFragment dialog =  ResetPasswordDialogFragment.newInstance();
+                dialog.setTargetFragment(LoginFragment.this, 1);
+                dialog.show(getFragmentManager(), "Reset Password");
+                break;
+        }
+
+
         authViewModel.loginUser(new Account(getEmailFromEditText(),getPasswordFromEditText()));
 
         userViewModel.getCurrentlyUser();
         userViewModel.liveDataUser.observe(this, user -> {
             if (user == null) {
-                FirstLoginDialogFragment dialog = new FirstLoginDialogFragment();
+                FirstLoginDialogFragment dialog =  FirstLoginDialogFragment.newInstance();
                 dialog.setTargetFragment(LoginFragment.this, 1);
                 dialog.show(getFragmentManager(), "First Login Dialog");
             } else {
@@ -96,5 +124,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener, Fir
         else {
             userViewModel.insertUser(new User(name, surname));
         }
+    }
+
+    @Override
+    public void respondData(String email) {
+        authViewModel.changePassword(email);
     }
 }

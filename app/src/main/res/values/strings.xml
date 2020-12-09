@@ -86,15 +86,27 @@
     <string name="off">OFF</string>
     <string name="on">ON</string>
     <string name="quiz_menu_timer">Timer</string>
+
+    <!-- RegisterFragment and LoginFragment -->
     <string name="sign_up_register">Sign up</string>
+    <string name="sign_in_login">Sign in</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
-    <string name="sign_in_login">Sign in</string>
+    <string name="value_of_login">You need to provide data to create an account</string>
+
+
+    <!-- FirstLoginDialogFragment -->
     <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="title_name_first_login_dialog_fragment">Your profile</string>
+
+
     <string name="quiz_menu">Quiz Menu</string>
-    <string name="value_of_login">You need to provide data to create an account</string>
+    <string name="forgot_password_login">Forgot password?</string>
+    <string name="create_custom_quiz_fragment">Create custom quiz</string>
+    <string name="solve_custom_quiz_fragment">Solve custom quizzes</string>
+    <string name="welcome_create_custom_quiz">Create custom quiz</string>
+    <string name="empty_field">This field cannot be empty</string>
 
 
 </resources>

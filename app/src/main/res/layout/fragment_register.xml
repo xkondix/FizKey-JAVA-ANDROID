@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_margin="10dp"
     android:gravity="center_horizontal"
-    tools:context=".quizzes.firebase.view.RegisterFragment">
+    tools:context=".quizzes.firebase.view.register.RegisterFragment">
 
     <EditText
         android:id="@+id/email_register"

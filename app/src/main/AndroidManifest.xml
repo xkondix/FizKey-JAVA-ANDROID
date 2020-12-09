@@ -11,32 +11,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".quizzes.quizy.QuizActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".quizzes.QuizMenuActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".games.kinematics.projection.vertical.GameVerticalActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".menu.kinematyka.projection.vertical.VerticalProjectionSimulationActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".menu.kinematyka.projection.vertical.VerticalProjectionPlotActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".quizzes.firebase.view.custom_quiz.CreateCustomQuizActivity"></activity>
+        <activity
+            android:name=".quizzes.quizy.QuizActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".quizzes.QuizMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".games.kinematics.projection.vertical.GameVerticalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".menu.kinematyka.projection.vertical.VerticalProjectionSimulationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".menu.kinematyka.projection.vertical.VerticalProjectionPlotActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".menu.MenuGlowneActivity"
             android:label="@string/menuGlowne"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".menu.kinematyka.KinematykaMenuActivity"
             android:label="@string/menuKinematyka"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".menu.MenuGlowneActivity" />
+            android:parentActivityName=".menu.MenuGlowneActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".menu.kinematyka.projection.vertical.VerticalProjectionActivity"
             android:label="@string/rzuty"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".menu.kinematyka.KinematykaMenuActivity" />
-        <activity android:name=".MainActivity"
+            android:parentActivityName=".menu.kinematyka.KinematykaMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
