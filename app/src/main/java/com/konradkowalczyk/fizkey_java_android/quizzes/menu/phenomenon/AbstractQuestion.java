@@ -137,7 +137,7 @@ public abstract class AbstractQuestion implements Question {
         return doubleToString((RANDOM.nextDouble() + value));
     }
 
-    private int createFakeAnswer(int anwser)
+    public static int createFakeAnswer(int anwser)
     {
         int min = anwser - RANDOM.nextInt((anwser / 2) == 0 ? 1 : (anwser / 2));
         int max = anwser + RANDOM.nextInt((anwser * 2) == 0 ? min+10 : (anwser * 2) )+10;
@@ -145,7 +145,7 @@ public abstract class AbstractQuestion implements Question {
         return randomBeetwen(min,max);
     }
 
-    protected int randomBeetwen(int min, int max) {
+    protected static int randomBeetwen(int min, int max) {
         return RANDOM.nextInt( max - min + 1 > 0 ? max - min + 1 : 1) + min;
     }
 

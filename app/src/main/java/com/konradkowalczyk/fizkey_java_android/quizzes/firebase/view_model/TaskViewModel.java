@@ -28,8 +28,9 @@ public class TaskViewModel extends AndroidViewModel {
 
     public TaskViewModel(@NonNull Application application) {
         super(application);
-        taskRecyclerLiveData =  new MutableLiveData<List<TaskRecycler>>();
-        customQuizModelsLiveData = getTasks();
+        taskRecyclerLiveData =  new MutableLiveData<List<TaskRecycler>>(new ArrayList<>());
+        customQuizModelLiveData =  new MutableLiveData<CustomQuizModel>(new CustomQuizModel());
+//        customQuizModelsLiveData = getTasks();
     }
 
 
@@ -57,14 +58,23 @@ public class TaskViewModel extends AndroidViewModel {
         this.customQuizModelsLiveData = customQuizModelsLiveData;
     }
 
+    public void removeFromList(TaskRecycler taskRecycler)
+    {
+        List<TaskRecycler> value = taskRecyclerLiveData.getValue();
+        value.remove(taskRecycler);
+        this.taskRecyclerLiveData = new MutableLiveData<>(value);
+    }
+
     private LiveData<List<CustomQuizModel>>  getTasks()
     {
         List<CustomQuizModel> customQuizModels = new ArrayList<>();
+        List<Task> values = TASK_REPOSITORY.getTasks().getValue();
 
-        for(Task task : TASK_REPOSITORY.getTasks().getValue())
-        {
-            task = changePlaceOfGoodAnswers(task);
-            customQuizModels.add(TaskToCustomQuizModel(task));
+        if(values.size()>0){
+            for(Task task : values) {
+                task = changePlaceOfGoodAnswers(task);
+                customQuizModels.add(TaskToCustomQuizModel(task));
+            }
         }
 
         return new MutableLiveData<>(customQuizModels);

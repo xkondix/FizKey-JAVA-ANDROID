@@ -4,22 +4,23 @@
 
     <application
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".quizzes.firebase.view.custom_quiz.CreateCustomQuizActivity"></activity>
+        <activity
+            android:name=".quizzes.firebase.view.custom_quiz.CustomResultActivity"
+            android:label="@string/title_activity_custom_result"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".quizzes.firebase.view.custom_quiz.CreateCustomQuizActivity" />
         <activity
             android:name=".quizzes.quizy.QuizActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".quizzes.QuizMenuActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".games.kinematics.projection.vertical.GameVerticalActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".menu.kinematyka.projection.vertical.VerticalProjectionSimulationActivity"

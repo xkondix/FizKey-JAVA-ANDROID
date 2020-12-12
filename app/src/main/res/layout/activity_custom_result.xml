@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".quizzes.firebase.view.custom_quiz.CustomResultActivity">
+
+    <include
+        layout="@layout/toolbar_main"
+        android:id="@+id/toolbar"
+        ></include>
+
+    <Spinner
+        android:id="@+id/forces_custom_result_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:spinnerMode="dialog"
+        android:entries="@array/force_for_quizzes">
+    </Spinner>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/topic"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/topic_custom_result_activity"
+            android:layout_below="@+id/forces_create_quzestion_dialog_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ></EditText>
+    </LinearLayout>
+
+    <GridLayout
+        android:id="@+id/gridlayout_custom_result_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/back_custom_result_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/save_custom_result_activity"
+            android:layout_below="@+id/forces_create_quzestion_dialog_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            ></Button>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,29 +1,62 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.CreateCustomQuizRecyclerViewAdapter;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.CustomQuizModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.TaskRecycler;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.TaskViewModel;
+import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizMenuFragment;
+import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizActivity;
 
 import java.util.List;
 
 public class CreateCustomQuizActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MODEL_ID = "model";
+
+    public static final String TASK_RECYCLER = "task";
+    public static final String NUMBER_OF_FIELDS = "fields";
+    public static final String ACTION_NEW = "new";
+    public static final String ACTION_CHANGE = "change";
+
+
+    public static final int GET_NEW_RESULTS_REQUEST = 2;
+    public static final int CHANGE_RESULTS_REQUEST = 3;
+
+
+
     private TaskViewModel taskViewModel;
+    private Button addNewQuestionButton;
+
+    private CustomQuizModel customQuizModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_custom_quiz);
+
+        customQuizModel = (CustomQuizModel) getIntent().getParcelableExtra(QuizActivity.EXTRA_MODEL_ID);
+
+        addNewQuestionButton = findViewById(R.id.add_question_create_custom_quiz_activity);
+        addNewQuestionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewData();
+            }
+        });
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view_create_custom_quiz_activity);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -36,9 +69,58 @@ public class CreateCustomQuizActivity extends AppCompatActivity {
         taskViewModel.getTaskRecyclerLiveData().observe(this, new Observer<List<TaskRecycler>>() {
             @Override
             public void onChanged(@Nullable List<TaskRecycler> taskRecyclers) {
-                adapter.changeList(taskRecyclers);
+                adapter.submitList(taskRecyclers);
             }
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                taskViewModel.removeFromList(adapter.getTaskRecyclerAt(viewHolder.getAdapterPosition()));
+            }
+        }).attachToRecyclerView(recyclerView);
+
+
+        adapter.setOnItemClickListener(new CreateCustomQuizRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(TaskRecycler task) {
+                changeData(task);
+            }
+
+        });
+
+    }
+
+    private void addNewData()
+    {
+        Intent intent = new Intent(this, CustomResultActivity.class);
+        intent.putExtra(CreateCustomQuizActivity.NUMBER_OF_FIELDS, customQuizModel.getNumberOfFields());
+        intent.setAction(ACTION_NEW);
+        startActivityForResult(intent,GET_NEW_RESULTS_REQUEST);
+    }
+
+    private void changeData(TaskRecycler taskRecycler)
+    {
+        Intent intent = new Intent(this, CustomResultActivity.class);
+        intent.putExtra(CreateCustomQuizActivity.NUMBER_OF_FIELDS, customQuizModel.getNumberOfFields());
+        intent.putExtra(CreateCustomQuizActivity.TASK_RECYCLER, taskRecycler);
+        intent.setAction(ACTION_CHANGE);
+        startActivityForResult(intent,CHANGE_RESULTS_REQUEST);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == QuizMenuFragment.GET_RESULTS_REQUEST && resultCode == RESULT_OK) {
+
+        }
 
     }
 }

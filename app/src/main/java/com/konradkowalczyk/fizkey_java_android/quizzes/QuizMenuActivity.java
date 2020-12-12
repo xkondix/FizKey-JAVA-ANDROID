@@ -136,8 +136,6 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
             dialog.show(getSupportFragmentManager(), "Results View");
         }
 
-
-
     }
 }
 

@@ -3,62 +3,62 @@ package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 
-import java.util.ArrayList;
-import java.util.List;
 
+public class CreateCustomQuizRecyclerViewAdapter extends
+        ListAdapter<TaskRecycler, CreateCustomQuizRecyclerViewAdapter.CreateCustomQuizHolder> {
 
-public class CreateCustomQuizRecyclerViewAdapter extends RecyclerView.Adapter<CreateCustomQuizRecyclerViewAdapter.QuizRecyclerViewHolder> {
-
-    private List<TaskRecycler> taskRecyclers = new ArrayList<>();
-    private AdapterView.OnItemClickListener listener;
+    private OnItemClickListener listener;
+    public CreateCustomQuizRecyclerViewAdapter() {
+        super(DIFF_CALLBACK);
+    }
+    private static final DiffUtil.ItemCallback<TaskRecycler> DIFF_CALLBACK = new DiffUtil.ItemCallback<TaskRecycler>() {
+        @Override
+        public boolean areItemsTheSame(TaskRecycler oldItem, TaskRecycler newItem) {
+            return oldItem.hashCode() == newItem.hashCode();
+        }
+        @Override
+        public boolean areContentsTheSame(TaskRecycler oldItem, TaskRecycler newItem) {
+            return oldItem.getAnswers().equals(newItem.getAnswers()) &&
+                    oldItem.getGoodAnswer().equals(newItem.getGoodAnswer()) &&
+                    oldItem.getQuestion().equals(newItem.getQuestion());
+        }
+    };
 
     @NonNull
     @Override
-    public CreateCustomQuizRecyclerViewAdapter.QuizRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemQuizResultView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_view_quiz_result_item, parent, false);
-        return new CreateCustomQuizRecyclerViewAdapter.QuizRecyclerViewHolder(itemQuizResultView);
+    public CreateCustomQuizHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.card_view_create_custom_quiz, parent, false);
+        return new CreateCustomQuizHolder(itemView);
     }
-
     @Override
-    public void onBindViewHolder(@NonNull CreateCustomQuizRecyclerViewAdapter.QuizRecyclerViewHolder holder, int position) {
-
-        holder.goodAnswerTextView.setText("yo");
-//        holder.answersTextView.setText(quizResults.get(position).getYourAnswer());
-//        holder.questionTextView.setText(quizResults.get(position).getQuestion());
-//        holder.numberOfQuestionTextView.setText(quizResults.get(position).getNumberQuestion());
-
+    public void onBindViewHolder(@NonNull CreateCustomQuizHolder holder, int position) {
+        TaskRecycler currentTask = getItem(position);
+        holder.goodAnswerTextView.setText(currentTask.getGoodAnswer());
+        holder.answersTextView.setText(currentTask.getAnswers());
+        holder.questionTextView.setText(currentTask.getQuestion());
+        holder.numberOfQuestionTextView.setText("Position "+ position);
     }
-
-    @Override
-    public int getItemCount() {
-        return taskRecyclers.size();
+    public TaskRecycler getTaskRecyclerAt(int position) {
+        return getItem(position);
     }
-
-    public void setQuizResults(List<TaskRecycler> taskRecyclers) {
-        this.taskRecyclers = taskRecyclers;
-        notifyDataSetChanged();
-    }
-
-    public void changeList(List<TaskRecycler> taskRecyclers) {
-    }
-
-    protected class QuizRecyclerViewHolder extends RecyclerView.ViewHolder {
+    class CreateCustomQuizHolder extends RecyclerView.ViewHolder {
 
         private TextView numberOfQuestionTextView;
         private TextView questionTextView;
         private TextView goodAnswerTextView;
         private TextView answersTextView;
 
-        public QuizRecyclerViewHolder(@NonNull View itemView) {
+        public CreateCustomQuizHolder(View itemView) {
             super(itemView);
 
             answersTextView = itemView.findViewById(R.id.answers_card_view_create_custom_quiz);
@@ -66,17 +66,21 @@ public class CreateCustomQuizRecyclerViewAdapter extends RecyclerView.Adapter<Cr
             questionTextView = itemView.findViewById(R.id.question_card_view_create_custom_quiz);
             numberOfQuestionTextView = itemView.findViewById(R.id.number_of_question_card_view_create_custom_quiz);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int position = getAdapterPosition();
-//                    if (listener != null && position != RecyclerView.NO_POSITION) {
-//                        listener.onItemClick(getItem(position));
-//                    }
-//                }
-//            });
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(getItem(position));
+                    }
+                }
+            });
         }
-
+    }
+    public interface OnItemClickListener {
+        void onItemClick(TaskRecycler task);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

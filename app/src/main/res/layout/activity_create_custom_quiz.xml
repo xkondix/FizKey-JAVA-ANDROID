@@ -3,8 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".quizzes.firebase.view.custom_quiz.CreateCustomQuizActivity">
 
+    <Button
+        android:id="@+id/add_question_create_custom_quiz_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ></Button>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_create_custom_quiz_activity"
         android:layout_width="match_parent"

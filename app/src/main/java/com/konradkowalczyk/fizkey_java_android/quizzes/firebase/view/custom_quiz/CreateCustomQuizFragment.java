@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.CustomQuizModel;
-import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +110,7 @@ public class CreateCustomQuizFragment extends Fragment {
                     if(checkFields().equals(""))
                     {
                         Intent intent = new Intent(getActivity(), CreateCustomQuizActivity.class);
-                        intent.putExtra(QuizActivity.EXTRA_MODEL_ID, customQuizModel);
+                        intent.putExtra(CreateCustomQuizActivity.EXTRA_MODEL_ID, customQuizModel);
                         getActivity().startActivity(intent);
                     }
                     else {
