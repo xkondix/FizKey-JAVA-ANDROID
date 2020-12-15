@@ -18,7 +18,7 @@ public class Task implements Serializable {
     private int timerValue;
 
 
-    public Task(String topic, String description, List<String> questions, List<List<String>> answers, List<Integer> positiveNumbers, String data, int numberOfFields, int timerValue) {
+    public Task(String topic, String description, List<String> questions, List<List<String>> answers, List<Integer> positiveNumbers, String data, int numberOfFields, int timerValue, String uuid) {
         this.topic = topic;
         this.description = description;
         this.questions = questions;
@@ -27,6 +27,7 @@ public class Task implements Serializable {
         this.data = data;
         this.numberOfFields = numberOfFields;
         this.timerValue = timerValue;
+        this.uuid = uuid;
 
     }
 

@@ -1,60 +1,97 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model;
 
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.CustomQuizModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.TaskRecycler;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Task;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository.TaskRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
-public class TaskViewModel extends AndroidViewModel {
+public class TaskViewModel extends ViewModel {
 
-    private LiveData<List<TaskRecycler>> taskRecyclerLiveData;
-    private LiveData<CustomQuizModel> customQuizModelLiveData;
-    private LiveData<List<CustomQuizModel>> customQuizModelsLiveData;
+    private MutableLiveData<List<TaskRecycler>> taskRecyclerLiveData;
+    private MutableLiveData<CustomQuizModel> customQuizModelLiveData;
+    private MutableLiveData<List<CustomQuizModel>> customQuizModelsLiveData;
+    private MutableLiveData<Integer> position = new MutableLiveData<>(-1);
 
     private final static TaskRepository TASK_REPOSITORY = new TaskRepository();
 
 
-    public TaskViewModel(@NonNull Application application) {
-        super(application);
-        taskRecyclerLiveData =  new MutableLiveData<List<TaskRecycler>>(new ArrayList<>());
+    public TaskViewModel() {
+        super();
         customQuizModelLiveData =  new MutableLiveData<CustomQuizModel>(new CustomQuizModel());
 //        customQuizModelsLiveData = getTasks();
     }
 
 
     public LiveData<List<TaskRecycler>> getTaskRecyclerLiveData() {
-        return taskRecyclerLiveData;
+        if (taskRecyclerLiveData == null) {
+            taskRecyclerLiveData = new MutableLiveData<>(new ArrayList<TaskRecycler>());
+        }
+
+        return  taskRecyclerLiveData;
     }
 
-    public void setTaskRecyclerLiveData(LiveData<List<TaskRecycler>> taskRecyclerLiveData) {
-        this.taskRecyclerLiveData = taskRecyclerLiveData;
+    public void insertTask()
+    {
+        List<TaskRecycler> values = taskRecyclerLiveData.getValue();
+        List<List<String>> answers = new ArrayList<>();
+        List<String> questions = new ArrayList<>();
+        List<Integer> positivNumbers = new ArrayList<>();
+
+        for(TaskRecycler value : values)
+        {
+            answers.add(value.getListAnswers());
+            questions.add(value.getQuestion());
+            positivNumbers.add(0);
+        }
+
+        TASK_REPOSITORY.insertTask(new Task(customQuizModelLiveData.getValue().getTopic()
+                ,customQuizModelLiveData.getValue().getDescripcion()
+                ,questions
+                ,answers
+                ,positivNumbers
+                , new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()).toString()
+                ,customQuizModelLiveData.getValue().getNumberOfFields()
+                ,customQuizModelLiveData.getValue().getTimerValue()
+                ,UUID.randomUUID().toString()
+                ));
     }
 
-    public LiveData<CustomQuizModel> getCustomQuizModelLiveData() {
+    public MutableLiveData<Integer> getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position.setValue(position);
+    }
+
+    public MutableLiveData<CustomQuizModel> getCustomQuizModelLiveData() {
         return customQuizModelLiveData;
     }
 
-    public void setCustomQuizModelLiveData(LiveData<CustomQuizModel> customQuizModelLiveData) {
-        this.customQuizModelLiveData = customQuizModelLiveData;
+    public void setCustomQuizModelLiveData(CustomQuizModel customQuizModel) {
+        if (customQuizModelLiveData == null) {
+            customQuizModelLiveData =  new MutableLiveData<CustomQuizModel>(customQuizModel);
+        }
+        this.customQuizModelLiveData.setValue(customQuizModel);
     }
 
     public LiveData<List<CustomQuizModel>> getCustomQuizModelsLiveData() {
         return customQuizModelsLiveData;
     }
 
-    public void setCustomQuizModelsLiveData(LiveData<List<CustomQuizModel>> customQuizModelsLiveData) {
+    public void setCustomQuizModelsLiveData(MutableLiveData<List<CustomQuizModel>> customQuizModelsLiveData) {
         this.customQuizModelsLiveData = customQuizModelsLiveData;
     }
 
@@ -62,7 +99,20 @@ public class TaskViewModel extends AndroidViewModel {
     {
         List<TaskRecycler> value = taskRecyclerLiveData.getValue();
         value.remove(taskRecycler);
-        this.taskRecyclerLiveData = new MutableLiveData<>(value);
+        this.taskRecyclerLiveData.setValue(value);
+    }
+
+    public void addToList(TaskRecycler taskRecycler)
+    {
+        List<TaskRecycler> value = taskRecyclerLiveData.getValue();
+        value.add(taskRecycler);
+        this.taskRecyclerLiveData.setValue(value);
+    }
+
+    public void changeList(TaskRecycler taskRecycler) {
+        List<TaskRecycler> value = taskRecyclerLiveData.getValue();
+        value.set(position.getValue(),taskRecycler);
+        taskRecyclerLiveData.setValue(value);
     }
 
     private LiveData<List<CustomQuizModel>>  getTasks()
@@ -151,4 +201,6 @@ public class TaskViewModel extends AndroidViewModel {
 
         return newPositiveNumber;
     }
+
+
 }

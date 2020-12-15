@@ -9,20 +9,19 @@ public class TaskRecycler implements Parcelable {
 
     private String question;
     private String goodAnswer;
-    private String answers;
+    private List<String> answers;
 
 
     public TaskRecycler(String question, String goodAnswer, List<String> answers) {
         this.question = question;
         this.goodAnswer = goodAnswer;
-        this.answers = listToString(answers);
+        this.answers = answers;
     }
-
 
     protected TaskRecycler(Parcel in) {
         question = in.readString();
         goodAnswer = in.readString();
-        answers = in.readString();
+        answers = in.createStringArrayList();
     }
 
     public static final Creator<TaskRecycler> CREATOR = new Creator<TaskRecycler>() {
@@ -46,7 +45,7 @@ public class TaskRecycler implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(question);
         dest.writeString(goodAnswer);
-        dest.writeString(answers);
+        dest.writeStringList(answers);
     }
 
     public String getQuestion() {
@@ -66,12 +65,16 @@ public class TaskRecycler implements Parcelable {
     }
 
     public String getAnswers() {
+        return listToString(answers);
+    }
+
+    public List<String> getListAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<String> answers) {
-        this.answers = listToString(answers);
-    }
+    //public void setAnswers(List<String> answers) {
+      //  this.answers = listToString(answers);
+    //}
 
 
     private String listToString(List<String> answers)

@@ -13,25 +13,41 @@
         android:id="@+id/toolbar"
         ></include>
 
-    <Spinner
-        android:id="@+id/forces_custom_result_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:spinnerMode="dialog"
-        android:entries="@array/force_for_quizzes">
-    </Spinner>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/topic"
+            android:text="@string/random_questions_and_answers"
+            android:textAlignment="center" />
+
+        <Spinner
+            android:id="@+id/forces_custom_result_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:spinnerMode="dialog"
+            android:entries="@array/force_for_quizzes_result">
+        </Spinner>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/card_view_question"
             android:textAlignment="center" />
 
         <EditText
@@ -42,11 +58,19 @@
             ></EditText>
     </LinearLayout>
 
-    <GridLayout
-        android:id="@+id/gridlayout_custom_result_activity"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/container_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </GridLayout>
+        android:layout_height="400dp" >
+
+        <GridLayout
+            android:id="@+id/gridlayout_custom_result_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+        </GridLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="wrap_content"

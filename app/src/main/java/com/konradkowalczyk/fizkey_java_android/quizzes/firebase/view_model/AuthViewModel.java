@@ -36,6 +36,6 @@ public class AuthViewModel extends AndroidViewModel {
 
     public FirebaseUser getCurrentlyUser()
     {
-        return getCurrentlyUser();
+        return authFirebaseRepository.getCurrentlyUser();
     }
 }

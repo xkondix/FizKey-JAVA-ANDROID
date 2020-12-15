@@ -39,5 +39,11 @@
         <item>Rzut pionowy</item>
     </string-array>
 
+    <string-array name="force_for_quizzes_result">
+        <item>Brak wyboru</item>
+        <item>Swobodny spadek</item>
+        <item>Rzut pionowy</item>
+    </string-array>
+
 </resources>
 

@@ -10,12 +10,21 @@
         android:id="@+id/add_question_create_custom_quiz_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="add"
         ></Button>
+
+    <Button
+        android:id="@+id/save_question_create_custom_quiz_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save"
+        ></Button>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_create_custom_quiz_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:scrollbars="vertical"
         android:background="@color/colorPrimary"
         tools:listitem="@layout/card_view_create_custom_quiz" />

@@ -114,5 +114,7 @@
     <string name="description">Description</string>
     <string name="answer">Answer</string>
     <string name="back">Back</string>
+    <string name="random_questions_and_answers">Rand question and answers</string>
+    <string name="values_the_same">Values cannot be the same</string>
 
 </resources>

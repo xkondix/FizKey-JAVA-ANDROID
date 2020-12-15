@@ -29,7 +29,7 @@ public class CreateCustomQuizFragment extends Fragment {
     private Button createQuizButton;
     private Spinner numberOfFieldsSpinner;
     private RadioGroup timerRadioGroup;
-    private EditText secondsValueEditText, topicEditText, desripctionEditText;
+    private EditText secondsValueEditText;
 
 
     private List<Integer> numberOfFildsName, numberOfRoundsName;
@@ -59,8 +59,6 @@ public class CreateCustomQuizFragment extends Fragment {
         numberOfFieldsSpinner = view.findViewById(R.id.number_of_fields_create_custom_quiz_fragment);
         timerRadioGroup = view.findViewById(R.id.timer_create_custom_quiz_fragment);
         secondsValueEditText = view.findViewById(R.id.timer_value_create_custom_quiz_fragment);
-        topicEditText = view.findViewById(R.id.topic_create_custom_quiz_fragment);
-        desripctionEditText = view.findViewById(R.id.descricption_create_custom_quiz_fragment);
 
         customQuizModel = new CustomQuizModel();
 
@@ -107,15 +105,15 @@ public class CreateCustomQuizFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                    if(checkFields().equals(""))
-                    {
+//                    if()
+//                    {
                         Intent intent = new Intent(getActivity(), CreateCustomQuizActivity.class);
                         intent.putExtra(CreateCustomQuizActivity.EXTRA_MODEL_ID, customQuizModel);
                         getActivity().startActivity(intent);
-                    }
-                    else {
-                        Toast.makeText(getContext(),checkFields(),Toast.LENGTH_SHORT);
-                    }
+                    //}
+                    //else {
+                      //  Toast.makeText(getContext(),checkFields(),Toast.LENGTH_SHORT);
+                    //}
             }
         });
 
@@ -149,39 +147,6 @@ public class CreateCustomQuizFragment extends Fragment {
             }
         });
 
-        desripctionEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                customQuizModel.setDescripcion(s.toString());
-            }
-        });
-
-        topicEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                customQuizModel.setTopic(s.toString());
-            }
-        });
 
         return view;
 
@@ -199,22 +164,7 @@ public class CreateCustomQuizFragment extends Fragment {
         return list;
     }
 
-    private String checkFields()
-    {
-        String information = "";
 
-        if(topicEditText.getText().toString().trim().equals(""))
-        {
-            topicEditText.setError(getContext().getString(R.string.empty_field));
-            information+="topic";
-        }
-         if(topicEditText.getText().toString().trim().equals("")){
-            desripctionEditText.setError(getContext().getString(R.string.empty_field));
-            information+="descricton";
-         }
-
-         return information;
-    }
 
     private void setTimer(int value)
     {

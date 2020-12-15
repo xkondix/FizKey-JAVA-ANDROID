@@ -12,18 +12,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class CreateCustomQuizRecyclerViewAdapter extends
         ListAdapter<TaskRecycler, CreateCustomQuizRecyclerViewAdapter.CreateCustomQuizHolder> {
 
     private OnItemClickListener listener;
+
     public CreateCustomQuizRecyclerViewAdapter() {
         super(DIFF_CALLBACK);
     }
+
+    @Override
+    public void submitList(final List<TaskRecycler> list) {
+        super.submitList(list != null ? new ArrayList<>(list) : null);
+    }
+
     private static final DiffUtil.ItemCallback<TaskRecycler> DIFF_CALLBACK = new DiffUtil.ItemCallback<TaskRecycler>() {
         @Override
         public boolean areItemsTheSame(TaskRecycler oldItem, TaskRecycler newItem) {
-            return oldItem.hashCode() == newItem.hashCode();
+            return false;
         }
         @Override
         public boolean areContentsTheSame(TaskRecycler oldItem, TaskRecycler newItem) {
@@ -32,6 +42,8 @@ public class CreateCustomQuizRecyclerViewAdapter extends
                     oldItem.getQuestion().equals(newItem.getQuestion());
         }
     };
+
+
 
     @NonNull
     @Override
@@ -53,6 +65,7 @@ public class CreateCustomQuizRecyclerViewAdapter extends
     }
     class CreateCustomQuizHolder extends RecyclerView.ViewHolder {
 
+
         private TextView numberOfQuestionTextView;
         private TextView questionTextView;
         private TextView goodAnswerTextView;
@@ -71,14 +84,16 @@ public class CreateCustomQuizRecyclerViewAdapter extends
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(getItem(position));
+                        listener.onItemClick(getItem(position), position);
                     }
                 }
             });
         }
+
+
     }
     public interface OnItemClickListener {
-        void onItemClick(TaskRecycler task);
+        void onItemClick(TaskRecycler task, int position);
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;

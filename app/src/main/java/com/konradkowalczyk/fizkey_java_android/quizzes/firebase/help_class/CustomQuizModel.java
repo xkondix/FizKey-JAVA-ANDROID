@@ -152,6 +152,15 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
         this.questions = questions;
     }
 
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
     public void setPositiveNumbers(List<Integer> positiveNumbers) {
         this.positiveNumbers = positiveNumbers;
     }

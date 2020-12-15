@@ -121,6 +121,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="answer">Answer</string>
     <string name="back">Back</string>
+    <string name="random_questions_and_answers">Rand question and answers</string>
+    <string name="values_the_same">Values cannot be the same</string>
 
 
 </resources>
