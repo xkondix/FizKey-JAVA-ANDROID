@@ -11,14 +11,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizModelBase;
 
 public class QuizActivity extends AppCompatActivity implements QuizFragment.SendData {
 
     public static final String EXTRA_MODEL_ID = "model";
     public static final String RESULTS = "results";
 
-    private QuizModelInteface quizModelBase;
+    private QuizModelInteface quizModel;
 
     private QuizFragment fragment;
     private TextView counterTextView, timerTextView;
@@ -38,16 +37,16 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
         timerTextView = findViewById(R.id.quiz_activity_timer);
 
 
-        quizModelBase = (QuizModelBase) getIntent().getParcelableExtra(QuizActivity.EXTRA_MODEL_ID);
+        quizModel =  getIntent().getParcelableExtra(QuizActivity.EXTRA_MODEL_ID);
         quizResults = new QuizResults();
         setNumberOfQuestionTextView();
 
 
-        fragment =  QuizFragment.newInstance(quizModelBase.getNumberOfFields()
-                ,quizModelBase.getListAnswers().get(quizModelBase.getCurrentlyNumber())
-                ,quizModelBase.getQuestions().get(quizModelBase.getCurrentlyNumber())
-                ,quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentlyNumber())
-                ,quizModelBase.getTimerValue());
+        fragment =  QuizFragment.newInstance(quizModel.getNumberOfFields()
+                , quizModel.getListAnswers().get(quizModel.getCurrentlyNumber())
+                , quizModel.getQuestions().get(quizModel.getCurrentlyNumber())
+                , quizModel.getPositiveNumbers().get(quizModel.getCurrentlyNumber())
+                , quizModel.getTimerValue());
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.quiz_frame, fragment);
@@ -74,7 +73,7 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
                 quizResults.addBooleanAnswer(boolAnswer);
 
 
-                if(quizModelBase.getCurrentlyNumber()>= quizModelBase.getMaxNumber()-1)
+                if(quizModel.getCurrentlyNumber()>= quizModel.getMaxNumber()-1)
                 {
 
                     fragment.removeHandler();
@@ -86,16 +85,16 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
                 }
                 else {
 
-                    quizModelBase.setCurrentlyNumber(quizModelBase.getCurrentlyNumber() + 1);
+                    quizModel.setCurrentlyNumber(quizModel.getCurrentlyNumber() + 1);
                     setNumberOfQuestionTextView();
-                    fragment.setQuestion(quizModelBase.getQuestions().get(quizModelBase.getCurrentlyNumber()));
-                    fragment.setAnwsers(quizModelBase.getListAnswers().get(quizModelBase.getCurrentlyNumber()));
-                    fragment.setPositiveNumber(quizModelBase.getPositiveNumbers().get(quizModelBase.getCurrentlyNumber()));
+                    fragment.setQuestion(quizModel.getQuestions().get(quizModel.getCurrentlyNumber()));
+                    fragment.setAnwsers(quizModel.getListAnswers().get(quizModel.getCurrentlyNumber()));
+                    fragment.setPositiveNumber(quizModel.getPositiveNumbers().get(quizModel.getCurrentlyNumber()));
                     fragment.setButtonsBasicColorAndUnlock();
 
-                    if(quizModelBase.getTimerValue() != 0)
+                    if(quizModel.getTimerValue() != 0)
                     {
-                        fragment.setSecounds(quizModelBase.getTimerValue());
+                        fragment.setSecounds(quizModel.getTimerValue());
                         fragment.resume();
                     }
 
@@ -118,7 +117,7 @@ public class QuizActivity extends AppCompatActivity implements QuizFragment.Send
             @Override
             public void run() {
 
-                counterTextView.setText((quizModelBase.getCurrentlyNumber() + 1) + "/" + quizModelBase.getMaxNumber());
+                counterTextView.setText((quizModel.getCurrentlyNumber() + 1) + "/" + quizModel.getMaxNumber());
 
             }
         });

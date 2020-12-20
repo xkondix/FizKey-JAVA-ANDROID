@@ -72,10 +72,6 @@ public class TaskRecycler implements Parcelable {
         return answers;
     }
 
-    //public void setAnswers(List<String> answers) {
-      //  this.answers = listToString(answers);
-    //}
-
 
     private String listToString(List<String> answers)
     {

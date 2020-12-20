@@ -2,6 +2,7 @@ package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public class Task implements Serializable {
 
@@ -11,14 +12,14 @@ public class Task implements Serializable {
     private String data;
 
     private List<String> questions;
-    private List<List<String>> answers;
+    private Map<String, List<String>> answers;
     private List<Integer> positiveNumbers;
 
     private int numberOfFields;
     private int timerValue;
 
 
-    public Task(String topic, String description, List<String> questions, List<List<String>> answers, List<Integer> positiveNumbers, String data, int numberOfFields, int timerValue, String uuid) {
+    public Task(String topic, String description, List<String> questions, Map<String, List<String>> answers, List<Integer> positiveNumbers, String data, int numberOfFields, int timerValue, String uuid) {
         this.topic = topic;
         this.description = description;
         this.questions = questions;
@@ -30,6 +31,8 @@ public class Task implements Serializable {
         this.uuid = uuid;
 
     }
+
+    private Task(){}
 
     public String getUuid() {
         return uuid;
@@ -71,11 +74,11 @@ public class Task implements Serializable {
         this.questions = questions;
     }
 
-    public List<List<String>> getAnswers() {
+    public Map<String, List<String>> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<List<String>> answers) {
+    public void setAnswers(Map<String, List<String>> answers) {
         this.answers = answers;
     }
 
@@ -101,5 +104,20 @@ public class Task implements Serializable {
 
     public void setTimerValue(int timerValue) {
         this.timerValue = timerValue;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "uuid='" + uuid + '\'' +
+                ", topic='" + topic + '\'' +
+                ", description='" + description + '\'' +
+                ", data='" + data + '\'' +
+                ", questions=" + questions +
+                ", answers=" + answers +
+                ", positiveNumbers=" + positiveNumbers +
+                ", numberOfFields=" + numberOfFields +
+                ", timerValue=" + timerValue +
+                '}';
     }
 }

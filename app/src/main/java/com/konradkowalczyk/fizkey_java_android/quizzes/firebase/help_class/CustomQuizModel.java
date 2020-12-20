@@ -12,7 +12,7 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
 
 
     private int currentlyNumber, maxNumber, numberOfFields, timerValue;
-    private String topic, descripcion;
+    private String topic, descripcion, data;
 
     private List<String> questions;
     private List<Integer> positiveNumbers;
@@ -32,9 +32,10 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
 
         this.topic = "";
         this.descripcion = "";
+        this.data = "";
     }
 
-    public CustomQuizModel(int currentlyNumber, int maxNumber, int numberOfFields, int timerValue, String topic, String descripcion, List<String> questions, List<Integer> positiveNumbers, List<List<String>> listAnswers) {
+    public CustomQuizModel(int currentlyNumber, int maxNumber, int numberOfFields, int timerValue, String topic, String descripcion, List<String> questions, List<Integer> positiveNumbers, List<List<String>> listAnswers, String data) {
 
         this.questions = questions;
         this.positiveNumbers = positiveNumbers;
@@ -47,6 +48,8 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
 
         this.topic = topic;
         this.descripcion = descripcion;
+        this.data = data;
+
 
     }
 
@@ -58,6 +61,11 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
         topic = in.readString();
         descripcion = in.readString();
         questions = in.createStringArrayList();
+        data = in.readString();
+        positiveNumbers = new ArrayList<Integer>();
+        in.readList(positiveNumbers, null);
+        listAnswers = new ArrayList<List<String>>();
+        in.readList(listAnswers, null);
     }
 
     @Override
@@ -74,6 +82,9 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
         dest.writeString(topic);
         dest.writeString(descripcion);
         dest.writeStringList(questions);
+        dest.writeString(data);
+        dest.writeList(positiveNumbers);
+        dest.writeList(listAnswers);
     }
 
     public static final Creator<CustomQuizModel> CREATOR = new Creator<CustomQuizModel>() {
@@ -168,4 +179,9 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
     public void setListAnswers(List<List<String>> listAnswers) {
         this.listAnswers = listAnswers;
     }
+
+    public String getData() {
+        return data;
+    }
 }
+

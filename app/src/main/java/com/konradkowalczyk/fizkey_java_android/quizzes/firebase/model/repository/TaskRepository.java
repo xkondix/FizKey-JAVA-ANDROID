@@ -22,7 +22,9 @@ public class TaskRepository implements TaskRepositoryInterface {
 
     @Override
     public MutableLiveData<List<Task>> getTasks() {
-        return TASK_DAO.getTasks();
+        System.out.println(TASK_DAO.getTasks().getValue());
+        MutableLiveData<List<Task>> tasks = TASK_DAO.getTasks();
+        return tasks;
     }
 
     @Override

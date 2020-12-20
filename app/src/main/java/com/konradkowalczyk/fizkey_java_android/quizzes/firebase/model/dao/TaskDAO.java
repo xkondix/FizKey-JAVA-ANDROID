@@ -19,6 +19,9 @@ public class TaskDAO implements TaskRepositoryInterface {
     private final static FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
     private final static CollectionReference taskRef = rootRef.collection("tasks");
 
+    private MutableLiveData<List<Task>> tasksMutableLiveData = new MutableLiveData<>();
+
+
 
     @Override
     public MutableLiveData<Task> getTaskByUUID(String uuid) {
@@ -49,19 +52,22 @@ public class TaskDAO implements TaskRepositoryInterface {
     @Override
     public MutableLiveData<List<Task>> getTasks() {
 
-        MutableLiveData<List<Task>> taskMutableLiveData = new MutableLiveData<>();
 
-        taskRef.get().addOnCompleteListener(uuidTask -> {
-            if (uuidTask.isSuccessful()) {
-                List<Task> list = new ArrayList<>();
-                for (DocumentSnapshot document : uuidTask.getResult()) {
+        taskRef.get().addOnCompleteListener(tasks -> {
+            List<Task> list = new ArrayList<>();
+            if (tasks.isSuccessful()) {
+                List<DocumentSnapshot> tasksList = tasks.getResult().getDocuments();
+
+                for (DocumentSnapshot document : tasksList) {
                     list.add(document.toObject(Task.class));
                 }
-                taskMutableLiveData.setValue(list);
             }
+
+            tasksMutableLiveData.setValue(list);
+
         });
 
-        return  taskMutableLiveData;
+        return tasksMutableLiveData;
 
     }
 
@@ -90,5 +96,9 @@ public class TaskDAO implements TaskRepositoryInterface {
         });
 
     }
+
+
+
+
 
 }

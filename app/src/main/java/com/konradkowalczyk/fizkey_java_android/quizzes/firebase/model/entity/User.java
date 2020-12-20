@@ -13,7 +13,7 @@ public class User implements Serializable {
 
 
 
-    public User() {}
+    private User() {}
 
 
     public User(String name, String surname) {
