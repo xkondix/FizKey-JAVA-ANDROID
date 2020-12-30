@@ -35,6 +35,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModelAuth = new ViewModelProvider(this).get(AuthViewModel.class);
+        viewModelAuth.init();
     }
 
     @Override
@@ -55,7 +56,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        System.out.println("xd");
         viewModelAuth.registerUser(new Account(getEmailFromEditText(),getPasswordFromEditText()));
     }
 

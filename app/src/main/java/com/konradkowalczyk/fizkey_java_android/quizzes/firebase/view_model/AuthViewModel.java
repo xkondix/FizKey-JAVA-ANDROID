@@ -1,41 +1,84 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Account;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_repository.AuthFirebaseRepositoryInterface;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository.AuthFirebaseRepository;
 
-public class AuthViewModel extends AndroidViewModel {
+public class AuthViewModel extends ViewModel {
 
+    private static AuthViewModel authViewModel;
     private AuthFirebaseRepositoryInterface authFirebaseRepository;
 
-    public AuthViewModel(@NonNull Application application) {
-        super(application);
-        this.authFirebaseRepository = new AuthFirebaseRepository();
+    public static AuthViewModel getInstance()
+    {
+        if(authViewModel == null)
+        {
+            authViewModel = new AuthViewModel();
+        }
+
+        return authViewModel;
+    }
+
+    private MutableLiveData<Boolean> registerUserLiveData;
+    private MutableLiveData<FirebaseUser> loginUserLiveData;
+    private MutableLiveData<Boolean> changePasswordUserLiveData;
+
+
+    public void init()
+    {
+        if(authFirebaseRepository == null) {
+            authFirebaseRepository = AuthFirebaseRepository.getInstance();
+        }
+        if(registerUserLiveData == null) {
+            registerUserLiveData = new MutableLiveData<>();
+        }
+        if(loginUserLiveData == null) {
+            loginUserLiveData = new MutableLiveData<>();
+        }
+        if(changePasswordUserLiveData == null) {
+            changePasswordUserLiveData = new MutableLiveData<>();
+        }
     }
 
     public void registerUser(Account account)
     {
-        authFirebaseRepository.registerUser(account);
+        registerUserLiveData = authFirebaseRepository.registerUser(account);
     }
 
     public void loginUser(Account account)
     {
-        authFirebaseRepository.loginUser(account);
+        loginUserLiveData = authFirebaseRepository.loginUser(account);
     }
 
     public void changePassword(String email)
     {
-        authFirebaseRepository.changePassword(email);
+        changePasswordUserLiveData = authFirebaseRepository.changePassword(email);
     }
 
-    public FirebaseUser getCurrentlyUser()
+    public LiveData<Boolean> getRegisterUserLiveData() {
+        return registerUserLiveData;
+    }
+
+    public LiveData<FirebaseUser> getLoginUserLiveData() {
+        return loginUserLiveData;
+    }
+
+    public LiveData<Boolean> getChangePasswordUserLiveData() {
+        return changePasswordUserLiveData;
+    }
+
+    public String getCurrentlyUuid()
     {
-        return authFirebaseRepository.getCurrentlyUser();
+        return loginUserLiveData.getValue().getUid();
+    }
+
+    public void logout()
+    {
+        authFirebaseRepository.logout();
     }
 }

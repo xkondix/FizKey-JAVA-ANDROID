@@ -11,10 +11,7 @@ public class User implements Serializable {
     private String surname;
     private List<String> uuidGroups;
 
-
-
-    private User() {}
-
+    public User() {}
 
     public User(String name, String surname) {
         this.name = name;

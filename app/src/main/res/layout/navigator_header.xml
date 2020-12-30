@@ -32,6 +32,8 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:textColor="@color/cardview_dark_background"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             />
 

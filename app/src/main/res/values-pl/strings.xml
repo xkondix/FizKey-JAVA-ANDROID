@@ -109,6 +109,7 @@
     <string name="back">Back</string>
     <string name="random_questions_and_answers">Losuj pytanie i odpowiedzi</string>
     <string name="values_the_same">Values cannot be the same</string>
+    <string name="logout">Logout</string>
 
 
 </resources>

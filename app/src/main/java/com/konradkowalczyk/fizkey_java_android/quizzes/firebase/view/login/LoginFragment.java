@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.quizzes.QuizMenuActivity;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Account;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.User;
-import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.register.ResetPasswordDialogFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.AuthViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.UserViewModel;
 
@@ -35,7 +35,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener
             }
 
     public static LoginFragment newInstance(){
-            LoginFragment fragment=new LoginFragment();
+            LoginFragment fragment = new LoginFragment();
             return fragment;
     }
 
@@ -44,8 +44,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         getActivity().setTitle(getContext().getResources().getString(R.string.sign_in_login));
+
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        userViewModel.init();
+        authViewModel = ((QuizMenuActivity) getActivity()).getAuthViewModel();
+
 
 
     }
@@ -70,17 +73,25 @@ public class LoginFragment extends Fragment implements View.OnClickListener
 
         switch (v.getId()) {
             case R.id.sign_in_login:
-                authViewModel.loginUser(new Account(getEmailFromEditText(),getPasswordFromEditText()));
 
-                userViewModel.getCurrentlyUser();
-                userViewModel.liveDataUser.observe(this, user -> {
-                    if (user == null) {
-                        FirstLoginDialogFragment dialog =  FirstLoginDialogFragment.newInstance();
-                        dialog.setTargetFragment(LoginFragment.this, 1);
-                        dialog.show(getFragmentManager(), "First Login Dialog");
-                    } else {
-                    }
-                });
+                    authViewModel.loginUser(new Account(getEmailFromEditText(), getPasswordFromEditText()));
+                    authViewModel.getLoginUserLiveData().observe(this, auth -> {
+                        userViewModel.getUserByUuid(auth.getUid());
+                        userViewModel.getLiveDataUser().observe(this, user -> {
+                            if (user != null){
+                                if (user.getName().equals("")) {
+                                    FirstLoginDialogFragment dialog = FirstLoginDialogFragment.newInstance();
+                                    dialog.setTargetFragment(LoginFragment.this, 1);
+                                    dialog.show(getFragmentManager(), "First Login Dialog");
+                                }
+                        }
+                        });
+                    });
+
+
+
+
+
                 break;
 
             case R.id.forgot_password_login:
@@ -90,20 +101,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener
                 dialog.show(getFragmentManager(), "Reset Password");
                 break;
         }
-
-
-        authViewModel.loginUser(new Account(getEmailFromEditText(),getPasswordFromEditText()));
-
-        userViewModel.getCurrentlyUser();
-        userViewModel.liveDataUser.observe(this, user -> {
-            if (user == null) {
-                FirstLoginDialogFragment dialog =  FirstLoginDialogFragment.newInstance();
-                dialog.setTargetFragment(LoginFragment.this, 1);
-                dialog.show(getFragmentManager(), "First Login Dialog");
-            } else {
-                System.out.println("login");
-            }
-        });
 
     }
 
@@ -122,7 +119,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener
                     , Toast.LENGTH_LONG).show();
         }
         else {
-            userViewModel.insertUser(new User(name, surname));
+            User user = new User(name, surname);
+            user.setUuid(authViewModel.getCurrentlyUuid());
+            userViewModel.insertUser(user);
         }
     }
 

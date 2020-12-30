@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 import com.konradkowalczyk.fizkey_java_android.R;
@@ -22,6 +23,7 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz.SolveCustomQuizFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.login.LoginFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.register.RegisterFragment;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.AuthViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizMenuFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizActivity;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizResultDialog;
@@ -32,6 +34,8 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
 
     private Toolbar toolbar;
     private TextView status;
+
+    private AuthViewModel authViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +55,21 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
         NavigationView navigationView = findViewById(R.id.navigator_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        authViewModel.init();
+
+
+
         //textview w nagłówku
         View headerView = navigationView.getHeaderView(0);
         status = (TextView) headerView.findViewById(R.id.status);
-        //status.setText((User.iflog==true ? "Zalogowany" : "Wylogowany"));
+        status.setText("Wylogowany");
+
+        authViewModel.getLoginUserLiveData().observe(this, auth ->{
+            status.setText((auth != null ? "Zalogowany" : "Wylogowany"));
+
+        });
 
 
 
@@ -82,13 +97,17 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
                 fragment = new RegisterFragment();
                 break;
             case R.id.login:
-                fragment = new LoginFragment();
+                fragment = LoginFragment.newInstance();
                 break;
             case R.id.create_custom_quiz_fragment:
                 fragment = new CreateCustomQuizFragment();
                 break;
             case R.id.solve_custom_quiz_fragment:
                 fragment = new SolveCustomQuizFragment();
+                break;
+            case R.id.logout:
+                fragment = new QuizMenuFragment();
+                authViewModel.logout();
                 break;
             default:
                 fragment = new QuizMenuFragment();
@@ -136,6 +155,11 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
             dialog.show(getSupportFragmentManager(), "Results View");
         }
 
+    }
+
+
+    public AuthViewModel getAuthViewModel() {
+        return authViewModel;
     }
 }
 

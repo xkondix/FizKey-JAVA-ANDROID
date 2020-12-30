@@ -25,6 +25,13 @@
         ></item>
 
     <item
+        android:id="@+id/logout"
+        android:title="@string/logout"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        ></item>
+
+    <item
         android:id="@+id/create_custom_quiz_fragment"
         android:title="@string/create_custom_quiz_fragment"
         android:orderInCategory="1"

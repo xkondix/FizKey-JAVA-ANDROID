@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.register;
+package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.login;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -57,7 +57,7 @@ public class ResetPasswordDialogFragment extends DialogFragment {
         });
 
         if (emailEditText.getText().toString().trim().equalsIgnoreCase("")) {
-            emailEditText.setError("Nick nie może być pusty");
+            emailEditText.setError("Email nie może być pusty");
         }
 
         okTextView.setOnClickListener(new View.OnClickListener() {
