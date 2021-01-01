@@ -68,6 +68,8 @@ public class CreateCustomQuizActivity extends AppCompatActivity implements Inser
         recyclerView.setAdapter(adapter);
 
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        taskViewModel.init();
+
         taskViewModel.getTaskRecyclerLiveData().observe(this, taskRecyclers -> {
 
             adapter.submitList(taskRecyclers);

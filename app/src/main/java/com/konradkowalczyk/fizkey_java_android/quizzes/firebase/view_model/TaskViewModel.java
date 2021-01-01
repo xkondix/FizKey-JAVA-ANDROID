@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.CustomQuizModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.TaskRecycler;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Task;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_repository.TaskRepositoryInterface;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository.TaskRepository;
 
 import java.text.SimpleDateFormat;
@@ -24,15 +25,35 @@ public class TaskViewModel extends ViewModel {
     private MutableLiveData<List<TaskRecycler>> taskRecyclerLiveData;
     private MutableLiveData<CustomQuizModel> customQuizModelLiveData;
     private MutableLiveData<List<CustomQuizModel>> customQuizModelsLiveData;
-    private MutableLiveData<Integer> position;
+    private MutableLiveData<Integer> positionMutableLiveData;
 
-    private final static TaskRepository TASK_REPOSITORY = new TaskRepository();
+    private TaskRepositoryInterface taskRepository;
+
+    public void init()
+    {
+        if(taskRepository == null) {
+            taskRepository = TaskRepository.getInstance();
+        }
+        if(taskRecyclerLiveData == null) {
+            taskRecyclerLiveData = new MutableLiveData<>(new ArrayList<>());
+        }
+        if(customQuizModelLiveData == null) {
+            customQuizModelLiveData = new MutableLiveData<>(new CustomQuizModel());
+        }
+        if(customQuizModelsLiveData == null) {
+            customQuizModelsLiveData = new MutableLiveData<>();
+        }
+        if(positionMutableLiveData == null) {
+            positionMutableLiveData = new MutableLiveData<>(-1);
+        }
+
+        getTasks();
+
+    }
 
 
     public TaskViewModel() {
         super();
-        this.customQuizModelLiveData =  new MutableLiveData<CustomQuizModel>(new CustomQuizModel());
-        this.position = new MutableLiveData<>(-1);
     }
 
 
@@ -62,18 +83,18 @@ public class TaskViewModel extends ViewModel {
 
     public void changeList(TaskRecycler taskRecycler) {
         List<TaskRecycler> value = taskRecyclerLiveData.getValue();
-        value.set(position.getValue(),taskRecycler);
+        value.set(positionMutableLiveData.getValue(),taskRecycler);
         taskRecyclerLiveData.setValue(value);
     }
 
     //Position
 
     public LiveData<Integer> getPosition() {
-        return position;
+        return positionMutableLiveData;
     }
 
     public void setPosition(int position) {
-        this.position.setValue(position);
+        this.positionMutableLiveData.setValue(position);
     }
 
 
@@ -84,23 +105,17 @@ public class TaskViewModel extends ViewModel {
     }
 
     public void setCustomQuizModelLiveData(CustomQuizModel customQuizModel) {
-        if (customQuizModelLiveData == null) {
-            customQuizModelLiveData =  new MutableLiveData<CustomQuizModel>(customQuizModel);
-        }
         this.customQuizModelLiveData.setValue(customQuizModel);
     }
 
     public void setCustomQuizModelLiveData(String uuid) {
-        if (customQuizModelLiveData == null) {
-            customQuizModelLiveData =  new MutableLiveData<CustomQuizModel>();
-        }
         this.customQuizModelLiveData.setValue(getTask(uuid));
     }
 
     private CustomQuizModel getTask(String uuid)
     {
 
-        Task task = changePlaceOfGoodAnswers(TASK_REPOSITORY.getTaskByUUID(uuid).getValue());
+        Task task = changePlaceOfGoodAnswers(taskRepository.getTaskByUUID(uuid).getValue());
         CustomQuizModel customQuizModel = TaskToCustomQuizModel(task);
 
         return customQuizModel;
@@ -111,22 +126,15 @@ public class TaskViewModel extends ViewModel {
     //CustomQuizModels
 
     public LiveData<List<CustomQuizModel>> getCustomQuizModelsLiveData() {
-
-        if (customQuizModelsLiveData == null) {
-            customQuizModelsLiveData =  new MutableLiveData<List<CustomQuizModel>>(new ArrayList<>());
-        }
-
-        this.customQuizModelsLiveData.setValue(getTasks());
-
-        return customQuizModelsLiveData;
+        return getTasks();
     }
 
 
 
-    private List<CustomQuizModel> getTasks()
+    public LiveData<List<CustomQuizModel>> getTasks()
     {
         List<CustomQuizModel> customQuizModels = new ArrayList<>();
-        List<Task> values = TASK_REPOSITORY.getTasks().getValue();
+        List<Task> values = taskRepository.getTasks().getValue();
 
         if(values!= null) {
             for (Task task : values) {
@@ -135,8 +143,9 @@ public class TaskViewModel extends ViewModel {
             }
         }
 
+        customQuizModelsLiveData.setValue(customQuizModels);
 
-        return customQuizModels;
+        return customQuizModelsLiveData;
     }
 
 
@@ -157,7 +166,7 @@ public class TaskViewModel extends ViewModel {
             positivNumbers.add(0);
         }
 
-        TASK_REPOSITORY.insertTask(new Task(customQuizModelLiveData.getValue().getTopic()
+        taskRepository.insertTask(new Task(customQuizModelLiveData.getValue().getTopic()
                 ,customQuizModelLiveData.getValue().getDescripcion()
                 ,questions
                 ,fromNestedListtoMap(answers)

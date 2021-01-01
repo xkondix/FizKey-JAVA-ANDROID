@@ -11,23 +11,15 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository
 
 public class AuthViewModel extends ViewModel {
 
-    private static AuthViewModel authViewModel;
     private AuthFirebaseRepositoryInterface authFirebaseRepository;
-
-    public static AuthViewModel getInstance()
-    {
-        if(authViewModel == null)
-        {
-            authViewModel = new AuthViewModel();
-        }
-
-        return authViewModel;
-    }
 
     private MutableLiveData<Boolean> registerUserLiveData;
     private MutableLiveData<FirebaseUser> loginUserLiveData;
     private MutableLiveData<Boolean> changePasswordUserLiveData;
 
+    public AuthViewModel() {
+        super();
+    }
 
     public void init()
     {
@@ -79,6 +71,6 @@ public class AuthViewModel extends ViewModel {
 
     public void logout()
     {
-        authFirebaseRepository.logout();
+        loginUserLiveData = authFirebaseRepository.signOut();
     }
 }

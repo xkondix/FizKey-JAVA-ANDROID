@@ -117,5 +117,10 @@
     <string name="random_questions_and_answers">Rand question and answers</string>
     <string name="values_the_same">Values cannot be the same</string>
     <string name="logout">Logout</string>
+    <string name="login">Logged In</string>
+    <string name="try_again">Try Again</string>
+    <string name="logged_out">Logged out</string>
+    <string name="sign_out">Sign out</string>
+
 
 </resources>

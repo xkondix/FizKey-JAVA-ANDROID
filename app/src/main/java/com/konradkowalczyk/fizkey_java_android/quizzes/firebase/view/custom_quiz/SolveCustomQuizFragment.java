@@ -24,6 +24,8 @@ import static com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizMenuFragm
 public class SolveCustomQuizFragment extends Fragment {
 
     private TaskViewModel taskViewModel;
+    private RecyclerView recyclerView;
+    private TaskQuizRecyclerViewAdapter adapter;
 
     public static SolveCustomQuizFragment newInstance() {
         return new SolveCustomQuizFragment();
@@ -34,19 +36,20 @@ public class SolveCustomQuizFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.solve_custom_quiz_fragment, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_create_custom_quiz_activity);
+        recyclerView = view.findViewById(R.id.recycler_view_create_custom_quiz_activity);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         recyclerView.setHasFixedSize(true);
-        final TaskQuizRecyclerViewAdapter adapter = new TaskQuizRecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
+
 
         taskViewModel = new ViewModelProvider(getActivity()).get(TaskViewModel.class);
-        taskViewModel.getCustomQuizModelsLiveData().observe(getActivity(), customQuizModels -> {
-
+        taskViewModel.getCustomQuizModelsLiveData().observe(getViewLifecycleOwner(), customQuizModels -> {
             adapter.submitList(customQuizModels);
 
         });
+
+        adapter = new TaskQuizRecyclerViewAdapter();
+        recyclerView.setAdapter(adapter);
+
 
         adapter.setOnItemClickListener(new TaskQuizRecyclerViewAdapter.OnItemClickListener() {
             @Override
@@ -64,8 +67,7 @@ public class SolveCustomQuizFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
-        // TODO: Use the ViewModel
     }
+
 
 }

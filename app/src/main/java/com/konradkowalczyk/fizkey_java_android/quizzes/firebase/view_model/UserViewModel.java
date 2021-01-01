@@ -10,19 +10,7 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository
 
 public class UserViewModel extends ViewModel {
 
-    private static UserViewModel userViewModel;
-    public static UserViewModel getInstance()
-    {
-        if(userViewModel == null)
-        {
-            userViewModel = new UserViewModel();
-        }
-
-        return userViewModel;
-    }
-
     private MutableLiveData<User> liveDataUser;
-
     private UserRepositoryInterface userRepository;
 
 

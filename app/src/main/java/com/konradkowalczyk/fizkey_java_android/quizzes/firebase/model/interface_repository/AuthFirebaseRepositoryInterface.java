@@ -11,5 +11,5 @@ public interface AuthFirebaseRepositoryInterface {
     public MutableLiveData<FirebaseUser> loginUser(Account account);
     public MutableLiveData<Boolean> changePassword(String email);
 
-    public void logout();
+    public MutableLiveData<FirebaseUser> signOut();
 }

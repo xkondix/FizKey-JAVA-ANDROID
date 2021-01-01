@@ -19,9 +19,9 @@ public class UserRepository implements UserRepositoryInterface {
     private final static FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
     private final static CollectionReference usersRef = rootRef.collection("users");
 
-    private static UserRepository userRepository;
+    private static UserRepositoryInterface userRepository;
 
-    public static UserRepository getInstance()
+    public static UserRepositoryInterface getInstance()
     {
         if(userRepository == null)
         {

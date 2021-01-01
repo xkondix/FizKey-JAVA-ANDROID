@@ -26,7 +26,7 @@
 
     <item
         android:id="@+id/logout"
-        android:title="@string/logout"
+        android:title="@string/sign_out"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"
         ></item>

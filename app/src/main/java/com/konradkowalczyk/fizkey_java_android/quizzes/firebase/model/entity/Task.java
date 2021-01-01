@@ -106,18 +106,5 @@ public class Task implements Serializable {
         this.timerValue = timerValue;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "uuid='" + uuid + '\'' +
-                ", topic='" + topic + '\'' +
-                ", description='" + description + '\'' +
-                ", data='" + data + '\'' +
-                ", questions=" + questions +
-                ", answers=" + answers +
-                ", positiveNumbers=" + positiveNumbers +
-                ", numberOfFields=" + numberOfFields +
-                ", timerValue=" + timerValue +
-                '}';
-    }
+
 }

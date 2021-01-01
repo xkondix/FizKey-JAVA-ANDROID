@@ -19,9 +19,9 @@ import javax.inject.Singleton;
 public class AuthFirebaseRepository implements AuthFirebaseRepositoryInterface {
 
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private static AuthFirebaseRepository authFirebaseRepository;
+    private static AuthFirebaseRepositoryInterface authFirebaseRepository;
 
-    public static AuthFirebaseRepository getInstance()
+    public static AuthFirebaseRepositoryInterface getInstance()
     {
         if(authFirebaseRepository == null)
         {
@@ -127,8 +127,10 @@ public class AuthFirebaseRepository implements AuthFirebaseRepositoryInterface {
     }
 
     @Override
-    public void logout() {
-        authFirebaseRepository.logout();
+    public MutableLiveData<FirebaseUser> signOut() {
+        firebaseAuth.signOut();
+        return new MutableLiveData<>();
+
     }
 
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,8 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.login.LoginFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.register.RegisterFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.AuthViewModel;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.TaskViewModel;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.UserViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizMenuFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizActivity;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizResultDialog;
@@ -36,6 +39,9 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
     private TextView status;
 
     private AuthViewModel authViewModel;
+    private UserViewModel userViewModel;
+    private TaskViewModel taskViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,16 +65,20 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
         authViewModel.init();
 
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.init();
+
+        taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
+        taskViewModel.init();
 
 
         //textview w nagłówku
         View headerView = navigationView.getHeaderView(0);
         status = (TextView) headerView.findViewById(R.id.status);
-        status.setText("Wylogowany");
+        status.setText(authViewModel.getLoginUserLiveData().getValue() != null ? getResources().getString(R.string.login) : getResources().getString(R.string.logout));
 
-        authViewModel.getLoginUserLiveData().observe(this, auth ->{
-            status.setText((auth != null ? "Zalogowany" : "Wylogowany"));
-
+        authViewModel.getLoginUserLiveData().observe(this, auth -> {
+            status.setText((auth != null ? getResources().getString(R.string.login) : getResources().getString(R.string.logout)));
         });
 
 
@@ -106,8 +116,9 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
                 fragment = new SolveCustomQuizFragment();
                 break;
             case R.id.logout:
-                fragment = new QuizMenuFragment();
                 authViewModel.logout();
+                Toast.makeText(this, getResources().getString(R.string.logged_out), Toast.LENGTH_SHORT).show();
+                fragment = new QuizMenuFragment();
                 break;
             default:
                 fragment = new QuizMenuFragment();
@@ -160,6 +171,10 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
 
     public AuthViewModel getAuthViewModel() {
         return authViewModel;
+    }
+
+    public UserViewModel getUserViewModel() {
+        return userViewModel;
     }
 }
 
