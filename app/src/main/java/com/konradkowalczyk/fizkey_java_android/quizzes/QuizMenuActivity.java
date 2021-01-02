@@ -22,9 +22,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz.CreateCustomQuizFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz.SolveCustomQuizFragment;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.group.GroupFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.login.LoginFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.register.RegisterFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.AuthViewModel;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.GroupViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.TaskViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.UserViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.QuizMenuFragment;
@@ -41,6 +43,8 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
     private AuthViewModel authViewModel;
     private UserViewModel userViewModel;
     private TaskViewModel taskViewModel;
+    private GroupViewModel groupViewModel;
+
 
 
     @Override
@@ -70,6 +74,9 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
 
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         taskViewModel.init();
+
+        groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
+        groupViewModel.init();
 
 
         //textview w nagłówku
@@ -101,19 +108,22 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
         switch(id)
         {
             case R.id.menu_quiz:
-                fragment = new QuizMenuFragment();
+                fragment = QuizMenuFragment.newInstance();
                 break;
             case R.id.register:
-                fragment = new RegisterFragment();
+                fragment = RegisterFragment.newInstance();
                 break;
             case R.id.login:
                 fragment = LoginFragment.newInstance();
                 break;
             case R.id.create_custom_quiz_fragment:
-                fragment = new CreateCustomQuizFragment();
+                fragment = CreateCustomQuizFragment.newInstance();
                 break;
             case R.id.solve_custom_quiz_fragment:
-                fragment = new SolveCustomQuizFragment();
+                fragment = SolveCustomQuizFragment.newInstance();
+                break;
+            case R.id.group:
+                fragment = GroupFragment.newInstance();
                 break;
             case R.id.logout:
                 authViewModel.logout();

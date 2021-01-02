@@ -19,6 +19,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.group.GroupFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizActivity;
 
 import java.util.ArrayList;
@@ -56,6 +57,10 @@ public class QuizMenuFragment extends Fragment implements View.OnClickListener, 
     }
 
 
+    public static QuizMenuFragment newInstance() {
+        QuizMenuFragment fragment = new QuizMenuFragment();
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

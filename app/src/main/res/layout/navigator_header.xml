@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:src="@drawable/star1"
+        android:src="@drawable/fiz_key_image"
         ></ImageView>
 
     <LinearLayout
@@ -21,21 +21,13 @@
         android:gravity="bottom|start"
         android:layout_margin="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            />
 
         <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/border"
-            android:textColor="@color/cardview_dark_background"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            />
+            android:textSize="20dp"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
 
 
     </LinearLayout>

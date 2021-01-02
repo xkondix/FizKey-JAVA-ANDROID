@@ -121,6 +121,9 @@
     <string name="try_again">Try Again</string>
     <string name="logged_out">Logged out</string>
     <string name="sign_out">Sign out</string>
+    <string name="create_group">Create a new group</string>
+    <string name="join_the_group">Join the group</string>
+    <string name="group">Groups</string>
 
 
 </resources>

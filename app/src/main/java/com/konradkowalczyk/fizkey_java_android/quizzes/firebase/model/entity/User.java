@@ -1,5 +1,7 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity;
 
+import com.google.firebase.firestore.DocumentReference;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +11,14 @@ public class User implements Serializable {
     private String uuid;
     private String name;
     private String surname;
-    private List<String> uuidGroups;
+    private List<DocumentReference> groups;
 
     public User() {}
 
     public User(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        this.uuidGroups = new ArrayList<>();
+        this.groups = new ArrayList<>();
     }
 
     public String getUuid() {
@@ -35,8 +37,8 @@ public class User implements Serializable {
         return surname;
     }
 
-    public List<String> getUuidGroups() {
-        return uuidGroups;
+    public List<DocumentReference> getGroups() {
+        return groups;
     }
 
 
