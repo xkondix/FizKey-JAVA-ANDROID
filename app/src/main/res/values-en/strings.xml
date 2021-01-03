@@ -124,6 +124,9 @@
     <string name="create_group">Create a new group</string>
     <string name="join_the_group">Join the group</string>
     <string name="group">Groups</string>
+    <string name="my_group">My groups</string>
+    <string name="groups">Groups</string>
+    <string name="code_group_fragment">Enter the code here</string>
 
 
 </resources>

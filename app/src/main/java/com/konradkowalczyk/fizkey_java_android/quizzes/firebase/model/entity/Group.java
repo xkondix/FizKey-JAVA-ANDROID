@@ -9,38 +9,53 @@ import java.util.Map;
 public class Group implements Serializable {
 
     private String uuid;
-    private String uuidTeacher;
+    private DocumentReference author;
+    private String authorUUID;
     private String nameOfGroup;
+    private String description;
     private List<DocumentReference> students;
     // { User : { Task : List<{Data : QuizResult}> } }
     private Map<DocumentReference, Map<DocumentReference, List<Map<String,Object>>>> studentGrades;
 
-    public Group(String uuid, String uuidTeacher, String nameOfGroup, List<DocumentReference> students, Map<DocumentReference, Map<DocumentReference, List<Map<String,Object>>>> studentGrades) {
+    public Group(String uuid, DocumentReference author, String authorUUID,  String nameOfGroup, String description, List<DocumentReference> students, Map<DocumentReference, Map<DocumentReference, List<Map<String,Object>>>> studentGrades) {
         this.uuid = uuid;
-        this.uuidTeacher = uuidTeacher;
+        this.author = author;
         this.nameOfGroup = nameOfGroup;
         this.students = students;
         this.studentGrades = studentGrades;
+        this.description = description;
+        this.authorUUID = authorUUID;
+
     }
 
-    public Group(String uuidTeacher, String nameOfGroup) {
-        this.uuidTeacher = uuidTeacher;
+    public Group(DocumentReference author, String authorUUID, String nameOfGroup, String description) {
+        this.author = author;
         this.nameOfGroup = nameOfGroup;
+        this.description = description;
+        this.authorUUID = authorUUID;
     }
 
     public String getUuid() {
         return uuid;
     }
 
-    public String getUuidTeacher() {
-        return uuidTeacher;
+    public DocumentReference getAuthor() {
+        return author;
     }
 
     public String getNameOfGroup() {
         return nameOfGroup;
     }
 
-    public List<DocumentReference> getUuidStudents() {
+    public String getDescription() {
+        return description;
+    }
+
+    public String getAuthorUUID() {
+        return authorUUID;
+    }
+
+    public List<DocumentReference> getStudents() {
         return students;
     }
 
@@ -56,4 +71,6 @@ public class Group implements Serializable {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
+
+
 }

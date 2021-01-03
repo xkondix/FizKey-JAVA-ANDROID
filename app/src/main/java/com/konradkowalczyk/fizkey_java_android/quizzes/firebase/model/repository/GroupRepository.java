@@ -7,15 +7,15 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Group;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.User;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_repository.GroupRepositoryInteface;
 
 public class GroupRepository implements GroupRepositoryInteface {
 
-    private final static FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-    private final static CollectionReference groupRef = rootRef.collection("groups");
+//    private final static FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+    private final static CollectionReference groupRef
+        = FirestoreInstance.FIREBASE_FIRESTORE_INSTANCE.collection("groups");
 
     private static GroupRepositoryInteface groupRepository;
 
@@ -66,7 +66,8 @@ public class GroupRepository implements GroupRepositoryInteface {
                 if (!document.exists()) {
                     Log.i("addToGroup", "Document not exists");
                     Group groupFind = document.toObject(Group.class);
-                    groupFind.addToGroup(rootRef.collection("users").document(user.getUuid()));
+                    groupFind.addToGroup(FirestoreInstance.FIREBASE_FIRESTORE_INSTANCE
+                            .collection("users").document(user.getUuid()));
                     group.setValue(document.toObject(Group.class));
                 } else {
                     Log.i("addToGroup", "Document exists");

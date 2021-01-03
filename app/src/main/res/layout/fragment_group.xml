@@ -11,16 +11,10 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/create_group_fragment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/create_group"
-                ></Button>
 
             <Button
                 android:id="@+id/join_the_group_fragment"
@@ -29,7 +23,61 @@
                 android:text="@string/join_the_group"
                 ></Button>
 
+            <Button
+                android:id="@+id/create_group_fragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_group"
+                ></Button>
+
+
         </LinearLayout>
+
+        <EditText
+            android:id="@+id/code_group_fragment"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:hint="@string/code_group_fragment">
+        </EditText>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_group"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/border">
+
+        </TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_group_recycler_view_group_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="20dp"
+            android:scrollbars="vertical"
+            android:background="@color/colorPrimary"
+            tools:listitem="@layout/card_view_create_custom_quiz" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/groups"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/border">
+
+        </TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/group_recycler_view_group_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="20dp"
+            android:scrollbars="vertical"
+            android:background="@color/colorPrimary"
+            tools:listitem="@layout/card_view_create_custom_quiz" />
 
 
     </LinearLayout>

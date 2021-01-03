@@ -12,10 +12,7 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.inject.Singleton;
 
-@SuppressWarnings("ConstantConditions")
-@Singleton
 public class AuthFirebaseRepository implements AuthFirebaseRepositoryInterface {
 
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();

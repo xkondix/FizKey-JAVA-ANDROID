@@ -10,7 +10,6 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Task;
@@ -21,8 +20,9 @@ import java.util.List;
 
 public class TaskRepository implements TaskRepositoryInterface {
 
-    private final static FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-    private final static CollectionReference taskRef = rootRef.collection("tasks");
+    //private final static FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+    private final static CollectionReference taskRef
+            = FirestoreInstance.FIREBASE_FIRESTORE_INSTANCE.collection("tasks");
 
     private static TaskRepositoryInterface taskRepository;
 

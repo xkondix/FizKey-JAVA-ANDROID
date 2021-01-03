@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Group;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.User;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_repository.UserRepositoryInterface;
@@ -16,8 +15,9 @@ import java.util.List;
 
 public class UserRepository implements UserRepositoryInterface {
 
-    private final static FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-    private final static CollectionReference usersRef = rootRef.collection("users");
+   // private final static FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+    private final static CollectionReference usersRef
+            = FirestoreInstance.FIREBASE_FIRESTORE_INSTANCE.collection("users");
 
     private static UserRepositoryInterface userRepository;
 
