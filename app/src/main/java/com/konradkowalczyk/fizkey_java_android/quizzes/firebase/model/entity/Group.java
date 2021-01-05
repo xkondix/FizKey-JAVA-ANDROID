@@ -3,6 +3,8 @@ package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,9 +17,9 @@ public class Group implements Serializable {
     private String description;
     private List<DocumentReference> students;
     // { User : { Task : List<{Data : QuizResult}> } }
-    private Map<DocumentReference, Map<DocumentReference, List<Map<String,Object>>>> studentGrades;
+    private Map<String, Map<DocumentReference, List<Map<String,Object>>>> studentGrades;
 
-    public Group(String uuid, DocumentReference author, String authorUUID,  String nameOfGroup, String description, List<DocumentReference> students, Map<DocumentReference, Map<DocumentReference, List<Map<String,Object>>>> studentGrades) {
+    public Group(String uuid, DocumentReference author, String authorUUID,  String nameOfGroup, String description, List<DocumentReference> students, Map<String, Map<DocumentReference, List<Map<String,Object>>>> studentGrades) {
         this.uuid = uuid;
         this.author = author;
         this.nameOfGroup = nameOfGroup;
@@ -33,7 +35,12 @@ public class Group implements Serializable {
         this.nameOfGroup = nameOfGroup;
         this.description = description;
         this.authorUUID = authorUUID;
+        this.students = new ArrayList<>();
+        this.studentGrades = new HashMap<>();
     }
+
+    private Group(){}
+
 
     public String getUuid() {
         return uuid;
@@ -59,7 +66,7 @@ public class Group implements Serializable {
         return students;
     }
 
-    public Map<DocumentReference, Map<DocumentReference, List<Map<String,Object>>>> getStudentGrades() {
+    public Map<String, Map<DocumentReference, List<Map<String,Object>>>> getStudentGrades() {
         return studentGrades;
     }
 

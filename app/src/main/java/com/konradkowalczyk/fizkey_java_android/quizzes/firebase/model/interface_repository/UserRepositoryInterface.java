@@ -13,10 +13,12 @@ public interface UserRepositoryInterface {
     public List<Group> getGroupsByUserUUID(String uuid);
     public List<User> getUsers();
 
-    public void insertUser(User user);
+    public MutableLiveData<User> insertUser(User user);
 
     public void deleteUser(String uuid);
-    
+
+    public MutableLiveData<User> updateUser(User user);
+
     public void addGroup(String uuidUser, String uuidGroup);
 
     public void setUUID(User user, String uuid);

@@ -2,8 +2,11 @@ package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repositor
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -50,6 +53,7 @@ public class UserRepository implements UserRepositoryInterface {
 
     public void onLoadUser(String uuid)
     {
+
         DocumentReference uuidRef = usersRef.document(uuid);
         uuidRef.get().addOnCompleteListener(uuidTask -> {
             if (uuidTask.isSuccessful()) {
@@ -79,7 +83,7 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     @Override
-    public void insertUser(final User user) {
+    public MutableLiveData<User> insertUser(final User user) {
         DocumentReference uuidRef = usersRef.document(user.getUuid());
         uuidRef.get().addOnCompleteListener(uuidTask -> {
             if (uuidTask.isSuccessful()) {
@@ -88,6 +92,7 @@ public class UserRepository implements UserRepositoryInterface {
                     Log.i("createUser", "Document not exists");
                     uuidRef.set(user).addOnCompleteListener(userCreationTask -> {
                         if (userCreationTask.isSuccessful()) {
+                            userMutableLiveData.setValue(user);
                             Log.i("createUser", "User document create");
                         } else {
                             Log.i("createUser", "User document not create");
@@ -100,12 +105,32 @@ public class UserRepository implements UserRepositoryInterface {
                 Log.i("createUser", "ref uuid error");
             }
         });
+        return userMutableLiveData;
     }
 
 
     @Override
     public void deleteUser(String uuid) {
 
+    }
+
+    @Override
+    public MutableLiveData<User> updateUser(User user) {
+        DocumentReference uuidRef = usersRef.document(user.getUuid());
+        uuidRef.update("groups", user.getGroups())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("updateUser", "User successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("updateUser", "Error updating user document", e);
+                    }
+                });
+        return new MutableLiveData<>(user);
     }
 
     @Override

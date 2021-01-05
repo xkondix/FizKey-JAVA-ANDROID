@@ -136,6 +136,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener
             User user = new User(name, surname);
             user.setUuid(authViewModel.getCurrentlyUuid());
             userViewModel.insertUser(user);
+
+
+            Toast.makeText(getContext(), getContext().getResources().getString(R.string.login)
+                    , Toast.LENGTH_SHORT).show();
         }
     }
 

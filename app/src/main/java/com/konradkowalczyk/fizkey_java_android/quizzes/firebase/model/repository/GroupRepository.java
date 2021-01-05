@@ -29,7 +29,7 @@ public class GroupRepository implements GroupRepositoryInteface {
         return groupRepository;
     }
 
-    public void insertGroup(Group group)
+    public MutableLiveData<DocumentReference> insertGroup(Group group)
     {
         DocumentReference uuidRef = groupRef.document();
         uuidRef.get().addOnCompleteListener(uuidGroup -> {
@@ -53,6 +53,7 @@ public class GroupRepository implements GroupRepositoryInteface {
             }
         });
 
+        return new MutableLiveData<>(uuidRef);
     }
 
     public void addToGroup(String groupUuid, User user)

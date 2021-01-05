@@ -21,6 +21,14 @@ public class User implements Serializable {
         this.groups = new ArrayList<>();
     }
 
+    public User(String uuid, String name, String surname, List<DocumentReference> groups) {
+        this.name = name;
+        this.surname = surname;
+        this.groups = groups;
+        this.uuid = uuid;
+    }
+
+
     public String getUuid() {
         return uuid;
     }
@@ -39,6 +47,11 @@ public class User implements Serializable {
 
     public List<DocumentReference> getGroups() {
         return groups;
+    }
+
+    public void addToGroup(DocumentReference groupReference)
+    {
+        groups.add(groupReference);
     }
 
 

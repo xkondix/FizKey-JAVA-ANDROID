@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.GroupMenuRecyclerViewAdapter;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Group;
@@ -77,39 +75,11 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
 
 
         groupViewModel = new ViewModelProvider(getActivity()).get(GroupViewModel.class);
-//        groupViewModel.getGroupsByUUID().observe(getViewLifecycleOwner(), groups -> {
-//            groupsAdapter.submitList(groups);
-//            myGroupsAdapter.submitList(groups);
-//        });
+
 
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         userViewModel.getLiveDataUser().observe(getViewLifecycleOwner(), user ->{
-            List<Group> groups = new ArrayList<>();
-            List<Group> myGroups = new ArrayList<>();
-            if(user.getGroups()!=null) {
-                for (DocumentReference documentReference : user.getGroups()) {
-                    documentReference.get().addOnCompleteListener(groupDocument -> {
-
-                        if (groupDocument.isSuccessful()) {
-
-                            DocumentSnapshot document = groupDocument.getResult();
-                            Group group = document.toObject(Group.class);
-
-                            if (group.getAuthorUUID().equals(user.getUuid())) {
-                                myGroups.add(group);
-                            } else {
-                                groups.add(group);
-                            }
-                        }
-
-                    });
-
-                }
-            }
-
-            myGroupsAdapter.submitList(myGroups);
-            groupsAdapter.submitList(groups);
-
+            setGroups();
         });
 
 
@@ -118,6 +88,7 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
         recyclerViewMyGorups.setAdapter(myGroupsAdapter);
         recyclerViewGroups.setAdapter(groupsAdapter);
 
+        setGroups();
 
 
         groupsAdapter.setOnItemClickListener(new GroupMenuRecyclerViewAdapter.OnItemClickListener() {
@@ -146,5 +117,30 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
                 .collection("groups").document(user.getUuid())
                 ,user.getUuid(),name,descripction);
         groupViewModel.insertGroup(group);
+        groupViewModel.getCreateReference().observe(getViewLifecycleOwner(), groupReference ->{
+            if(groupReference != null){
+                user.addToGroup(groupReference);
+                userViewModel.updateUser(user);
+            }
+        });
+    }
+
+    private void setGroups()
+    {
+        List<Group> groups = new ArrayList<>();
+        List<Group> myGroups = new ArrayList<>();
+        for(Group group : userViewModel.getGroups()) {
+            if(group.getAuthorUUID().equals(userViewModel.getUuid()))
+            {
+                myGroups.add(group);
+            }
+            else {
+                groups.add(group);
+            }
+        }
+
+
+        myGroupsAdapter.submitList(myGroups);
+        groupsAdapter.submitList(groups);
     }
 }
