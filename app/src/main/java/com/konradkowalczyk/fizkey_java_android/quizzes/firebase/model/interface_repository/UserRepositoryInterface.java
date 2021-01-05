@@ -17,7 +17,7 @@ public interface UserRepositoryInterface {
 
     public void deleteUser(String uuid);
 
-    public MutableLiveData<User> updateUser(User user);
+    public void updateUser(User user);
 
     public void addGroup(String uuidUser, String uuidGroup);
 

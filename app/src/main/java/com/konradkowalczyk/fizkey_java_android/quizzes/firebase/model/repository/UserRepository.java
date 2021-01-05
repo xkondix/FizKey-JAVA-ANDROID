@@ -115,13 +115,14 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     @Override
-    public MutableLiveData<User> updateUser(User user) {
+    public void updateUser(User user) {
         DocumentReference uuidRef = usersRef.document(user.getUuid());
         uuidRef.update("groups", user.getGroups())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("updateUser", "User successfully updated!");
+                        userMutableLiveData.postValue(user);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -130,7 +131,6 @@ public class UserRepository implements UserRepositoryInterface {
                         Log.w("updateUser", "Error updating user document", e);
                     }
                 });
-        return new MutableLiveData<>(user);
     }
 
     @Override

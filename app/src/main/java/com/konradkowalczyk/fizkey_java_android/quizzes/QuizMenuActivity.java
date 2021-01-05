@@ -16,10 +16,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseUser;
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.AccountSharedPreferences;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Account;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz.CreateCustomQuizFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz.SolveCustomQuizFragment;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.group.GroupFragment;
@@ -84,12 +88,23 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
         status = (TextView) headerView.findViewById(R.id.status);
         status.setText(authViewModel.getLoginUserLiveData().getValue() != null ? getResources().getString(R.string.login) : getResources().getString(R.string.logout));
 
-        authViewModel.getLoginUserLiveData().observe(this, auth -> {
-            status.setText((auth != null ? getResources().getString(R.string.login) : getResources().getString(R.string.logout)));
+
+
+        Account account = AccountSharedPreferences.getData(getApplicationContext());
+        if(!account.getEmail().equals(""))
+        {
+            authViewModel.loginUser(account);
+
+        }
+
+        authViewModel.getLoginUserLiveData().observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                userViewModel.getUserByUuid(firebaseUser.getUid());
+                status.setText(account.getEmail().equals("") ? getResources().getString(R.string.logout) : getResources().getString(R.string.login));
+
+            }
         });
-
-
-
 
         //stworzenie bazowego fragmentu
         Fragment fragment = new QuizMenuFragment();
@@ -127,8 +142,9 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.logout:
                 authViewModel.logout();
+                AccountSharedPreferences.saveData("","", getApplicationContext());
                 Toast.makeText(this, getResources().getString(R.string.logged_out), Toast.LENGTH_SHORT).show();
-                fragment = new QuizMenuFragment();
+                finish();
                 break;
             default:
                 fragment = new QuizMenuFragment();

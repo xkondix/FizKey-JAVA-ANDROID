@@ -20,9 +20,6 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.GroupViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.UserViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class GroupFragment extends Fragment implements CreateGroupDialogFragment.OnFeedBack{
 
@@ -78,8 +75,16 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
 
 
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
-        userViewModel.getLiveDataUser().observe(getViewLifecycleOwner(), user ->{
-            setGroups();
+        userViewModel.getGroupsLiveData().observe(getViewLifecycleOwner(), groups ->{
+            groupsAdapter.submitList(groups);
+        });
+
+        userViewModel.getMyGroupsLiveData().observe(getViewLifecycleOwner(), myGroups ->{
+            myGroupsAdapter.submitList(myGroups);
+        });
+
+        userViewModel.getLiveDataUser().observe(getViewLifecycleOwner(), groupRefrence -> {
+            userViewModel.setGroups();
         });
 
 
@@ -88,7 +93,6 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
         recyclerViewMyGorups.setAdapter(myGroupsAdapter);
         recyclerViewGroups.setAdapter(groupsAdapter);
 
-        setGroups();
 
 
         groupsAdapter.setOnItemClickListener(new GroupMenuRecyclerViewAdapter.OnItemClickListener() {
@@ -114,7 +118,7 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
     public void sendValues(String name, String descripction) {
         User user = userViewModel.getLiveDataUser().getValue();
         Group group = new Group(FirestoreInstance.FIREBASE_FIRESTORE_INSTANCE
-                .collection("groups").document(user.getUuid())
+                .collection("users").document(user.getUuid())
                 ,user.getUuid(),name,descripction);
         groupViewModel.insertGroup(group);
         groupViewModel.getCreateReference().observe(getViewLifecycleOwner(), groupReference ->{
@@ -125,22 +129,5 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
         });
     }
 
-    private void setGroups()
-    {
-        List<Group> groups = new ArrayList<>();
-        List<Group> myGroups = new ArrayList<>();
-        for(Group group : userViewModel.getGroups()) {
-            if(group.getAuthorUUID().equals(userViewModel.getUuid()))
-            {
-                myGroups.add(group);
-            }
-            else {
-                groups.add(group);
-            }
-        }
 
-
-        myGroupsAdapter.submitList(myGroups);
-        groupsAdapter.submitList(groups);
-    }
 }

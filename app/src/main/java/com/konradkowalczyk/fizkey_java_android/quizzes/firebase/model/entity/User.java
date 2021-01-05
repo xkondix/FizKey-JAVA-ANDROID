@@ -54,5 +54,13 @@ public class User implements Serializable {
         groups.add(groupReference);
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "uuid='" + uuid + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", groups=" + groups +
+                '}';
+    }
 }

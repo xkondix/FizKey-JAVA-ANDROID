@@ -82,7 +82,7 @@ public class GroupMenuRecyclerViewAdapter extends
 
         holder.descriptionTextView.setText(group.getDescription());
         holder.groupNameTextView.setText(group.getNameOfGroup());
-        holder.numberOfPupilsTextView.setText(group.getStudents().size());
+       // holder.numberOfPupilsTextView.setText(group.getStudents().size()+"");
     }
 
     public class GroupMenuHolder extends RecyclerView.ViewHolder {

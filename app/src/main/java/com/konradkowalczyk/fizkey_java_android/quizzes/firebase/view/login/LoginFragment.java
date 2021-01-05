@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.AccountSharedPreferences;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Account;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.User;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.AuthViewModel;
@@ -43,10 +44,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         getActivity().setTitle(getContext().getResources().getString(R.string.sign_in_login));
-
-        //userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        //userViewModel.init();
-        //authViewModel = ((QuizMenuActivity) getActivity()).getAuthViewModel();
 
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
@@ -86,18 +83,19 @@ public class LoginFragment extends Fragment implements View.OnClickListener
                                     FirstLoginDialogFragment dialog = FirstLoginDialogFragment.newInstance();
                                     dialog.setTargetFragment(LoginFragment.this, 1);
                                     dialog.show(getFragmentManager(), "First Login Dialog");
-
                                 }
-                                Toast.makeText(getContext(), getContext().getResources().getString(R.string.login)
-                                        , Toast.LENGTH_SHORT).show();
+                                else {
+                                    Toast.makeText(getContext(), getContext().getResources().getString(R.string.login)
+                                            , Toast.LENGTH_SHORT).show();
+                                    AccountSharedPreferences.saveData(getEmailFromEditText(), getPasswordFromEditText(), getContext());
+                                }
 
-                        }
 
-                            if(auth == null)
-                            {
-                                Toast.makeText(getContext(), getContext().getResources().getString(R.string.try_again)
-                                        , Toast.LENGTH_SHORT).show();
                             }
+                           else {
+                                Toast.makeText(getContext(), "...", Toast.LENGTH_SHORT).show();
+                            }
+
 
                         });
                     });
@@ -136,6 +134,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener
             User user = new User(name, surname);
             user.setUuid(authViewModel.getCurrentlyUuid());
             userViewModel.insertUser(user);
+            AccountSharedPreferences.saveData(getEmailFromEditText(), getPasswordFromEditText(), getContext());
 
 
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.login)

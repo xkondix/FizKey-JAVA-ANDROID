@@ -16,8 +16,11 @@ import java.util.List;
 
 public class UserViewModel extends ViewModel {
 
-    private MutableLiveData<User> userLiveData;
     private UserRepositoryInterface userRepository;
+    private MutableLiveData<User> userLiveData;
+    private MutableLiveData<List<Group>> groupsLiveData;
+    private MutableLiveData<List<Group>> myGroupsLiveData;
+
 
 
     public void init()
@@ -27,6 +30,12 @@ public class UserViewModel extends ViewModel {
         }
         if(userLiveData == null) {
             userLiveData = new MutableLiveData<>();
+        }
+        if(myGroupsLiveData == null) {
+            myGroupsLiveData = new MutableLiveData<>(new ArrayList<>());
+        }
+        if(groupsLiveData == null) {
+            groupsLiveData = new MutableLiveData<>(new ArrayList<>());
         }
 
     }
@@ -39,7 +48,7 @@ public class UserViewModel extends ViewModel {
 
     public void updateUser(User user)
     {
-        userLiveData = userRepository.updateUser(user);
+        userRepository.updateUser(user);
     }
 
     public void getUserByUuid(String uuid)
@@ -49,25 +58,42 @@ public class UserViewModel extends ViewModel {
 
     public LiveData<User> getLiveDataUser() {
         return userLiveData;
-
     }
 
-    public List<Group> getGroups() {
+    public LiveData<List<Group>> getGroupsLiveData() {
+        return groupsLiveData;
+    }
+
+    public LiveData<List<Group>> getMyGroupsLiveData() {
+        return myGroupsLiveData;
+    }
+
+    public LiveData<List<DocumentReference>> getAllGroupsLiveData() {
+        return new MutableLiveData<>(userRepository.getUserByUUID(getUuid()).getValue().getGroups());
+    }
+
+    public void setGroups() {
         List<Group> groups = new ArrayList<>();
+        List<Group> myGroups = new ArrayList<>();
+
         for (DocumentReference documentReference : userLiveData.getValue().getGroups()) {
             documentReference.get().addOnCompleteListener(groupDocument -> {
-
                 if (groupDocument.isSuccessful()) {
-
                     DocumentSnapshot document = groupDocument.getResult();
                     Group group = document.toObject(Group.class);
-                    groups.add(group);
-
+                    if (group.getAuthorUUID().equals(userLiveData.getValue().getUuid())) {
+                        myGroups.add(group);
+                        myGroupsLiveData.postValue(myGroups);
+                    } else {
+                        groups.add(group);
+                        groupsLiveData.postValue(groups);
+                    }
                 }
-
             });
         }
-        return groups;
+
+
+
     }
 
     public String getUuid() {
