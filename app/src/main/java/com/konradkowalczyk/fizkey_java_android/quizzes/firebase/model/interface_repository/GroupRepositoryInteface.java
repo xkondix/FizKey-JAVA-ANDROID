@@ -10,5 +10,7 @@ public interface GroupRepositoryInteface {
 
     public MutableLiveData<DocumentReference> insertGroup(Group group);
     public void addToGroup(String groupUuid, User user);
+    public void updateGroup(Group group);
+    public MutableLiveData<Group> getGroupByUUID(String groupUuid);
 }
 

@@ -17,9 +17,9 @@ public class Group implements Serializable {
     private String description;
     private List<DocumentReference> students;
     // { User : { Task : List<{Data : QuizResult}> } }
-    private Map<String, Map<DocumentReference, List<Map<String,Object>>>> studentGrades;
+    private Map<String, List<Map<DocumentReference, List<Map<String,Object>>>>> studentGrades;
 
-    public Group(String uuid, DocumentReference author, String authorUUID,  String nameOfGroup, String description, List<DocumentReference> students, Map<String, Map<DocumentReference, List<Map<String,Object>>>> studentGrades) {
+    public Group(String uuid, DocumentReference author, String authorUUID,  String nameOfGroup, String description, List<DocumentReference> students, Map<String, List<Map<DocumentReference, List<Map<String,Object>>>>> studentGrades) {
         this.uuid = uuid;
         this.author = author;
         this.nameOfGroup = nameOfGroup;
@@ -66,7 +66,7 @@ public class Group implements Serializable {
         return students;
     }
 
-    public Map<String, Map<DocumentReference, List<Map<String,Object>>>> getStudentGrades() {
+    public Map<String, List<Map<DocumentReference, List<Map<String,Object>>>>> getStudentGrades() {
         return studentGrades;
     }
 
@@ -79,5 +79,24 @@ public class Group implements Serializable {
         this.uuid = uuid;
     }
 
+    public void setStudents(List<DocumentReference> students) {
+        this.students = students;
+    }
 
+    public void setStudentGrades(Map<String, List<Map<DocumentReference, List<Map<String, Object>>>>> studentGrades) {
+        this.studentGrades = studentGrades;
+    }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "uuid='" + uuid + '\'' +
+                ", author=" + author +
+                ", authorUUID='" + authorUUID + '\'' +
+                ", nameOfGroup='" + nameOfGroup + '\'' +
+                ", description='" + description + '\'' +
+                ", students=" + students +
+                ", studentGrades=" + studentGrades +
+                '}';
+    }
 }

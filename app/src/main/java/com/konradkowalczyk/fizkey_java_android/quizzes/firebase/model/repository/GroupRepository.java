@@ -2,8 +2,11 @@ package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repositor
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -13,9 +16,10 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_
 
 public class GroupRepository implements GroupRepositoryInteface {
 
-//    private final static FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
     private final static CollectionReference groupRef
         = FirestoreInstance.FIREBASE_FIRESTORE_INSTANCE.collection("groups");
+
+    private MutableLiveData<Group> groupMutableLiveData = new MutableLiveData<>();
 
     private static GroupRepositoryInteface groupRepository;
 
@@ -54,6 +58,51 @@ public class GroupRepository implements GroupRepositoryInteface {
         });
 
         return new MutableLiveData<>(uuidRef);
+    }
+
+    public MutableLiveData<Group> getGroupByUUID(String groupUuid)
+    {
+        onLoadGroup(groupUuid);
+        return groupMutableLiveData;
+    }
+
+    public void updateGroup(Group group)
+    {
+        DocumentReference uuidRef = groupRef.document(group.getUuid());
+        uuidRef.update("students", group.getStudents()
+                ,"studentGrades", group.getStudentGrades())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("updateUser", "User successfully updated!");
+                        groupMutableLiveData.postValue(group);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("updateUser", "Error updating user document", e);
+                    }
+                });
+    }
+
+    private void onLoadGroup(String groupUuid) {
+
+        DocumentReference uuidRef = groupRef.document(groupUuid);
+        uuidRef.get().addOnCompleteListener(uuidGroup -> {
+            if (uuidGroup.isSuccessful()) {
+                DocumentSnapshot document = uuidGroup.getResult();
+                if (document.exists()) {
+                    groupMutableLiveData.postValue(document.toObject(Group.class));
+                    Log.i("onLoadGroup", "Document exists");
+                } else {
+                    Log.i("onLoadGroup", "Document not exists");
+                }
+
+            } else {
+                Log.i("onLoadGroup", "Ref uuid error");
+            }
+        });
     }
 
     public void addToGroup(String groupUuid, User user)

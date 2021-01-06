@@ -9,13 +9,13 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Gro
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.interface_repository.GroupRepositoryInteface;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository.GroupRepository;
 
-import java.util.List;
-
 public class GroupViewModel extends ViewModel {
 
     private GroupRepositoryInteface groupRepository;
 
-    MutableLiveData<DocumentReference> createReference;
+    private MutableLiveData<DocumentReference> createReferenceLiveData;
+    private MutableLiveData<Group> groupLiveData;
+
 
     public GroupViewModel() {
         super();
@@ -25,23 +25,34 @@ public class GroupViewModel extends ViewModel {
         if (groupRepository == null) {
             groupRepository = GroupRepository.getInstance();
         }
-
-        if (createReference == null) {
-            createReference = new MutableLiveData<>();
+        if (createReferenceLiveData == null) {
+            createReferenceLiveData = new MutableLiveData<>();
+        }
+        if (groupLiveData == null) {
+            groupLiveData = new MutableLiveData<>();
         }
 
     }
 
-    public LiveData<DocumentReference> getCreateReference() {
-        return createReference;
+    public void updateGroup(Group group)
+    {
+        groupRepository.updateGroup(group);
+    }
+
+    public LiveData<DocumentReference> getCreateReferenceLiveData() {
+        return createReferenceLiveData;
     }
 
     public void insertGroup(Group group) {
-        createReference = groupRepository.insertGroup(group);
+        createReferenceLiveData = groupRepository.insertGroup(group);
     }
 
-    public LiveData<List<Group>> getGroupsByUUID() {
-        return null;
+    public void getGroupsByUUID(String groupUuid) {
+        groupLiveData = groupRepository.getGroupByUUID(groupUuid);
+    }
+
+    public MutableLiveData<Group> getGroupLiveData() {
+        return groupLiveData;
     }
 }
 

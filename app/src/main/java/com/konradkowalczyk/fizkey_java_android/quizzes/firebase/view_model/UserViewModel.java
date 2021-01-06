@@ -81,12 +81,14 @@ public class UserViewModel extends ViewModel {
                 if (groupDocument.isSuccessful()) {
                     DocumentSnapshot document = groupDocument.getResult();
                     Group group = document.toObject(Group.class);
-                    if (group.getAuthorUUID().equals(userLiveData.getValue().getUuid())) {
-                        myGroups.add(group);
-                        myGroupsLiveData.postValue(myGroups);
-                    } else {
-                        groups.add(group);
-                        groupsLiveData.postValue(groups);
+                    if(group != null) {
+                        if (group.getAuthorUUID().equals(userLiveData.getValue().getUuid())) {
+                            myGroups.add(group);
+                            myGroupsLiveData.postValue(myGroups);
+                        } else {
+                            groups.add(group);
+                            groupsLiveData.postValue(groups);
+                        }
                     }
                 }
             });
