@@ -121,6 +121,11 @@
     <string name="my_group">My groups</string>
     <string name="groups">Groups</string>
     <string name="code_group_fragment">Enter the code here</string>
+    <string name="bad_enter_code">The code is invalid</string>
+    <string name="already_exist_in_group">You are already in this group</string>
+    <string name="joined_the_grouo">You joined the group</string>
+    <string name="created_group">The group has been created</string>
+    <string name="number_of_group_members">Number of group members</string>
 
 
 </resources>

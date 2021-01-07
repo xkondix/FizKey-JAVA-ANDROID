@@ -105,7 +105,7 @@ public class GroupRepository implements GroupRepositoryInteface {
         });
     }
 
-    public void addToGroup(String groupUuid, User user)
+    public MutableLiveData<DocumentReference> addToGroup(String groupUuid, User user)
     {
         MutableLiveData group = new MutableLiveData();
 
@@ -113,12 +113,25 @@ public class GroupRepository implements GroupRepositoryInteface {
         uuidRef.get().addOnCompleteListener(uuidGroup -> {
             if (uuidGroup.isSuccessful()) {
                 DocumentSnapshot document = uuidGroup.getResult();
-                if (!document.exists()) {
-                    Log.i("addToGroup", "Document not exists");
+                if (document.exists()) {
+
                     Group groupFind = document.toObject(Group.class);
-                    groupFind.addToGroup(FirestoreInstance.FIREBASE_FIRESTORE_INSTANCE
-                            .collection("users").document(user.getUuid()));
-                    group.setValue(document.toObject(Group.class));
+                    DocumentReference userRef = FirestoreInstance.FIREBASE_FIRESTORE_INSTANCE
+                            .collection("users").document(user.getUuid());
+
+                    if(!groupFind.getAuthorUUID().equals(user.getUuid())) {
+                        group.postValue(uuidRef);
+
+                        if (!groupFind.getStudents().contains(userRef)) {
+                            groupFind.addToGroup(userRef);
+                        }
+                        if (groupFind.getStudentGrades().get(userRef) == null) {
+                            groupFind.addNewUser(user.getUuid());
+                        }
+                        uuidRef.set(groupFind);
+                    }
+                    Log.i("addToGroup", "Document  exists");
+
                 } else {
                     Log.i("addToGroup", "Document exists");
                 }
@@ -127,30 +140,7 @@ public class GroupRepository implements GroupRepositoryInteface {
             }
         });
 
-        if(group.getValue()!=null)
-        {
-            uuidRef.get().addOnCompleteListener(uuidGroup -> {
-                if (uuidGroup.isSuccessful()) {
-                    DocumentSnapshot document = uuidGroup.getResult();
-                    if (!document.exists()) {
-                        Log.i("addToGroup", "Document not exists");
-                    } else {
-                        Log.i("addToGroup", "Document exists");
-                        uuidRef.set(group).addOnCompleteListener(groupCreation -> {
-                        if (groupCreation.isSuccessful()) {
-                            Log.i("addToGroup", "Group document create");
-                        } else {
-                            Log.i("addToGroup", "Group document not create");
-                        }
-                        });
-                    }
-                } else {
-                    Log.i("addToGroup", "Ref uuid error");
-                }
-            });
-        }
-        else {
-            Log.i("addToGroup", "Group not exist");
-        }
+      return group;
+
     }
 }

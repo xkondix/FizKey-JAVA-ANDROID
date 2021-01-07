@@ -9,7 +9,7 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Use
 public interface GroupRepositoryInteface {
 
     public MutableLiveData<DocumentReference> insertGroup(Group group);
-    public void addToGroup(String groupUuid, User user);
+    public MutableLiveData<DocumentReference> addToGroup(String groupUuid, User user);
     public void updateGroup(Group group);
     public MutableLiveData<Group> getGroupByUUID(String groupUuid);
 }

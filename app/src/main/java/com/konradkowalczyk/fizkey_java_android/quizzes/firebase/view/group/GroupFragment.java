@@ -66,33 +66,24 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
             @Override
             public void onClick(View v) {
                 User user = userViewModel.getLiveDataUser().getValue();
-                groupViewModel.getGroupsByUUID(enterCodeEditText.getText().toString().trim());
-                groupViewModel.getGroupLiveData().observe(getViewLifecycleOwner(), group ->{
-                    if(group != null ) {
-//                            DocumentReference userRef = FirestoreInstance.FIREBASE_FIRESTORE_INSTANCE
-//                                    .collection("users").document(user.getUuid());
-//                            List<DocumentReference> students = group.getStudents();
-//                            if (!students.contains(userRef)) {
-//                                students.add(userRef);
-//                            }
-//
-//                            Map<String, List<Map<DocumentReference, List<Map<String, Object>>>>> studentGrades
-//                                    = group.getStudentGrades();
-//                            if (studentGrades.get(user.getUuid()) == null) {
-//                                    studentGrades.put(user.getUuid(), new ArrayList<>());
-//                            }
-//
-//                            group.setStudentGrades(studentGrades);
-//                            group.setStudents(students);
-//                            System.out.println(group.getAuthor());
-//                            groupViewModel.updateGroup(group);
-//                            user.addToGroup(FirestoreInstance.FIREBASE_FIRESTORE_INSTANCE
-//                                    .collection("groups").document(group.getUuid()));
-//                            userViewModel.updateUser(user);
-                        }
 
+                groupViewModel.joinWithEntryCodetoGroup(enterCodeEditText.getText().toString().trim(), user);
+                groupViewModel.getAddToGroupLiveData().observe(getViewLifecycleOwner(), groupRef ->{
+                    if(groupRef != null ) {
+                        if(!user.getGroups().contains(groupRef)) {
+                            user.addToGroup(groupRef);
+                            userViewModel.updateUser(user);
+                            Toast.makeText(getContext(),getResources().getString(R.string.joined_the_grouo)
+                                    ,Toast.LENGTH_LONG).show();
+
+                        }
+                        Toast.makeText(getContext(),getResources().getString(R.string.already_exist_in_group)
+                                ,Toast.LENGTH_LONG).show();
+
+                    }
                     else {
-                        Toast.makeText(getContext(),"Bad Addrees",Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(),getResources().getString(R.string.bad_enter_code)
+                                ,Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -168,6 +159,8 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
             if(groupReference != null){
                 user.addToGroup(groupReference);
                 userViewModel.updateUser(user);
+                Toast.makeText(getContext(),getResources().getString(R.string.created_group)
+                        ,Toast.LENGTH_LONG).show();
             }
         });
     }

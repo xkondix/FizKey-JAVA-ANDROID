@@ -87,6 +87,10 @@ public class Group implements Serializable {
         this.studentGrades = studentGrades;
     }
 
+    public void addNewUser(String userUuid) {
+        this.studentGrades.put(userUuid, new ArrayList<>());
+    }
+
     @Override
     public String toString() {
         return "Group{" +

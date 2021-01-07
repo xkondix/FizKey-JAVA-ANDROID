@@ -26,6 +26,7 @@ public class GroupMenuRecyclerViewAdapter extends
     }
 
     private OnItemClickListener listener;
+    private String numberOfGroupsMembers;
 
 
     public GroupMenuRecyclerViewAdapter() {
@@ -59,13 +60,14 @@ public class GroupMenuRecyclerViewAdapter extends
     public GroupMenuHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_view_group_menu, parent, false);
+
+        numberOfGroupsMembers = parent.getContext().getResources().getString(R.string.number_of_group_members);
         return new GroupMenuHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GroupMenuHolder holder, int position) {
         Group group = getItem(position);
-
         group.getAuthor().get().addOnCompleteListener( userDocument -> {
             if (userDocument.isSuccessful()) {
                 DocumentSnapshot document = userDocument.getResult();
@@ -82,7 +84,7 @@ public class GroupMenuRecyclerViewAdapter extends
 
         holder.descriptionTextView.setText(group.getDescription());
         holder.groupNameTextView.setText(group.getNameOfGroup());
-       // holder.numberOfPupilsTextView.setText(group.getStudents().size()+"");
+        holder.numberOfPupilsTextView.setText(numberOfGroupsMembers+": "+group.getStudents().size());
     }
 
     public class GroupMenuHolder extends RecyclerView.ViewHolder {
