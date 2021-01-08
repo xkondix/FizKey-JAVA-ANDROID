@@ -35,19 +35,11 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     private MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
-    private User user = null;
 
 
     @Override
     public MutableLiveData<User> getUserByUUID(String uuid) {
-
-        if (user == null)
-        {
-            onLoadUser(uuid);
-        }
-
-        userMutableLiveData.setValue(user);
-
+        onLoadUser(uuid);
         return userMutableLiveData;
     }
 

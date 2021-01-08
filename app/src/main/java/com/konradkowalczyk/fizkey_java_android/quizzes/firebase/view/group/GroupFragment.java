@@ -19,6 +19,7 @@ import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.Group
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Group;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.User;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.repository.FirestoreInstance;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.group.page_group.GroupActivity;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.GroupViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.UserViewModel;
 
@@ -128,7 +129,7 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
             public void onItemClick(Group group, int position) {
                 Intent intent = new Intent(getActivity(), GroupActivity.class);
                 intent.putExtra(GroupActivity.GROUP_UUID, group.getUuid());
-                intent.putExtra(GroupActivity.IS_AUTHOR, false);
+                intent.putExtra(GroupActivity.USER_UUID, userViewModel.getUuid());
                 startActivity(intent);
             }
         });
@@ -138,7 +139,7 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
             public void onItemClick(Group group, int position) {
                 Intent intent = new Intent(getActivity(), GroupActivity.class);
                 intent.putExtra(GroupActivity.GROUP_UUID, group.getUuid());
-                intent.putExtra(GroupActivity.IS_AUTHOR, true);
+                intent.putExtra(GroupActivity.USER_UUID, userViewModel.getUuid());
                 startActivity(intent);
             }
         });

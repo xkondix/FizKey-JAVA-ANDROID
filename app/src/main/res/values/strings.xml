@@ -134,6 +134,13 @@
     <string name="joined_the_grouo">You joined the group</string>
     <string name="created_group">The group has been created</string>
     <string name="number_of_group_members">Number of group members</string>
+    <string name="ask_a_task">Ask a task</string>
+    <string name="task_to_be_solved">Task to be solved</string>
+    <string name="correct_the_grade">Correct the grade</string>
+    <string name="my_grades">My grades</string>
+    <string name="group_profile">Home</string>
+    <string name="welcome">Welcome</string>
+    <string name="leave_group">Leave  group</string>
 
 
 </resources>

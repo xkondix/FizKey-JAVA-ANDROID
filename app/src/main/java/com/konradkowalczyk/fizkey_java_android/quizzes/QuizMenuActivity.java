@@ -106,7 +106,6 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-        //stworzenie bazowego fragmentu
         Fragment fragment = new QuizMenuFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_frame, fragment);
@@ -195,12 +194,6 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
     }
 
 
-    public AuthViewModel getAuthViewModel() {
-        return authViewModel;
-    }
 
-    public UserViewModel getUserViewModel() {
-        return userViewModel;
-    }
 }
 

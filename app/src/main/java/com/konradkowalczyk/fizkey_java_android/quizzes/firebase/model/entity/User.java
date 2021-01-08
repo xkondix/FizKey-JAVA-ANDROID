@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User implements Serializable {
+public class User implements Serializable, Comparable<User> {
 
     private String uuid;
     private String name;
@@ -54,13 +54,10 @@ public class User implements Serializable {
         groups.add(groupReference);
     }
 
+
+
     @Override
-    public String toString() {
-        return "User{" +
-                "uuid='" + uuid + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", groups=" + groups +
-                '}';
+    public int compareTo(User user) {
+        return this.getName().compareTo(user.getName());
     }
 }
