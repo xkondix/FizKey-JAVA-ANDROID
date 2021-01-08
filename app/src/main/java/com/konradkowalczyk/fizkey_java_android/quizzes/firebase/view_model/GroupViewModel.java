@@ -95,11 +95,13 @@ public class GroupViewModel extends ViewModel {
                     users.add(user);
                 }
 
+                Collections.sort(users);
+                usersMutableLiveData.postValue(users);
+
             });
         }
 
-        Collections.sort(users);
-        usersMutableLiveData.postValue(users);
+
 
     }
 

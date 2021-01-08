@@ -55,10 +55,14 @@ public class HomeGroupFragment extends Fragment {
         groupViewModel = new ViewModelProvider(getActivity()).get(GroupViewModel.class);
 
         groupViewModel.getGroupLiveData().observe(getViewLifecycleOwner(), group ->{
-            System.out.println(group);
+            if(group != null) {
+                System.out.println(group.getDescription());
+                System.out.println(group.getNameOfGroup());
+                nameOfGroupTextView.setText(group.getNameOfGroup());
+                descricptionTextView.setText(group.getDescription());
+            }
             groupViewModel.setUsers();
-            nameOfGroupTextView.setText(groupViewModel.getGroupLiveData().getValue().getNameOfGroup());
-            descricptionTextView.setText(groupViewModel.getGroupLiveData().getValue().getDescription());
+
         });
 
         groupViewModel.getUsersMutableLiveData().observe(getViewLifecycleOwner(), users ->{

@@ -54,10 +54,13 @@ public class User implements Serializable, Comparable<User> {
         groups.add(groupReference);
     }
 
-
+    public String getNameAndSurname()
+    {
+        return name.trim() + " " + surname.trim();
+    }
 
     @Override
     public int compareTo(User user) {
-        return this.getName().compareTo(user.getName());
+        return this.getNameAndSurname().toLowerCase().compareTo(user.getNameAndSurname().toLowerCase());
     }
 }

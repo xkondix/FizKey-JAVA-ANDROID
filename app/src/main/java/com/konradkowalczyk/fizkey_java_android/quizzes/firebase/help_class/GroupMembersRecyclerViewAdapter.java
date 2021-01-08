@@ -65,7 +65,7 @@ public class GroupMembersRecyclerViewAdapter extends
     public void onBindViewHolder(@NonNull GroupMembersHolder holder, int position) {
         User user = getItem(position);
 
-        holder.nameOfUserTextView.setText(user.getName() + " " + user.getSurname());
+        holder.nameOfUserTextView.setText(user.getNameAndSurname());
         holder.numberTextView.setText((position + 1) + " ");
     }
 

@@ -5,28 +5,41 @@
     android:layout_height="match_parent"
     tools:context=".quizzes.firebase.view.group.page_group.HomeGroupFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/name_of_group_home_fragment"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_margin="10dp"
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/descricption_home_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/border"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/members"
+            android:textSize="20dp"
+            android:layout_margin="10dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/group_members_recycler_view_home_fragment"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         android:padding="10dp"
         android:scrollbars="vertical"
         android:background="@color/colorPrimary"
         tools:listitem="@layout/card_view_group_members" />
+
+    </LinearLayout>
 
 </FrameLayout>
