@@ -182,10 +182,8 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         if(requestCode == QuizMenuFragment.GET_RESULTS_REQUEST && resultCode == RESULT_OK) {
             QuizResults quizResults = data.getParcelableExtra(QuizActivity.RESULTS);
-
             QuizResultDialog dialog = QuizResultDialog
                     .newInstance(quizResults);
             dialog.show(getSupportFragmentManager(), "Results View");

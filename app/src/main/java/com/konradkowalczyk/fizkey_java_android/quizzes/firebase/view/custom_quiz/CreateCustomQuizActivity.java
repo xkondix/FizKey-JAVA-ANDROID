@@ -16,12 +16,19 @@ import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.CreateCustomQuizRecyclerViewAdapter;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.CustomQuizModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.TaskRecycler;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Group;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.GroupViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.TaskViewModel;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.UserViewModel;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizActivity;
+
+import java.util.List;
 
 public class CreateCustomQuizActivity extends AppCompatActivity implements InsertTaskDialogFragment.OnFeedBack{
 
     public static final String EXTRA_MODEL_ID = "model";
+    public static final String USER_UUID = "user uuid";
+
 
     public static final String TASK_RECYCLER = "task";
     public static final String NUMBER_OF_FIELDS = "fields";
@@ -34,6 +41,9 @@ public class CreateCustomQuizActivity extends AppCompatActivity implements Inser
 
 
     private TaskViewModel taskViewModel;
+    private UserViewModel userViewModel;
+    private GroupViewModel groupViewModel;
+
     private Button addNewQuestionButton, saveTaskButton;
     private CustomQuizModel customQuizModel;
 
@@ -70,6 +80,18 @@ public class CreateCustomQuizActivity extends AppCompatActivity implements Inser
         taskViewModel = new ViewModelProvider(this).get(TaskViewModel.class);
         taskViewModel.init();
 
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.init();
+
+        groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
+        groupViewModel.init();
+
+        userViewModel.getUserByUuid(getIntent().getStringExtra(USER_UUID));
+        userViewModel.getLiveDataUser().observe(this, user ->
+        {
+            userViewModel.setGroups();
+        });
+
         taskViewModel.getTaskRecyclerLiveData().observe(this, taskRecyclers -> {
 
             adapter.submitList(taskRecyclers);
@@ -104,7 +126,7 @@ public class CreateCustomQuizActivity extends AppCompatActivity implements Inser
     private void saveTask()
     {
         if(taskViewModel.getTaskRecyclerLiveData().getValue().size()>0) {
-            InsertTaskDialogFragment dialog = new InsertTaskDialogFragment();
+            InsertTaskDialogFragment dialog =  InsertTaskDialogFragment.newInstance(userViewModel.getMyGroupsLiveData().getValue());
             dialog.show(getSupportFragmentManager(), "Save Task Dialog");
         }
     }
@@ -149,14 +171,14 @@ public class CreateCustomQuizActivity extends AppCompatActivity implements Inser
     }
 
     @Override
-    public void sendValues(String topic, String descripction) {
+    public void sendValues(String topic, String descripction, List<Group> groupNames, boolean forAll) {
 
         CustomQuizModel customQuizModel = taskViewModel.getCustomQuizModelLiveData().getValue();
         customQuizModel.setTopic(topic);
         customQuizModel.setDescripcion(descripction);
         taskViewModel.setCustomQuizModelLiveData(customQuizModel);
+        String uuid = taskViewModel.insertTask(forAll);
 
-        taskViewModel.insertTask();
-
+        groupViewModel.updateAllGroupsByUuid(groupNames, uuid);
     }
 }

@@ -18,8 +18,10 @@ public class Task implements Serializable {
     private int numberOfFields;
     private int timerValue;
 
+    private boolean forAll;
 
-    public Task(String topic, String description, List<String> questions, Map<String, List<String>> answers, List<Integer> positiveNumbers, String data, int numberOfFields, int timerValue, String uuid) {
+
+    public Task(String topic, String description, List<String> questions, Map<String, List<String>> answers, List<Integer> positiveNumbers, String data, int numberOfFields, int timerValue, String uuid, boolean forAll) {
         this.topic = topic;
         this.description = description;
         this.questions = questions;
@@ -29,6 +31,7 @@ public class Task implements Serializable {
         this.numberOfFields = numberOfFields;
         this.timerValue = timerValue;
         this.uuid = uuid;
+        this.forAll = forAll;
 
     }
 
@@ -107,4 +110,7 @@ public class Task implements Serializable {
     }
 
 
+    public boolean isForAll() {
+        return forAll;
+    }
 }

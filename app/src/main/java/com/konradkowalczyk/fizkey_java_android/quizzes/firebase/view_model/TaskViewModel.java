@@ -152,12 +152,13 @@ public class TaskViewModel extends ViewModel {
 
     //Task
 
-    public void insertTask()
+    public String insertTask(boolean forAll)
     {
         List<TaskRecycler> values = taskRecyclerLiveData.getValue();
         List<List<String>> answers = new ArrayList<>();
         List<String> questions = new ArrayList<>();
         List<Integer> positivNumbers = new ArrayList<>();
+        String uuid = UUID.randomUUID().toString();
 
         for(TaskRecycler value : values)
         {
@@ -174,11 +175,14 @@ public class TaskViewModel extends ViewModel {
                 , new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()).toString()
                 ,customQuizModelLiveData.getValue().getNumberOfFields()
                 ,customQuizModelLiveData.getValue().getTimerValue()
-                , UUID.randomUUID().toString()
+                , uuid
+                , forAll
         ));
+
+        return uuid;
     }
 
-    private CustomQuizModel TaskToCustomQuizModel(Task task)
+    public static CustomQuizModel TaskToCustomQuizModel(Task task)
     {
         CustomQuizModel customQuizModel = new CustomQuizModel(0
                 , task.getQuestions().size()
@@ -227,7 +231,7 @@ public class TaskViewModel extends ViewModel {
         return task;
     }
 
-    public CustomQuizModel shuffle(CustomQuizModel customQuizModel)
+    public static CustomQuizModel shuffle(CustomQuizModel customQuizModel)
     {
         List<Integer> postitiveNumbers = customQuizModel.getPositiveNumbers();
         List<List<String>> answersList = customQuizModel.getListAnswers();
@@ -259,7 +263,7 @@ public class TaskViewModel extends ViewModel {
         return customQuizModel;
     }
 
-    private int getNewPositiveNumber(int numberOfFields, int positivenumber)
+    private static int getNewPositiveNumber(int numberOfFields, int positivenumber)
     {
         Random random = new Random();
         boolean rand = true;
@@ -288,7 +292,7 @@ public class TaskViewModel extends ViewModel {
         return map;
     }
 
-    private List<List<String>> fromMapToNestedList(Map<String, List<String>> map)
+    private static List<List<String>> fromMapToNestedList(Map<String, List<String>> map)
     {
         List<List<String>> list = new ArrayList<>();
 

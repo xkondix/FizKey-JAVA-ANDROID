@@ -40,11 +40,17 @@
         ></item>
 
     <item
+        android:id="@+id/send_an_invitation_to_the_group"
+        android:title="@string/send_an_invitation_to_the_group"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        ></item>
+
+    <item
         android:id="@+id/leave_group"
         android:title="@string/leave_group"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"
         ></item>
-
 
 </menu>

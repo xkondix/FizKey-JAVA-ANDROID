@@ -27,14 +27,12 @@
             android:textAlignment="center" />
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        tools:ignore="NotSibling">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,28 +48,49 @@
 
     </LinearLayout>
 
-    <TextView
+    <CheckBox
+        android:id="@+id/for_all_insert_task_dialog_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ok"
-        android:layout_marginTop="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="2dp"
-        android:textColor="#000"
-        android:textSize="18dp"
-        android:id="@+id/ok_insert_task_dialog_fragment"
-        tools:ignore="NotSibling" />
+        android:text="@string/for_all">
+    </CheckBox>
 
-    <TextView
+    <TableLayout
+        android:id="@+id/groups_table_insert_task_dialog_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cancel"
-        android:layout_marginTop="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="2dp"
-        android:textSize="18dp"
-        android:textColor="#000"
-        android:id="@+id/cancel_insert_task_dialog_fragment"
-        tools:ignore="NotSibling,UnknownIdInLayout" />
+        android:layout_alignParentTop="true"
+        android:layout_below="@+id/heding_quiz_dialog">
+    </TableLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            android:layout_marginTop="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="2dp"
+            android:textColor="#000"
+            android:textSize="18dp"
+            android:id="@+id/ok_insert_task_dialog_fragment"
+            tools:ignore="NotSibling" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_marginTop="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="2dp"
+            android:textSize="18dp"
+            android:textColor="#000"
+            android:id="@+id/cancel_insert_task_dialog_fragment"
+            tools:ignore="NotSibling,UnknownIdInLayout" />
+    </RelativeLayout>
+
 
 </LinearLayout>

@@ -108,7 +108,7 @@ public class TaskRepository implements TaskRepositoryInterface {
     public void onLoadTasks()
     {
 
-        taskRef.orderBy("data").limit(100).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        taskRef.orderBy("data").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots,
                                 @Nullable FirebaseFirestoreException e) {
@@ -119,7 +119,10 @@ public class TaskRepository implements TaskRepositoryInterface {
 
                 for (DocumentChange dc : snapshots.getDocumentChanges()) {
                     if (dc.getType() == DocumentChange.Type.ADDED) {
-                        tasks.add(dc.getDocument().toObject(Task.class));
+                        Task task = dc.getDocument().toObject(Task.class);
+                        if(task.isForAll() == true) {
+                            tasks.add(task);
+                        }
                     }
                 }
 

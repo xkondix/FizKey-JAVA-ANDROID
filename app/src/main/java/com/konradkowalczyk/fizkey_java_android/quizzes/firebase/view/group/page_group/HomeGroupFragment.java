@@ -56,8 +56,6 @@ public class HomeGroupFragment extends Fragment {
 
         groupViewModel.getGroupLiveData().observe(getViewLifecycleOwner(), group ->{
             if(group != null) {
-                System.out.println(group.getDescription());
-                System.out.println(group.getNameOfGroup());
                 nameOfGroupTextView.setText(group.getNameOfGroup());
                 descricptionTextView.setText(group.getDescription());
             }

@@ -112,28 +112,30 @@
 
     <string name="logout">Wylogowano</string>
     <string name="login">Zalogowano</string>
-    <string name="try_again">Spróbuj pdoobnie</string>
+    <string name="try_again">Spróbuj ponownie</string>
     <string name="logged_out">Wylogowano</string>
     <string name="sign_out">Wyloguj</string>
-    <string name="create_group">Create a new group</string>
-    <string name="join_the_group">Join the group</string>
-    <string name="group">Groups</string>
-    <string name="my_group">My groups</string>
-    <string name="groups">Groups</string>
-    <string name="code_group_fragment">Enter the code here</string>
-    <string name="bad_enter_code">The code is invalid</string>
-    <string name="already_exist_in_group">You are already in this group</string>
-    <string name="joined_the_grouo">You joined the group</string>
-    <string name="created_group">The group has been created</string>
-    <string name="number_of_group_members">Number of group members</string>
-    <string name="ask_a_task">Ask a task</string>
-    <string name="task_to_be_solved">Task to be solved</string>
-    <string name="correct_the_grade">Correct the grade</string>
-    <string name="my_grades">My grades</string>
-    <string name="group_profile">Home</string>
-    <string name="welcome">Welcome</string>
-    <string name="leave_group">Leave  group</string>
-    <string name="members">Members</string>
+    <string name="create_group">Utwórz nową grupe </string>
+    <string name="join_the_group">Dołącz do grupy</string>
+    <string name="group">Grupa</string>
+    <string name="my_group">Moje grupy</string>
+    <string name="groups">Grupy</string>
+    <string name="code_group_fragment">Wpisz kod grupy</string>
+    <string name="bad_enter_code">Taka grupa nie istnieje</string>
+    <string name="already_exist_in_group">Już jesteś w tej grupie</string>
+    <string name="joined_the_grouo">Dołączyłeś do grupy</string>
+    <string name="created_group">Grupa została utworzona</string>
+    <string name="number_of_group_members">Liczba członków w grupie</string>
+    <string name="ask_a_task">Zadaj zadanie</string>
+    <string name="task_to_be_solved">Zadania do rozwiązania</string>
+    <string name="correct_the_grade">Popraw ocene</string>
+    <string name="my_grades">Oceny</string>
+    <string name="group_profile">Strona główna</string>
+    <string name="welcome">Witam</string>
+    <string name="leave_group">Opuść grupę</string>
+    <string name="members">Członkowie</string>
+    <string name="send_an_invitation_to_the_group">"Wyślij zaproszenie do grupy"</string>
+    <string name="for_all">For everyone</string>
 
 
 </resources>

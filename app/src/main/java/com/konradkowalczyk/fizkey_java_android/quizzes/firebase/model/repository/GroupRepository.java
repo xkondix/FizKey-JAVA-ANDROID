@@ -70,7 +70,8 @@ public class GroupRepository implements GroupRepositoryInteface {
     {
         DocumentReference uuidRef = groupRef.document(group.getUuid());
         uuidRef.update("students", group.getStudents()
-                ,"studentGrades", group.getStudentGrades())
+                ,"studentGrades", group.getStudentGrades()
+                ,"tasks", group.getTasks())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

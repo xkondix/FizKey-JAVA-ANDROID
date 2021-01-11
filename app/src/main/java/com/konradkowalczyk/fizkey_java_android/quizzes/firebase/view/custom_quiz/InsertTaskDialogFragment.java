@@ -1,33 +1,51 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view.custom_quiz;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Group;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 public class InsertTaskDialogFragment extends DialogFragment {
 
+    private final static String GROUP_NAMES = "group names";
+
     private EditText topicEditText, desripctionEditText;
     private TextView okTextView,cancelTextView;
-    private Spinner groupSpinner;
+    private TableLayout tableLayout;
+    private CheckBox forAllCheckBox;
+
+
+    private Map<Integer, CheckBox> checkBoxes;
+    private List<Group> groupNames,groupsActive;
+
     private OnFeedBack onFeedBack;
 
     public interface OnFeedBack {
-        public void sendValues(String topic, String descripction);
+        public void sendValues(String topic, String descripction,List<Group> groupNames, boolean forAll);
     }
 
-    public static InsertTaskDialogFragment newInstance() {
+    public static InsertTaskDialogFragment newInstance(List<Group> groupNames) {
         InsertTaskDialogFragment fragment = new InsertTaskDialogFragment();
         Bundle args = new Bundle();
+        args.putSerializable(GROUP_NAMES, new ArrayList<Group>(groupNames));
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -38,6 +56,9 @@ public class InsertTaskDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            groupNames = (ArrayList<Group>) getArguments().getSerializable(GROUP_NAMES);
+        }
     }
 
     @Override
@@ -53,6 +74,23 @@ public class InsertTaskDialogFragment extends DialogFragment {
         cancelTextView = view.findViewById(R.id.cancel_insert_task_dialog_fragment);
         okTextView = view.findViewById(R.id.ok_insert_task_dialog_fragment);
 
+        tableLayout = view.findViewById(R.id.groups_table_insert_task_dialog_fragment);
+        forAllCheckBox = view.findViewById(R.id.for_all_insert_task_dialog_fragment);
+
+
+        checkBoxes = new TreeMap<>();
+
+
+        for(int i = 0; i <groupNames.size(); i++) {
+
+            CheckBox cb = new CheckBox(getActivity().getApplicationContext());
+            cb.setText(groupNames.get(i).getNameOfGroup());
+            cb.setTextColor(Color.BLACK);
+            checkBoxes.put(i,cb);
+            tableLayout.addView(cb);
+
+        }
+
 
         cancelTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +101,10 @@ public class InsertTaskDialogFragment extends DialogFragment {
         okTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   onFeedBack.sendValues(topicEditText.getText().toString(),desripctionEditText.getText().toString());
+                   onFeedBack.sendValues(topicEditText.getText().toString()
+                           ,desripctionEditText.getText().toString()
+                           ,createActives()
+                           ,forAllCheckBox.isChecked());
                    getDialog().dismiss();
 
             }
@@ -88,6 +129,23 @@ public class InsertTaskDialogFragment extends DialogFragment {
 
         return information;
     }
+
+    private List<Group> createActives()
+    {
+        groupsActive = new ArrayList<>();
+
+        for (Map.Entry<Integer, CheckBox> entry : checkBoxes.entrySet()) {
+            if(entry.getValue().isChecked())
+            {
+                groupsActive.add(groupNames.get(entry.getKey()));
+            }
+        }
+
+        return groupsActive;
+    }
+
+
+
 
     @Override
     public void onAttach(Context context) {

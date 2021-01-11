@@ -1,6 +1,7 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity;
 
 import com.google.firebase.firestore.DocumentReference;
+import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizResults;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,19 +16,20 @@ public class Group implements Serializable {
     private String authorUUID;
     private String nameOfGroup;
     private String description;
+    private List<DocumentReference> tasks;
     private List<DocumentReference> students;
-    // { User : { Task : List<{Data : QuizResult}> } }
-    private Map<String, List<Map<DocumentReference, List<Map<String,Object>>>>> studentGrades;
+    // { User : { Task : {Data : QuizResult} } }
+    private Map<String, Map<String, Map<String,QuizResults>>> studentGrades;
 
-    public Group(String uuid, DocumentReference author, String authorUUID,  String nameOfGroup, String description, List<DocumentReference> students, Map<String, List<Map<DocumentReference, List<Map<String,Object>>>>> studentGrades) {
+    public Group(String uuid, DocumentReference author, String authorUUID, String nameOfGroup, String description, List<DocumentReference> tasks, List<DocumentReference> students, Map<String, Map<String, Map<String, QuizResults>>> studentGrades) {
         this.uuid = uuid;
         this.author = author;
+        this.authorUUID = authorUUID;
         this.nameOfGroup = nameOfGroup;
+        this.description = description;
+        this.tasks = tasks;
         this.students = students;
         this.studentGrades = studentGrades;
-        this.description = description;
-        this.authorUUID = authorUUID;
-
     }
 
     public Group(DocumentReference author, String authorUUID, String nameOfGroup, String description) {
@@ -36,6 +38,7 @@ public class Group implements Serializable {
         this.description = description;
         this.authorUUID = authorUUID;
         this.students = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         this.studentGrades = new HashMap<>();
     }
 
@@ -62,11 +65,15 @@ public class Group implements Serializable {
         return authorUUID;
     }
 
+    public List<DocumentReference> getTasks() {
+        return tasks;
+    }
+
     public List<DocumentReference> getStudents() {
         return students;
     }
 
-    public Map<String, List<Map<DocumentReference, List<Map<String,Object>>>>> getStudentGrades() {
+    public Map<String, Map<String, Map<String,QuizResults>>> getStudentGrades() {
         return studentGrades;
     }
 
@@ -83,24 +90,30 @@ public class Group implements Serializable {
         this.students = students;
     }
 
-    public void setStudentGrades(Map<String, List<Map<DocumentReference, List<Map<String, Object>>>>> studentGrades) {
+    public void setStudentGrades(Map<String, Map<String , Map<String,QuizResults>>> studentGrades) {
         this.studentGrades = studentGrades;
     }
 
     public void addNewUser(String userUuid) {
-        this.studentGrades.put(userUuid, new ArrayList<>());
+        this.studentGrades.put(userUuid, new HashMap<>());
     }
 
-    @Override
-    public String toString() {
-        return "Group{" +
-                "uuid='" + uuid + '\'' +
-                ", author=" + author +
-                ", authorUUID='" + authorUUID + '\'' +
-                ", nameOfGroup='" + nameOfGroup + '\'' +
-                ", description='" + description + '\'' +
-                ", students=" + students +
-                ", studentGrades=" + studentGrades +
-                '}';
+    public void addTaskToGroup(DocumentReference documentReference)
+    {
+        tasks.add(documentReference);
     }
+
+    public void addTaskToStudents(String taskUuid)
+    {
+        Map<String, Map<String, Map<String, QuizResults>>> tasksUsers = new HashMap<>();
+        for( Map.Entry<String, Map<String, Map<String, QuizResults>>> tasksAndGrades: studentGrades.entrySet())
+        {
+            Map<String, Map<String, QuizResults>> tasks = tasksAndGrades.getValue();
+            tasks.put(taskUuid, new HashMap<>());
+            tasksUsers.put(tasksAndGrades.getKey(),tasks);
+        }
+        this.studentGrades = tasksUsers;
+    }
+
+
 }

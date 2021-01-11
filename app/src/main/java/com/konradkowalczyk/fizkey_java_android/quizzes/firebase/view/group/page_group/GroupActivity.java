@@ -69,7 +69,11 @@ public class GroupActivity extends AppCompatActivity implements NavigationView.O
         userViewModel.getLiveDataUser().observe(this, user ->
         {
             welcomeTextView.setText(getResources().getString(R.string.welcome) + " " + user.getName());
+        });
 
+        groupViewModel.getGroupLiveData().observe(this, group ->
+        {
+            groupViewModel.setTasksAndGradesCurrentlyUserMutableLiveData(getIntent().getStringExtra(USER_UUID));
         });
 
         Fragment fragment =  HomeGroupFragment.newInstance();
@@ -94,10 +98,18 @@ public class GroupActivity extends AppCompatActivity implements NavigationView.O
                 fragment = CreateCustomQuizFragment.newInstance();
                 break;
             case R.id.task_to_be_solved:
+                fragment = TaskToBeSolvedFragment.newInstance();
                 break;
             case R.id.my_grades:
+                fragment = MyGradesFragment.newInstance();
                 break;
             case R.id.correct_the_grade:
+                fragment = CorrectTheGradeFragment.newInstance();
+                break;
+            case R.id.send_an_invitation_to_the_group:
+                fragment = SendInvitationToGroupFragment.newInstance();
+                break;
+            case R.id.leave_group:
                 break;
             default:
                 fragment =  HomeGroupFragment.newInstance();
@@ -138,6 +150,11 @@ public class GroupActivity extends AppCompatActivity implements NavigationView.O
 
         if(requestCode == QuizMenuFragment.GET_RESULTS_REQUEST && resultCode == RESULT_OK) {
             QuizResults quizResults = data.getParcelableExtra(QuizActivity.RESULTS);
+
+            groupViewModel.updateGrades(quizResults);
+            groupViewModel.getTasksAndGradesCurrentlyUserMutableLiveData().observe(this, mapTasksAndGrades ->{
+                groupViewModel.updateGroup(userViewModel.getUuid());
+            });
 
             QuizResultDialog dialog = QuizResultDialog
                     .newInstance(quizResults);

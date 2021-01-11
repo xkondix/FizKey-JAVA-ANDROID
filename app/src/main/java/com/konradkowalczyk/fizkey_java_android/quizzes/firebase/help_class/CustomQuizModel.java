@@ -12,7 +12,7 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
 
 
     private int currentlyNumber, maxNumber, numberOfFields, timerValue;
-    private String topic, descripcion, data;
+    private String topic, descripcion, data, uuid;
 
     private List<String> questions;
     private List<Integer> positiveNumbers;
@@ -33,6 +33,8 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
         this.topic = "";
         this.descripcion = "";
         this.data = "";
+
+        this.uuid = "";
     }
 
     public CustomQuizModel(int currentlyNumber, int maxNumber, int numberOfFields, int timerValue, String topic, String descripcion, List<String> questions, List<Integer> positiveNumbers, List<List<String>> listAnswers, String data) {
@@ -50,6 +52,9 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
         this.descripcion = descripcion;
         this.data = data;
 
+        this.uuid = "";
+
+
 
     }
 
@@ -66,6 +71,7 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
         in.readList(positiveNumbers, null);
         listAnswers = new ArrayList<List<String>>();
         in.readList(listAnswers, null);
+        uuid = in.readString();
     }
 
     @Override
@@ -85,6 +91,7 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
         dest.writeString(data);
         dest.writeList(positiveNumbers);
         dest.writeList(listAnswers);
+        dest.writeString(uuid);
     }
 
     public static final Creator<CustomQuizModel> CREATOR = new Creator<CustomQuizModel>() {
@@ -163,6 +170,13 @@ public class CustomQuizModel implements QuizModelInteface, Parcelable {
         this.questions = questions;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getTopic() {
         return topic;

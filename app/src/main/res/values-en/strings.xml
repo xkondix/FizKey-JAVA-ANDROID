@@ -135,11 +135,13 @@
     <string name="ask_a_task">Ask a task</string>
     <string name="task_to_be_solved">Task to be solved</string>
     <string name="correct_the_grade">Correct the grade</string>
-    <string name="my_grades">My grades</string>
+    <string name="my_grades">Grades</string>
     <string name="group_profile">Home</string>
     <string name="welcome">Welcome</string>
     <string name="leave_group">Leave  group</string>
     <string name="members">Members</string>
+    <string name="send_an_invitation_to_the_group">"Send an invitation to the group "</string>
+    <string name="for_all">For everyone</string>
 
 
 </resources>

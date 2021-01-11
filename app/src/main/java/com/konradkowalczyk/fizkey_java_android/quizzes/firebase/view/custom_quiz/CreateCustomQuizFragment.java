@@ -16,9 +16,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.CustomQuizModel;
+import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.view_model.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class CreateCustomQuizFragment extends Fragment {
 
     private List<Integer> numberOfFildsName, numberOfRoundsName;
     private CustomQuizModel customQuizModel;
+    private UserViewModel userViewModel;
 
     public CreateCustomQuizFragment() {
         // Required empty public constructor
@@ -64,6 +67,8 @@ public class CreateCustomQuizFragment extends Fragment {
 
         numberOfRoundsName = getList(getContext().getResources().getStringArray(R.array.quanity_question));
         numberOfFildsName = getList(getContext().getResources().getStringArray(R.array.quanity_block));
+
+        userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
 
 
         timerRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
@@ -105,15 +110,11 @@ public class CreateCustomQuizFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-//                    if()
-//                    {
-                        Intent intent = new Intent(getActivity(), CreateCustomQuizActivity.class);
-                        intent.putExtra(CreateCustomQuizActivity.EXTRA_MODEL_ID, customQuizModel);
-                        getActivity().startActivity(intent);
-                    //}
-                    //else {
-                      //  Toast.makeText(getContext(),checkFields(),Toast.LENGTH_SHORT);
-                    //}
+                Intent intent = new Intent(getActivity(), CreateCustomQuizActivity.class);
+                intent.putExtra(CreateCustomQuizActivity.EXTRA_MODEL_ID, customQuizModel);
+                intent.putExtra(CreateCustomQuizActivity.USER_UUID, userViewModel.getUuid());
+                getActivity().startActivity(intent);
+
             }
         });
 
