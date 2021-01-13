@@ -57,6 +57,7 @@ public class TaskToBeSolvedFragment extends Fragment {
 
         groupViewModel = new ViewModelProvider(getActivity()).get(GroupViewModel.class);
         groupViewModel.getTasksToDoCurrentlyUserMutableLiveData().observe(getViewLifecycleOwner(), customQuizModels -> {
+            System.out.println(customQuizModels);
             adapter.submitList(customQuizModels);
         });
 

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.CustomQuizModel;
@@ -33,10 +32,12 @@ public class GroupViewModel extends ViewModel {
     private MutableLiveData<List<User>> usersMutableLiveData;
 
     private MutableLiveData<List<CustomQuizModel>> tasksToDoCurrentlyUserMutableLiveData;
-    private MutableLiveData<List<CustomQuizModel>> tasksCurrentlyUserMutableLiveData;
+    private MutableLiveData<List<CustomQuizModel>> tasksDoneCurrentlyUserMutableLiveData;
     private MutableLiveData<Map<CustomQuizModel, Map<String, QuizResults>>> tasksAndGradesCurrentlyUserMutableLiveData;
 
     private MutableLiveData<CustomQuizModel> currentlyCustomQuizModelMutableLiveData;
+
+    private MutableLiveData<Boolean> isGradesMutableLiveData;
 
 
 
@@ -64,14 +65,17 @@ public class GroupViewModel extends ViewModel {
         if (tasksToDoCurrentlyUserMutableLiveData == null) {
             tasksToDoCurrentlyUserMutableLiveData = new MutableLiveData<>();
         }
-        if (tasksCurrentlyUserMutableLiveData == null) {
-            tasksCurrentlyUserMutableLiveData = new MutableLiveData<>();
+        if (tasksDoneCurrentlyUserMutableLiveData == null) {
+            tasksDoneCurrentlyUserMutableLiveData = new MutableLiveData<>();
         }
         if (tasksAndGradesCurrentlyUserMutableLiveData == null) {
             tasksAndGradesCurrentlyUserMutableLiveData = new MutableLiveData<>();
         }
         if (currentlyCustomQuizModelMutableLiveData == null) {
             currentlyCustomQuizModelMutableLiveData = new MutableLiveData<>();
+        }
+        if (isGradesMutableLiveData == null) {
+            isGradesMutableLiveData = new MutableLiveData<>(false);
         }
 
 
@@ -126,8 +130,8 @@ public class GroupViewModel extends ViewModel {
         return tasksToDoCurrentlyUserMutableLiveData;
     }
 
-    public LiveData<List<CustomQuizModel>> getTasksCurrentlyUserMutableLiveData() {
-        return tasksCurrentlyUserMutableLiveData;
+    public LiveData<List<CustomQuizModel>> getTasksDoneCurrentlyUserMutableLiveData() {
+        return tasksDoneCurrentlyUserMutableLiveData;
     }
 
     public LiveData<Map<CustomQuizModel, Map<String, QuizResults>>> getTasksAndGradesCurrentlyUserMutableLiveData() {
@@ -144,8 +148,9 @@ public class GroupViewModel extends ViewModel {
         }
 
         Map<CustomQuizModel,Map<String, QuizResults>> userCustomQuizModelsAndGrades = new HashMap<>();
+
         List<CustomQuizModel> tasksToDoCurrentlyUser = new ArrayList<>();
-        List<CustomQuizModel> tasksCurrentlyUser = new ArrayList<>();
+        List<CustomQuizModel> tasksDoneCurrentlyUser = new ArrayList<>();
 
         List<DocumentReference> tasks = groupLiveData.getValue().getTasks();
         List<String> uuids = doumentReferenceToUuidStrings(tasks);
@@ -160,24 +165,25 @@ public class GroupViewModel extends ViewModel {
                 CustomQuizModel customQuizModel = TaskViewModel.TaskToCustomQuizModel(task);
                 customQuizModel.setUuid(task.getUuid());
 
+
                 if(mapEntry.getValue().isEmpty()) {
                     userCustomQuizModelsAndGrades.put(customQuizModel, new HashMap<>());
                     tasksToDoCurrentlyUser.add(customQuizModel);
-                    tasksToDoCurrentlyUserMutableLiveData.postValue(tasksCurrentlyUser);
+                    tasksToDoCurrentlyUserMutableLiveData.postValue(tasksToDoCurrentlyUser);
                 }
                 else {
-
                     Map<String, QuizResults> gradues = new HashMap<>();
                     for(Map.Entry<String, QuizResults> gradue : mapEntry.getValue().entrySet()){
                         gradues.put(gradue.getKey(), (QuizResults) gradue.getValue());
                     }
                     userCustomQuizModelsAndGrades.put(customQuizModel, gradues);
+                    tasksDoneCurrentlyUser.add(customQuizModel);
+                    tasksDoneCurrentlyUserMutableLiveData.postValue(tasksDoneCurrentlyUser);
                 }
 
-                tasksCurrentlyUser.add(customQuizModel);
-                tasksCurrentlyUserMutableLiveData.postValue(tasksCurrentlyUser);
                 tasksAndGradesCurrentlyUserMutableLiveData.postValue(userCustomQuizModelsAndGrades);
-                }
+
+            }
             });
         }
     }
@@ -193,51 +199,21 @@ public class GroupViewModel extends ViewModel {
         return uuidTasks;
     }
 
-    public void updateGrades(QuizResults quizResults)
-    {
-
-        Map<CustomQuizModel, Map<String, QuizResults>> tasksAndGrades
-                = tasksAndGradesCurrentlyUserMutableLiveData.getValue();
-
-        Map<String, QuizResults> grades =
-                tasksAndGrades.get(currentlyCustomQuizModelMutableLiveData.getValue());
-
-        grades.put(Timestamp.now().toString(), quizResults);
-
-        tasksAndGrades.put(currentlyCustomQuizModelMutableLiveData.getValue(), grades);
-
-        tasksAndGradesCurrentlyUserMutableLiveData.postValue(tasksAndGrades);
-
-
-    }
 
     public void setCurrentlyCustomQuizModelLiveData(MutableLiveData<CustomQuizModel> currentlyCustomQuizModelMutableLiveData) {
         this.currentlyCustomQuizModelMutableLiveData = currentlyCustomQuizModelMutableLiveData;
     }
 
-    public void updateGroup(String userUuid)
+    public void updateGrades(String userUuid, QuizResults quizResults)
     {
-        Map<String, Map<String, Map<String, QuizResults>>> usersTasksAndGrades = groupLiveData.getValue().getStudentGrades();
-        usersTasksAndGrades.put(userUuid, CustomQuizModelsToTasksUuid());
         Group group = groupLiveData.getValue();
-        group.setStudentGrades(usersTasksAndGrades);
+        group.addGradesToTask(userUuid,currentlyCustomQuizModelMutableLiveData.getValue().getUuid(), quizResults);
         groupRepository.updateGroup(group);
-        groupLiveData.postValue(group);
+        removeTasksToDo();
 
     }
 
 
-    private Map<String, Map<String, QuizResults>> CustomQuizModelsToTasksUuid()
-    {
-        Map<String, Map<String, QuizResults>> tasksAndGrades = new HashMap<>();
-        for( Map.Entry<CustomQuizModel, Map<String, QuizResults>> tasksEntryMap
-                : tasksAndGradesCurrentlyUserMutableLiveData.getValue().entrySet())
-        {
-            tasksAndGrades.put(tasksEntryMap.getKey().getUuid(), tasksEntryMap.getValue());
-        }
-
-        return tasksAndGrades;
-    }
 
     public void updateAllGroupsByUuid(List<Group> groupNames, String taskUuid) {
 
@@ -250,6 +226,34 @@ public class GroupViewModel extends ViewModel {
             group.addTaskToGroup(taskRef);
             groupRepository.updateGroup(group);
         }
+    }
+
+    private void removeTasksToDo()
+    {
+        CustomQuizModel customQuizModel = currentlyCustomQuizModelMutableLiveData.getValue();
+        List<CustomQuizModel> customQuizModels = tasksToDoCurrentlyUserMutableLiveData.getValue();
+        customQuizModels.remove(customQuizModel);
+        tasksToDoCurrentlyUserMutableLiveData.postValue(customQuizModels);
+    }
+
+    public LiveData<Boolean> getIsGrades() {
+        return isGradesMutableLiveData;
+    }
+
+    public void setIsGrades(boolean isGrades) {
+       isGradesMutableLiveData.setValue(isGrades);
+    }
+
+    public List<String> getCurrentlyDateOfTask()
+    {
+        return new ArrayList<>(tasksAndGradesCurrentlyUserMutableLiveData.getValue()
+                .get(currentlyCustomQuizModelMutableLiveData.getValue()).keySet());
+    }
+
+    public QuizResults getyQuizResultOfTaskAndDate(String date)
+    {
+        return tasksAndGradesCurrentlyUserMutableLiveData.getValue()
+                .get(currentlyCustomQuizModelMutableLiveData.getValue()).get(date);
     }
 }
 

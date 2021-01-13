@@ -3,14 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".quizzes.firebase.view.group.page_group.MyGradesFragment">
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></Spinner>
+    tools:context=".quizzes.firebase.view.group.page_group.DateGradesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_my_grades_fragment"
+        android:id="@+id/recycler_view_date_grades_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"

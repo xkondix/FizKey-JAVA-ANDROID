@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".quizzes.firebase.view.group.page_group.CorrectTheGradeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_correct_the_grade_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="20dp"
+        android:scrollbars="vertical"
+        android:background="@color/colorPrimary"
+        tools:listitem="@layout/card_view_create_custom_quiz" />
+
 
 </FrameLayout>
+

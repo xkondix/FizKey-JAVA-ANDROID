@@ -121,7 +121,6 @@ public class GroupRepository implements GroupRepositoryInteface {
                             .collection("users").document(user.getUuid());
 
                     if(!groupFind.getAuthorUUID().equals(user.getUuid())) {
-                        group.postValue(uuidRef);
 
                         if (!groupFind.getStudents().contains(userRef)) {
                             groupFind.addToGroup(userRef);
@@ -129,7 +128,12 @@ public class GroupRepository implements GroupRepositoryInteface {
                         if (groupFind.getStudentGrades().get(userRef) == null) {
                             groupFind.addNewUser(user.getUuid());
                         }
+                        else {
+                            groupFind.addTasksToNewUser(user.getUuid());
+                        }
                         uuidRef.set(groupFind);
+                        group.postValue(uuidRef);
+
                     }
                     Log.i("addToGroup", "Document  exists");
 

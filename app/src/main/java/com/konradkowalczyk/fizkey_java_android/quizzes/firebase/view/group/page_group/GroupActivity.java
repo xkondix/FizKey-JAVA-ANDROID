@@ -137,6 +137,13 @@ public class GroupActivity extends AppCompatActivity implements NavigationView.O
         {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
+        else if(groupViewModel.getIsGrades().getValue())
+        {
+            groupViewModel.setIsGrades(false);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.group_content_frame, MyGradesFragment.newInstance());
+            ft.commit();
+        }
         else
         {
             super.onBackPressed();
@@ -150,11 +157,7 @@ public class GroupActivity extends AppCompatActivity implements NavigationView.O
 
         if(requestCode == QuizMenuFragment.GET_RESULTS_REQUEST && resultCode == RESULT_OK) {
             QuizResults quizResults = data.getParcelableExtra(QuizActivity.RESULTS);
-
-            groupViewModel.updateGrades(quizResults);
-            groupViewModel.getTasksAndGradesCurrentlyUserMutableLiveData().observe(this, mapTasksAndGrades ->{
-                groupViewModel.updateGroup(userViewModel.getUuid());
-            });
+            groupViewModel.updateGrades(userViewModel.getUuid(), quizResults);
 
             QuizResultDialog dialog = QuizResultDialog
                     .newInstance(quizResults);

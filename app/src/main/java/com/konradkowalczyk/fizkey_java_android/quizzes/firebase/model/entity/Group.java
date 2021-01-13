@@ -1,5 +1,6 @@
 package com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.konradkowalczyk.fizkey_java_android.quizzes.quizy.QuizResults;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Group implements Serializable {
 
@@ -95,7 +97,13 @@ public class Group implements Serializable {
     }
 
     public void addNewUser(String userUuid) {
-        this.studentGrades.put(userUuid, new HashMap<>());
+        Map<String, Map<String, QuizResults>> tasksUser = new HashMap<>();
+
+        for(DocumentReference documentTask : tasks) {
+            tasksUser.put(documentTask.getId(), new HashMap<>());
+        }
+
+        this.studentGrades.put(userUuid, tasksUser);
     }
 
     public void addTaskToGroup(DocumentReference documentReference)
@@ -116,4 +124,31 @@ public class Group implements Serializable {
     }
 
 
+    public void addTasksToNewUser(String userUuid) {
+        Map<String, Map<String, QuizResults>> tasksUsers = studentGrades.get(userUuid);
+        Set<String> tasksUserUuid = tasksUsers.keySet();
+
+        for(DocumentReference documentTask : tasks) {
+            if(!tasksUserUuid.contains(documentTask.getId()))
+            {
+                tasksUsers.put(documentTask.getId(), new HashMap<>());
+            }
+
+        }
+
+        this.studentGrades.put(userUuid,tasksUsers);
+    }
+
+    public void addGradesToTask(String userUuid, String taskUuid, QuizResults quizResults)
+    {
+        Map<String, Map<String, QuizResults>> tasks = studentGrades.get(userUuid);
+        Map<String, QuizResults> grades = tasks.get(taskUuid);
+
+        grades.put(Timestamp.now().toDate().toString(), quizResults);
+        tasks.put(taskUuid, grades);
+
+        this.studentGrades.put(userUuid, tasks);
+
+
+    }
 }
