@@ -48,6 +48,7 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
     private UserViewModel userViewModel;
     private TaskViewModel taskViewModel;
     private GroupViewModel groupViewModel;
+    private NavigationView navigationView;
 
 
 
@@ -66,7 +67,7 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState(); //synchronizacja szuflad
 
-        NavigationView navigationView = findViewById(R.id.navigator_view);
+        navigationView = findViewById(R.id.navigator_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -86,7 +87,7 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
         //textview w nagłówku
         View headerView = navigationView.getHeaderView(0);
         status = (TextView) headerView.findViewById(R.id.status);
-        status.setText(authViewModel.getLoginUserLiveData().getValue() != null ? getResources().getString(R.string.login) : getResources().getString(R.string.logout));
+        //status.setText(authViewModel.getLoginUserLiveData().getValue() != null ? getResources().getString(R.string.login) : getResources().getString(R.string.logout));
 
 
 
@@ -94,15 +95,36 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
         if(!account.getEmail().equals(""))
         {
             authViewModel.loginUser(account);
-
+            authViewModel.setIsLogedLiveData(true);
         }
+        else {
+            authViewModel.setIsLogedLiveData(false);
+        }
+
+        authViewModel.getIsLogedLiveData().observe(this, isLoged ->{
+            if(isLoged == false)
+            {
+                navigationView.getMenu().findItem(R.id.group).setEnabled(false);
+                navigationView.getMenu().findItem(R.id.login).setEnabled(true);
+                navigationView.getMenu().findItem(R.id.logout).setEnabled(false);
+                navigationView.getMenu().findItem(R.id.create_custom_quiz_fragment).setEnabled(false);
+                status.setText(getResources().getString(R.string.logout));
+
+            }
+            else {
+                navigationView.getMenu().findItem(R.id.group).setEnabled(true);
+                navigationView.getMenu().findItem(R.id.login).setEnabled(false);
+                navigationView.getMenu().findItem(R.id.logout).setEnabled(true);
+                navigationView.getMenu().findItem(R.id.create_custom_quiz_fragment).setEnabled(true);
+                status.setText(getResources().getString(R.string.login));
+
+            }
+        });
 
         authViewModel.getLoginUserLiveData().observe(this, new Observer<FirebaseUser>() {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
                 userViewModel.getUserByUuid(firebaseUser.getUid());
-                status.setText(account.getEmail().equals("") ? getResources().getString(R.string.logout) : getResources().getString(R.string.login));
-
             }
         });
 
@@ -142,6 +164,7 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
             case R.id.logout:
                 authViewModel.logout();
                 AccountSharedPreferences.saveData("","", getApplicationContext());
+                authViewModel.setIsLogedLiveData(false);
                 Toast.makeText(this, getResources().getString(R.string.logged_out), Toast.LENGTH_SHORT).show();
                 finish();
                 break;
@@ -190,6 +213,7 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
         }
 
     }
+
 
 
 

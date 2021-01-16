@@ -16,6 +16,8 @@ public class AuthViewModel extends ViewModel {
     private MutableLiveData<Boolean> registerUserLiveData;
     private MutableLiveData<FirebaseUser> loginUserLiveData;
     private MutableLiveData<Boolean> changePasswordUserLiveData;
+    private MutableLiveData<Boolean> isLogedLiveData;
+
 
     public AuthViewModel() {
         super();
@@ -34,6 +36,9 @@ public class AuthViewModel extends ViewModel {
         }
         if(changePasswordUserLiveData == null) {
             changePasswordUserLiveData = new MutableLiveData<>();
+        }
+        if(isLogedLiveData == null) {
+            isLogedLiveData = new MutableLiveData<>(false);
         }
     }
 
@@ -72,5 +77,13 @@ public class AuthViewModel extends ViewModel {
     public void logout()
     {
         loginUserLiveData = authFirebaseRepository.signOut();
+    }
+
+    public LiveData<Boolean> getIsLogedLiveData() {
+        return isLogedLiveData;
+    }
+
+    public void setIsLogedLiveData(boolean isLoged) {
+        this.isLogedLiveData.postValue(isLoged);
     }
 }

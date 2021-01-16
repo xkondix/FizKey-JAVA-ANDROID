@@ -142,6 +142,7 @@ public class GroupViewModel extends ViewModel {
     {
         Map<String, Map<String, QuizResults>> tasksAndGrades = groupLiveData.getValue().getStudentGrades().get(userUuid);
 
+        System.out.println(tasksAndGrades);
         if(tasksAndGrades == null)
         {
             return;
@@ -254,6 +255,24 @@ public class GroupViewModel extends ViewModel {
     {
         return tasksAndGradesCurrentlyUserMutableLiveData.getValue()
                 .get(currentlyCustomQuizModelMutableLiveData.getValue()).get(date);
+    }
+
+    public List<String> getNamesOfUsers()
+    {
+        List<String> students = new ArrayList<>();
+        for(User user : usersMutableLiveData.getValue())
+        {
+            students.add(user.getNameAndSurname());
+        }
+
+        return students;
+    }
+
+    public void onDestroy()
+    {
+        tasksToDoCurrentlyUserMutableLiveData.setValue(null);
+        tasksDoneCurrentlyUserMutableLiveData.setValue(null);
+        tasksAndGradesCurrentlyUserMutableLiveData.setValue(null);
     }
 }
 

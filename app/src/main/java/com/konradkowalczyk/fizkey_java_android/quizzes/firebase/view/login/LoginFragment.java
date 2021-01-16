@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.navigation.NavigationView;
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.AccountSharedPreferences;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Account;
@@ -25,6 +26,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener
 
     private EditText emailEditText ,passwordEditText;
     private Button signInButton;
+    private NavigationView navigationView;
 
     private UserViewModel userViewModel;
     private AuthViewModel authViewModel;
@@ -59,6 +61,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener
 
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
+        navigationView = view.findViewById(R.id.navigator_view);
         signInButton = view.findViewById(R.id.sign_in_login);
         emailEditText = view.findViewById(R.id.email_login);
         passwordEditText = view.findViewById(R.id.password_login);
@@ -87,6 +90,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener
                                 else {
                                     Toast.makeText(getContext(), getContext().getResources().getString(R.string.login)
                                             , Toast.LENGTH_SHORT).show();
+                                    authViewModel.setIsLogedLiveData(true);
                                     AccountSharedPreferences.saveData(getEmailFromEditText(), getPasswordFromEditText(), getContext());
                                 }
 
@@ -134,9 +138,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener
             User user = new User(name, surname);
             user.setUuid(authViewModel.getCurrentlyUuid());
             userViewModel.insertUser(user);
+            authViewModel.setIsLogedLiveData(true);
             AccountSharedPreferences.saveData(getEmailFromEditText(), getPasswordFromEditText(), getContext());
-
-
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.login)
                     , Toast.LENGTH_SHORT).show();
         }

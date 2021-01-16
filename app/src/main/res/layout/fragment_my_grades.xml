@@ -6,8 +6,10 @@
     tools:context=".quizzes.firebase.view.group.page_group.MyGradesFragment">
 
     <Spinner
+        android:id="@+id/students_my_grades_fragment"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></Spinner>
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"></Spinner>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_my_grades_fragment"

@@ -73,8 +73,29 @@ public class GroupActivity extends AppCompatActivity implements NavigationView.O
 
         groupViewModel.getGroupLiveData().observe(this, group ->
         {
-            groupViewModel.setTasksAndGradesCurrentlyUserMutableLiveData(getIntent().getStringExtra(USER_UUID));
+            if(!group.getAuthorUUID().equals(getIntent().getStringExtra(USER_UUID))) {
+                groupViewModel.setTasksAndGradesCurrentlyUserMutableLiveData(getIntent().getStringExtra(USER_UUID));
+                navigationView.getMenu().findItem(R.id.ask_a_task).setVisible(false);
+                navigationView.getMenu().findItem(R.id.task_to_be_solved).setVisible(true);
+                navigationView.getMenu().findItem(R.id.my_grades).setVisible(true);
+                navigationView.getMenu().findItem(R.id.correct_the_grade).setVisible(true);
+                navigationView.getMenu().findItem(R.id.send_an_invitation_to_the_group).setVisible(false);
+                navigationView.getMenu().findItem(R.id.leave_group).setVisible(true);
+            }
+            else{
+                groupViewModel.setTasksAndGradesCurrentlyUserMutableLiveData(group.getStudents().get(0).getId());
+                navigationView.getMenu().findItem(R.id.ask_a_task).setVisible(true);
+                navigationView.getMenu().findItem(R.id.task_to_be_solved).setVisible(false);
+                navigationView.getMenu().findItem(R.id.my_grades).setVisible(true);
+                navigationView.getMenu().findItem(R.id.correct_the_grade).setVisible(false);
+                navigationView.getMenu().findItem(R.id.send_an_invitation_to_the_group).setVisible(true);
+                navigationView.getMenu().findItem(R.id.leave_group).setVisible(false);
+
+            }
+
         });
+
+
 
         Fragment fragment =  HomeGroupFragment.newInstance();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -164,5 +185,11 @@ public class GroupActivity extends AppCompatActivity implements NavigationView.O
             dialog.show(getSupportFragmentManager(), "Results View");
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        groupViewModel.onDestroy();
     }
 }
