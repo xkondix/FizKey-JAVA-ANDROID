@@ -34,11 +34,6 @@ public class VerticalProjectionSimulationActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-    //przycisk wyjścia
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {

@@ -136,6 +136,9 @@
     <string name="members">Członkowie</string>
     <string name="send_an_invitation_to_the_group">"Wyślij zaproszenie do grupy"</string>
     <string name="for_all">For everyone</string>
+    <string name="mass">Mass</string>
+    <string name="angle">Angle</string>
+    <string name="resistance">Resistance</string>
 
 
 </resources>

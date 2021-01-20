@@ -31,10 +31,6 @@ public class RzutySymulacja extends BasicSimulation {
 
 
 
-
-
-
-
         public void setConstans() {
 
             //thread od interfejsu głównego (ekran)

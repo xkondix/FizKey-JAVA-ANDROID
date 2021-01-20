@@ -144,6 +144,9 @@
     <string name="members">Members</string>
     <string name="send_an_invitation_to_the_group">"Send an invitation to the group "</string>
     <string name="for_all">For everyone</string>
+    <string name="mass">Mass</string>
+    <string name="angle">Angle</string>
+    <string name="resistance">Resistance</string>
 
 
 </resources>

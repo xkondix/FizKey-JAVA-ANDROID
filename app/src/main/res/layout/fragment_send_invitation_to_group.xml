@@ -6,9 +6,39 @@
     tools:context=".quizzes.firebase.view.group.page_group.SendInvitationToGroupFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_margin="10dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_toLeftOf="@+id/email_send_invitation_to_group_fragment"
+        android:text="@string/email"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        ></TextView>
+
+    <EditText
+        android:id="@+id/email_send_invitation_to_group_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:inputType="textEmailAddress"
+        android:layout_margin="10dp"
+        android:hint="@string/email"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/send_invitation_to_group_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/send_an_invitation_to_the_group"
+        android:layout_below="@id/email_send_invitation_to_group_fragment"
+        android:layout_centerHorizontal="true"
+        ></Button>
+
+    </RelativeLayout>
 </FrameLayout>
