@@ -1,5 +1,7 @@
 package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
 
+import java.util.List;
+
 public class ThreadFall extends Thread {
 
     private volatile double time = 0.0;
@@ -16,9 +18,14 @@ public class ThreadFall extends Thread {
 
     public void run() {
 
-        for(Float point : subjectFall.scala.getValuesScaledFirstListY())
-        {
-            subjectFall.setHeight(point);
+        List<Float> y = subjectFall.getScala().getValuesScaledFirstListY();
+        List<Float> x = subjectFall.getScala().getValuesScaledSecoundListX();
+
+
+        for(int i = 0; i < y.size(); i++)
+         {
+            subjectFall.setY(y.get(i));
+            subjectFall.setX(x.get(i));
 
             time+=0.01;
             try {

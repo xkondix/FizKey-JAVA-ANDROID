@@ -7,9 +7,10 @@ import com.konradkowalczyk.fizkey_java_android.simulation.ScreenScaleValueEquati
 public class SubjectFall extends RectF {
 
     private ThreadFall threadFall;
-    ScreenScaleValueEquation scala;
+    private ScreenScaleValueEquation scala;
+    private Boolean[] changingParemeters;
 
-    public SubjectFall(float left, float right, ScreenScaleValueEquation scala) {
+    public SubjectFall(float left, float right, ScreenScaleValueEquation scala, Boolean[] changingParemeters) {
 
         // size and dimision of ball
         this.left = left;
@@ -17,6 +18,8 @@ public class SubjectFall extends RectF {
         this.right = right;
         this.bottom =  scala.getValuesScaledFirstListY().get(0);
         this.scala = scala;
+
+        this.changingParemeters = changingParemeters;
 
 
         //left  The X coordinate of the left side of the rectangle
@@ -52,10 +55,24 @@ public class SubjectFall extends RectF {
         return threadFall.getTimeDouble();
     }
 
-    public void setHeight(float height)
+    public ScreenScaleValueEquation getScala() {
+        return scala;
+    }
+
+    public void setY(float y)
     {
-        this.bottom = height;
-        this.top = height - 75;
+        if(changingParemeters[0] == true) {
+            this.bottom = y;
+            this.top = y - 75;
+        }
+    }
+
+    public void setX(float x)
+    {
+        if(changingParemeters[1] == true) {
+            this.left = x;
+            this.right = x + 75;
+        }
     }
 
     public float getBottom()

@@ -42,7 +42,7 @@ public class RzutySymulacja extends BasicSimulation {
             paint.setColor(Color.rgb(22, 155, 222));
 
             //tworzenie obiektu, który się porusza
-            ball = new SubjectFall(400, 475, screenScaleValueEquation);
+            ball = new SubjectFall(400, 475, screenScaleValueEquation, new Boolean[]{true, false});
 
 
         }

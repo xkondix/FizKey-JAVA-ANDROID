@@ -72,6 +72,18 @@ public class ObliqueProjectionActivity extends AppCompatActivity {
     }
 
     public void onClickSimulation(View view) {
+        ObliqueCalculations obliqueCalculations = new ObliqueCalculations(
+                getHeight()
+                ,getVelocity()
+                ,getAngle()
+                ,getAcceleration()
+                ,getResistance()
+                ,getMass()
+                ,0.01);
+
+        Intent intent = new Intent(this, ObliqueProjectionSimulationActivity.class);
+        intent.putExtra(ObliqueProjectionSimulationActivity.CALCUALTIONS,  obliqueCalculations);
+        startActivity(intent);
     }
 
     public void onClickSend(View view) {
