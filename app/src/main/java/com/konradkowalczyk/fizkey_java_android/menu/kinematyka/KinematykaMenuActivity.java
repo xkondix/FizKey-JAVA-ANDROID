@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.horizontal.HorizonatalProjectionActivity;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique.ObliqueProjectionActivity;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical.VerticalProjectionActivity;
 import  com.konradkowalczyk.fizkey_java_android.R;
@@ -23,8 +24,8 @@ public class KinematykaMenuActivity extends AppCompatActivity {
 
 
         //tworzenie fragmentu
-        Fragment fragment = new RecyclerViewFragment(new String[]{"Spadek Swobodny","Rzut ukosny"},
-                new Class[]{VerticalProjectionActivity.class, ObliqueProjectionActivity.class});
+        Fragment fragment = new RecyclerViewFragment(new String[]{"Rzut pionowy","Rzut ukosny","Rzut poziomy"},
+                new Class[]{VerticalProjectionActivity.class, ObliqueProjectionActivity.class, HorizonatalProjectionActivity.class});
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_frame_kinematyka, fragment);
         ft.commit();

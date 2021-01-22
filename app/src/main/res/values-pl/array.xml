@@ -28,6 +28,18 @@
         <item>Energia Całkowita</item>
     </string-array>
 
+    <string-array name="horizontal_projection">
+        <item>Czas</item>
+        <item>Przyśpieszenie</item>
+        <item>Y (Wysokość)</item>
+        <item>X (Dystans)</item>
+        <item>Y (Prędkość)</item>
+        <item>X (Prędkość)</item>
+        <item>Energia Kinetyczna</item>
+        <item>Energia Potencialna</item>
+        <item>Energia Całkowita</item>
+    </string-array>
+
     <string-array name="quanity_block">
         <item>2</item>
         <item>4</item>

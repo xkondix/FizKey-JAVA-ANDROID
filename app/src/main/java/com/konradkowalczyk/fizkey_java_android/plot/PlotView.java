@@ -96,10 +96,18 @@ public class PlotView extends BasicSimulation {
             //draw values of scale X
             for(int i = 0; i<screenScaleValueEquation.getLenX();i++)
             {
-                canvas.drawText(String.valueOf(screenScaleValueEquation.getPointsScaleX().get(i))
-                        , i*50+screenScaleValueEquation.getChangeX()
-                        , height -30
-                        , paint);
+                if(i % 2 != 0) {
+                    canvas.drawText(String.valueOf(screenScaleValueEquation.getPointsScaleX().get(i))
+                            , i * 50 + screenScaleValueEquation.getChangeX()
+                            , height - 80
+                            , paint);
+                }
+                else{
+                    canvas.drawText(String.valueOf(screenScaleValueEquation.getPointsScaleX().get(i))
+                            , i * 50 + screenScaleValueEquation.getChangeX()
+                            , height - 30
+                            , paint);
+                }
             }
 
             //draw points X Y

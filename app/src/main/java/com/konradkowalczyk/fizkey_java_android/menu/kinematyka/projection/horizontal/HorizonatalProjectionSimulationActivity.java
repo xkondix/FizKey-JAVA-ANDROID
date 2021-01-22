@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.horizontal;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -8,17 +8,18 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique.ObliqueCalculations;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique.ObliqueSimulation;
 
-public class ObliqueProjectionSimulationActivity extends AppCompatActivity {
+public class HorizonatalProjectionSimulationActivity extends AppCompatActivity {
 
     public static final String CALCUALTIONS = "Calcualtions";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_oblique_projection_simulation);
-
-        ObliqueCalculations obliqueCalculations = (ObliqueCalculations) getIntent().getExtras().getSerializable(CALCUALTIONS);
+        setContentView(R.layout.activity_horizonatl_projection_simulation);
+        HorizontalCalculations horizontalCalculations = (HorizontalCalculations) getIntent().getExtras().getSerializable(CALCUALTIONS);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -28,7 +29,7 @@ public class ObliqueProjectionSimulationActivity extends AppCompatActivity {
         //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         //this.getActionBar().hide();
 
-        setContentView(new ObliqueSimulation(this, obliqueCalculations));
+        setContentView(new HorizontalSimulation(this, horizontalCalculations));
     }
 
 

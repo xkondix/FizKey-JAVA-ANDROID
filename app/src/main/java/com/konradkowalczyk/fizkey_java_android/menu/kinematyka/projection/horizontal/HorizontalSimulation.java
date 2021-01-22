@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.horizontal;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,20 +13,20 @@ import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.Subjec
 import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 import com.konradkowalczyk.fizkey_java_android.simulation.ScreenScaleValueEquation;
 
-public class ObliqueSimulation extends BasicSimulation {
+public class HorizontalSimulation extends BasicSimulation {
 
     private Paint paint = null;
-    private ObliqueCalculations obliqueCalculations;
+    private HorizontalCalculations horizontalCalculations;
     private SubjectFall ball;
     private ScreenScaleValueEquation screenScaleValueEquation;
 
 
-    public ObliqueSimulation(Context context, ObliqueCalculations obliqueCalculations) {
-        super(context,Type.SIMULATION);
+    public HorizontalSimulation(Context context, HorizontalCalculations horizontalCalculations) {
+        super(context, BasicSimulation.Type.SIMULATION);
         setFocusable(true);
-        this.obliqueCalculations=obliqueCalculations;
+        this.horizontalCalculations=horizontalCalculations;
         this.screenScaleValueEquation = new ScreenScaleValueEquation.Builder
-                (obliqueCalculations.getPostionsY(),obliqueCalculations.getPositionsX())
+                (horizontalCalculations.getPostionsY(),horizontalCalculations.getPositionsX())
                 .height(Constants.SCREEN_WIDTH)
                 .width(Constants.SCREEN_HEIGHT)
                 .spaceBetweenUnits(100)
@@ -114,3 +114,5 @@ public class ObliqueSimulation extends BasicSimulation {
 
     }
 }
+
+

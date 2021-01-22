@@ -1,10 +1,10 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.horizontal;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObliqueCalculations implements Serializable {
+public class HorizontalCalculations implements Serializable {
 
     private List<Double> times;
     private List<Double> accelerations;
@@ -20,7 +20,7 @@ public class ObliqueCalculations implements Serializable {
     private List<Double> totalEnergies;
 
     private double y0, v0y, x0, v0x, v;
-    private double g, cX, dt, counter, angle;
+    private double g, cX, dt, counter;
     private double mass;
 
 
@@ -46,18 +46,16 @@ public class ObliqueCalculations implements Serializable {
     }
 
 
-    public ObliqueCalculations(double h, double v0, double angle, double g, double cX, double mass, double counter)
+    public HorizontalCalculations(double h, double v0, double g, double cX, double mass, double counter)
     {
         this.y0 = h;
         this.x0 = 0;
-        this.v0y = v0 * Math.sin((Math.PI* angle)/180);
-        this.v0x = v0 * Math.cos((Math.PI* angle)/180);
-        this.v = v0;
+        this.v0y = 0;
+        this.v0x = v0;
         this.g = g;
         this.cX = cX;
         this.mass = mass;
         this.counter = counter;
-        this.angle = angle;
 
         times = new ArrayList<>();
         accelerations = new ArrayList<>();
@@ -109,7 +107,6 @@ public class ObliqueCalculations implements Serializable {
             v0x = countVx(v0x);
             y0 = countY(y0, v0y);
             x0 = countX(x0, v0x);
-            v = Math.sqrt(Math.pow(v0x,2) + Math.pow(v0y,2));
             ep= 1 * g * y0;
             ek = (1* v0y * v0y)/2;
             ec = ep + ek;
@@ -121,7 +118,6 @@ public class ObliqueCalculations implements Serializable {
                 accelerations.add(g);
                 velocityiesY.add(round(v0y));
                 velocityiesX.add(round(v0x));
-                velocityies.add(round(v));
                 yPostions.add(round(y0));
                 xPositions.add(round(x0));
                 kineticEnergies.add(round(ek));
@@ -138,7 +134,6 @@ public class ObliqueCalculations implements Serializable {
         accelerations.add(g);
         velocityiesY.add(round(v0y));
         velocityiesX.add(round(v0x));
-        velocityies.add(round(v));
         yPostions.add(round(y0));
         xPositions.add(round(x0));
         kineticEnergies.add(round(ek));
@@ -196,10 +191,6 @@ public class ObliqueCalculations implements Serializable {
         return accelerations;
     }
 
-    public List<Double> getVelocityies() {
-        return velocityies;
-    }
-
     public List<Double> getVelocityiesX() {
         return velocityiesX;
     }
@@ -227,4 +218,6 @@ public class ObliqueCalculations implements Serializable {
     public List<Double> getTotalEnergies() {
         return totalEnergies;
     }
+
 }
+
