@@ -6,4 +6,110 @@
     android:layout_height="match_parent"
     tools:context=".menu.kinematyka.projection.oblique.ObliqueProjectionSimulationActivity">
 
+    <Button
+        android:id="@+id/play_oblique_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:onClick="onClickPlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></Button>
+
+
+    <Button
+        android:id="@+id/stop_oblique_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="312dp"
+        android:text="@string/stop"
+        android:onClick="onClickStop"
+        app:layout_constraintLeft_toLeftOf="@+id/play_oblique_projection_simulation_activity"
+        app:layout_constraintTop_toTopOf="parent">
+        ></Button>
+
+    <Button
+        android:id="@+id/restart_oblique_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restart"
+        android:onClick="onClickRestart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/stop_oblique_projection_simulation_activity"
+        app:layout_constraintTop_toTopOf="parent"></Button>
+
+
+    <FrameLayout
+        android:id="@+id/oblique_simulation_frame_projection_simulation_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@id/play_oblique_projection_simulation_activity"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/time_oblique_projection_simulation_activity"></FrameLayout>
+
+    <TextView
+        android:id="@+id/time_oblique_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/x_oblique_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/time_oblique_projection_simulation_activity"></TextView>
+
+    <TextView
+        android:id="@+id/y_oblique_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/x_oblique_projection_simulation_activity"></TextView>
+
+    <TextView
+        android:id="@+id/velocity_x_oblique_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/y_oblique_projection_simulation_activity"></TextView>
+
+    <TextView
+        android:id="@+id/velocity_y_oblique_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/velocity_x_oblique_projection_simulation_activity"></TextView>
+
+    <TextView
+        android:id="@+id/angle_oblique_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/velocity_y_oblique_projection_simulation_activity"></TextView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
