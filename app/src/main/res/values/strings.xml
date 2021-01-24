@@ -147,6 +147,9 @@
     <string name="mass">Mass</string>
     <string name="angle">Angle</string>
     <string name="resistance">Resistance</string>
+    <string name="play">Play</string>
+    <string name="stop">Stop</string>
+    <string name="restart">Restart</string>
 
 
 </resources>

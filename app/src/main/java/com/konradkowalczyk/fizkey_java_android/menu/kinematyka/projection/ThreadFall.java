@@ -5,14 +5,21 @@ import java.util.List;
 public class ThreadFall extends Thread {
 
     private volatile double time = 0.0;
-    private boolean simulate = true;
+    private static int counter;
     private SubjectFall subjectFall;
-    private double v;
+
+    private Object pauseLock;
+    private boolean paused;
+    private boolean finished;
 
 
     public ThreadFall(SubjectFall subjectFall) {
 
-        this.subjectFall=subjectFall;
+        this.subjectFall = subjectFall;
+        this.pauseLock = new Object();
+        this.paused = true;
+        this.finished = false;
+        this.counter = 0;
 
     }
 
@@ -22,20 +29,36 @@ public class ThreadFall extends Thread {
         List<Float> x = subjectFall.getScala().getValuesScaledSecoundListX();
 
 
-        for(int i = 0; i < y.size(); i++)
-         {
-            subjectFall.setY(y.get(i));
-            subjectFall.setX(x.get(i));
+        while (!finished) {
 
-            time+=0.01;
-            try {
-                sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            synchronized (pauseLock) {
+                while (paused) {
+                    try {
+                        pauseLock.wait();
+                    } catch (InterruptedException e) {
+                    }
+                }
+            }
+
+
+            if(counter < y.size())
+            {
+                subjectFall.setY(y.get(counter));
+                subjectFall.setX(x.get(counter));
+
+                time+=0.01;
+                counter++;
+                try {
+                    sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                onFinish();
             }
 
         }
-
 
 
     }
@@ -50,14 +73,25 @@ public class ThreadFall extends Thread {
         return time;
     }
 
-    public void setRunning(boolean run)
-    {
-        simulate=run;
+
+    public void onPause() {
+        synchronized (pauseLock) {
+            paused = true;
+        }
     }
 
 
+    public void onResume() {
+        synchronized (pauseLock) {
+            paused = false;
+            pauseLock.notifyAll();
+        }
+    }
 
-
+    public void onFinish()
+    {
+        finished = true;
+    }
 
 
 }

@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionPlotActivity"></activity>
-        <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionSimulationActivity" />
+        <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionSimulationActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionActivity" />
         <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionSimulationActivity" />
         <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionPlotActivity" />

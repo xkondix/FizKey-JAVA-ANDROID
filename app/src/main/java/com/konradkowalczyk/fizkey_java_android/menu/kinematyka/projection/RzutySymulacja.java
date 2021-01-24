@@ -88,7 +88,15 @@ public class RzutySymulacja extends BasicSimulation {
         }
 
 
+    @Override
+    public void pause() {
 
+    }
+
+    @Override
+    public void start() {
+
+    }
 
     @Override
     public void update() {

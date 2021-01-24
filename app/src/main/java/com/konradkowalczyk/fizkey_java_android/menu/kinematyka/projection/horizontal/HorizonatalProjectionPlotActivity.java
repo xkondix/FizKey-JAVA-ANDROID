@@ -53,7 +53,7 @@ public class HorizonatalProjectionPlotActivity extends AppCompatActivity {
         setCalculations();
 
         if (savedInstanceState != null) {
-            int  position= savedInstanceState.getInt("Key");
+            int  position = savedInstanceState.getInt("Key");
         }
 
         spinnerOne.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

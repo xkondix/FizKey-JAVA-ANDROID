@@ -1,7 +1,6 @@
 package com.konradkowalczyk.fizkey_java_android.simulation;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -14,6 +13,7 @@ import com.konradkowalczyk.fizkey_java_android.thread.MainThreadSimulation;
 public abstract class BasicSimulation extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
+    private boolean retry;
     private Type type;
     public enum Type {SIMULATION,GRAPHS};
 
@@ -37,6 +37,7 @@ public abstract class BasicSimulation extends SurfaceView implements SurfaceHold
         createThread();
         thread.setRunning(true);
         thread.start();
+        start();
     }
 
     @Override
@@ -45,12 +46,13 @@ public abstract class BasicSimulation extends SurfaceView implements SurfaceHold
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        boolean retry = true;
+        retry = true;
         thread.setRunning(false);
+        pause();
 
         while (retry) {
             try {
-                thread.join(); // poczekaj na zakończenie wątku cannonThread
+                thread.join();
                 retry = false;
             }
             catch (InterruptedException e) {
@@ -59,11 +61,6 @@ public abstract class BasicSimulation extends SurfaceView implements SurfaceHold
         }
     }
 
-    public void pause() {
-        if (thread != null)
-            thread.setRunning(false);
-
-    }
 
     private void createThread()
     {
@@ -76,6 +73,10 @@ public abstract class BasicSimulation extends SurfaceView implements SurfaceHold
             createSimulationThread();
         }
     }
+
+    abstract public void pause();
+
+    abstract public void start();
 
     private void createSimulationThread()
     {

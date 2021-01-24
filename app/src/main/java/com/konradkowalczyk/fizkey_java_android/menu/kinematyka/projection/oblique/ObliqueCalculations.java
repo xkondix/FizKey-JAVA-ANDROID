@@ -15,6 +15,7 @@ public class ObliqueCalculations implements Serializable {
     private List<Double> yPostions;
     private List<Double> xPositions;
 
+    private List<Double> degrees;
     private List<Double> potentialEnergies;
     private List<Double> kineticEnergies;
     private List<Double> totalEnergies;
@@ -72,6 +73,7 @@ public class ObliqueCalculations implements Serializable {
         potentialEnergies = new ArrayList<>();
         kineticEnergies = new ArrayList<>();
         totalEnergies = new ArrayList<>();
+        degrees = new ArrayList<>();
 
 
         calculate();
@@ -100,6 +102,7 @@ public class ObliqueCalculations implements Serializable {
         kineticEnergies.add(ek);
         potentialEnergies.add(ep);
         totalEnergies.add(ec);
+        degrees.add(angle);
         times.add(t);
 
 
@@ -110,6 +113,7 @@ public class ObliqueCalculations implements Serializable {
             y0 = countY(y0, v0y);
             x0 = countX(x0, v0x);
             v = Math.sqrt(Math.pow(v0x,2) + Math.pow(v0y,2));
+            angle = Math.atan2(v0y, v0x);
             ep= 1 * g * y0;
             ek = (1* v0y * v0y)/2;
             ec = ep + ek;
@@ -127,6 +131,7 @@ public class ObliqueCalculations implements Serializable {
                 kineticEnergies.add(round(ek));
                 potentialEnergies.add(round(ep));
                 totalEnergies.add(round(ec));
+                degrees.add(round(angle));
                 times.add(round(t));
 
                 licznik += counter;
@@ -144,9 +149,10 @@ public class ObliqueCalculations implements Serializable {
         kineticEnergies.add(round(ek));
         potentialEnergies.add(round(ep));
         totalEnergies.add(round(ec));
+        degrees.add(round(angle));
         times.add(round(t));
 
-
+        System.out.println(degrees);
 
     }
 

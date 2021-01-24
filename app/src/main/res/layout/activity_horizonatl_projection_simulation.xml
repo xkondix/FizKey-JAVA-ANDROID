@@ -6,4 +6,83 @@
     android:layout_height="match_parent"
     tools:context=".menu.kinematyka.projection.horizontal.HorizonatalProjectionSimulationActivity">
 
+
+    <Button
+        android:id="@+id/play_horizontal_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:onClick="onClickPlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></Button>
+
+
+    <Button
+        android:id="@+id/stop_horizontal_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="312dp"
+        android:text="@string/stop"
+        android:onClick="onClickStop"
+        app:layout_constraintLeft_toLeftOf="@+id/play_horizontal_projection_simulation_activity"
+        app:layout_constraintTop_toTopOf="parent">
+        ></Button>
+
+    <Button
+        android:id="@+id/restart_horizontal_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/restart"
+        android:onClick="onClickRestart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/stop_horizontal_projection_simulation_activity"
+        app:layout_constraintTop_toTopOf="parent"></Button>
+
+
+    <FrameLayout
+        android:id="@+id/horizontal_simulation_frame_projection_simulation_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@id/play_horizontal_projection_simulation_activity"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/time_horizontal_projection_simulation_activity"></FrameLayout>
+
+    <TextView
+        android:id="@+id/time_horizontal_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/x_horizontal_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/time_horizontal_projection_simulation_activity"></TextView>
+
+    <TextView
+        android:id="@+id/y_horizontal_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/x_horizontal_projection_simulation_activity"></TextView>
+
+    <TextView
+        android:id="@+id/angle_horizontal_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/y_horizontal_projection_simulation_activity"></TextView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

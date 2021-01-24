@@ -70,7 +70,6 @@ public class PlotFragment extends Fragment implements OnTouchPointValue {
             wykresView.setArray(firstList,secoundList);
             wykresView.setOnTouchPointValue(this);
 
-            setRetainInstance(true);
 
             return view;
         }

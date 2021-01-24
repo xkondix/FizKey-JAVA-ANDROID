@@ -145,6 +145,14 @@ public class PlotView extends BasicSimulation {
     }
 
     @Override
+    public void pause() {
+    }
+
+    @Override
+    public void start() {
+    }
+
+    @Override
     public void update() {
         throw new RuntimeException("not to implement");
     }

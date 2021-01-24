@@ -14,7 +14,7 @@ public class SubjectFall extends RectF {
 
         // size and dimision of ball
         this.left = left;
-        this.top = scala.getValuesScaledFirstListY().get(0)-75 ;
+        this.top = scala.getValuesScaledFirstListY().get(0)-40 ;
         this.right = right;
         this.bottom =  scala.getValuesScaledFirstListY().get(0);
         this.scala = scala;
@@ -27,28 +27,38 @@ public class SubjectFall extends RectF {
         //right The X coordinate of the right side of the rectangle
         //bottom The Y coordinate of the bottom of the rectangle
 
-
-
-        threadFall = new ThreadFall(this);
-        threadFall.start();
-
-
     }
 
     public void createThread()
     {
-        threadFall = new ThreadFall(this);
-    }
+        if(threadFall == null) {
+            threadFall = new ThreadFall(this);
+        }
+        else {
+            threadFall.onFinish();
+            threadFall = new ThreadFall(this);
+        }
 
-    public void setRunning(boolean run)
-    {
-        threadFall.setRunning(false);
+        startThread();
     }
 
     public void startThread()
     {
         threadFall.start();
     }
+
+    public void onPause() {
+        threadFall.onPause();
+    }
+
+    public void onResume() {
+        threadFall.onResume();
+    }
+
+    public void onFinish() {
+        threadFall.onFinish();
+    }
+
 
     public double getTime()
     {
@@ -63,7 +73,7 @@ public class SubjectFall extends RectF {
     {
         if(changingParemeters[0] == true) {
             this.bottom = y;
-            this.top = y - 75;
+            this.top = y - 40;
         }
     }
 
@@ -71,7 +81,7 @@ public class SubjectFall extends RectF {
     {
         if(changingParemeters[1] == true) {
             this.left = x;
-            this.right = x + 75;
+            this.right = x + 40;
         }
     }
 
@@ -79,11 +89,6 @@ public class SubjectFall extends RectF {
     {
         return scala.fromScaleYToRealValue(bottom);
     }
-
-
-
-
-
 
 
 }
