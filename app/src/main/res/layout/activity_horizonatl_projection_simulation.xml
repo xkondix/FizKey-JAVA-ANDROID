@@ -57,7 +57,9 @@
         android:id="@+id/time_horizontal_projection_simulation_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"></TextView>
 
@@ -65,24 +67,50 @@
         android:id="@+id/x_horizontal_projection_simulation_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/time_horizontal_projection_simulation_activity"></TextView>
+        app:layout_constraintStart_toEndOf="@+id/time_horizontal_projection_simulation_activity"></TextView>
 
     <TextView
         android:id="@+id/y_horizontal_projection_simulation_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/x_horizontal_projection_simulation_activity"></TextView>
+        app:layout_constraintStart_toEndOf="@+id/x_horizontal_projection_simulation_activity"></TextView>
+
+    <TextView
+        android:id="@+id/velocity_x_horizontal_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/y_horizontal_projection_simulation_activity"></TextView>
+
+    <TextView
+        android:id="@+id/velocity_y_horizontal_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/velocity_x_horizontal_projection_simulation_activity"></TextView>
 
     <TextView
         android:id="@+id/angle_horizontal_projection_simulation_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/y_horizontal_projection_simulation_activity"></TextView>
+        app:layout_constraintStart_toEndOf="@+id/velocity_y_horizontal_projection_simulation_activity"></TextView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

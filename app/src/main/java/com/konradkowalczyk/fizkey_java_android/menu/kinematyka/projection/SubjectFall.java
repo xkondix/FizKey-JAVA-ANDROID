@@ -85,6 +85,16 @@ public class SubjectFall extends RectF {
         }
     }
 
+    public int getCounter()
+    {
+        return threadFall.getCounter();
+    }
+
+    public boolean getStatus(){
+        return threadFall.getStatus();
+    }
+
+
     public float getBottom()
     {
         return scala.fromScaleYToRealValue(bottom);

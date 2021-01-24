@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
 
 
 public class HorizontalSimulationFragment extends Fragment {
@@ -19,9 +21,8 @@ public class HorizontalSimulationFragment extends Fragment {
     private int width, height;
     private HorizontalCalculations horizontalCalculations;
     private HorizontalSimulationView horizontalSimulationView;
+    private ProjectionViewModel projectionViewModel;
 
-    private Object pauseLock;
-    private boolean pause;
 
 
     public HorizontalSimulationFragment() {
@@ -53,8 +54,12 @@ public class HorizontalSimulationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_horizontal_simulation, container, false);
 
+        projectionViewModel = new ViewModelProvider(getActivity()).get(ProjectionViewModel.class);
+
+
         horizontalSimulationView = (HorizontalSimulationView) view.findViewById(R.id.horizontal_simulation_view);
         horizontalSimulationView.setConstans(horizontalCalculations, width, height);
+        horizontalSimulationView.setViewModel(projectionViewModel);
 
         return view;
 
@@ -69,6 +74,7 @@ public class HorizontalSimulationFragment extends Fragment {
     }
 
     public void restart() {
+        horizontalSimulationView.finish();
         horizontalSimulationView.setConstans(horizontalCalculations, width, height);
     }
 

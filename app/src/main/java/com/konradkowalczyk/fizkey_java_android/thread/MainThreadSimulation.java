@@ -22,6 +22,7 @@ public class MainThreadSimulation extends MainThread {
                 canvas = surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
                     basicSimulation.draw(canvas);
+                    basicSimulation.update();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -37,7 +37,7 @@ public abstract class BasicSimulation extends SurfaceView implements SurfaceHold
         createThread();
         thread.setRunning(true);
         thread.start();
-        start();
+       // start(); i think it works better without it
     }
 
     @Override

@@ -15,6 +15,7 @@ public class HorizontalCalculations implements Serializable {
     private List<Double> yPostions;
     private List<Double> xPositions;
 
+    private List<Double> degrees;
     private List<Double> potentialEnergies;
     private List<Double> kineticEnergies;
     private List<Double> totalEnergies;
@@ -67,6 +68,7 @@ public class HorizontalCalculations implements Serializable {
         yPostions = new ArrayList<>();
         xPositions = new ArrayList<>();
 
+        degrees = new ArrayList<>();
         potentialEnergies = new ArrayList<>();
         kineticEnergies = new ArrayList<>();
         totalEnergies = new ArrayList<>();
@@ -98,6 +100,7 @@ public class HorizontalCalculations implements Serializable {
         kineticEnergies.add(ek);
         potentialEnergies.add(ep);
         totalEnergies.add(ec);
+        degrees.add(round(Math.atan2(v0y,v0x)));
         times.add(t);
 
 
@@ -107,6 +110,8 @@ public class HorizontalCalculations implements Serializable {
             v0x = countVx(v0x);
             y0 = countY(y0, v0y);
             x0 = countX(x0, v0x);
+
+
             ep= 1 * g * y0;
             ek = (1* v0y * v0y)/2;
             ec = ep + ek;
@@ -120,6 +125,7 @@ public class HorizontalCalculations implements Serializable {
                 velocityiesX.add(round(v0x));
                 yPostions.add(round(y0));
                 xPositions.add(round(x0));
+                degrees.add(round(Math.atan2(v0y,v0x))*100);
                 kineticEnergies.add(round(ek));
                 potentialEnergies.add(round(ep));
                 totalEnergies.add(round(ec));
@@ -134,9 +140,10 @@ public class HorizontalCalculations implements Serializable {
         accelerations.add(g);
         velocityiesY.add(round(v0y));
         velocityiesX.add(round(v0x));
-        yPostions.add(round(y0));
+        yPostions.add(round(0));
         xPositions.add(round(x0));
         kineticEnergies.add(round(ek));
+        degrees.add(round(Math.atan2(v0y,v0x))*100);
         potentialEnergies.add(round(ep));
         totalEnergies.add(round(ec));
         times.add(round(t));
@@ -219,5 +226,8 @@ public class HorizontalCalculations implements Serializable {
         return totalEnergies;
     }
 
+    public List<Double> getDegrees() {
+        return degrees;
+    }
 }
 

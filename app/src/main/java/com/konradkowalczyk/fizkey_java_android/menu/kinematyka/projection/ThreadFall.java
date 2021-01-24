@@ -73,6 +73,12 @@ public class ThreadFall extends Thread {
         return time;
     }
 
+    public int getCounter()
+    {
+        return counter;
+    }
+
+
 
     public void onPause() {
         synchronized (pauseLock) {
@@ -91,6 +97,10 @@ public class ThreadFall extends Thread {
     public void onFinish()
     {
         finished = true;
+    }
+
+    public boolean getStatus(){
+        return paused;
     }
 
 

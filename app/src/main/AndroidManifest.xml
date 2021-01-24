@@ -11,13 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionPlotActivity"></activity>
+        <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionPlotActivity"
+            android:screenOrientation="portrait" ></activity>
         <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionSimulationActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionActivity" />
-        <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionSimulationActivity" />
-        <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionPlotActivity" />
-        <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionActivity" />
+        <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionSimulationActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionPlotActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".quizzes.firebase.view.group.page_group.GroupActivity"
             android:label="@string/title_activity_group"
