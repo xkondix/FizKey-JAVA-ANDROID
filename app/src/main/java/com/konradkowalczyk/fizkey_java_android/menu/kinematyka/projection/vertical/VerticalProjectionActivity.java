@@ -1,16 +1,11 @@
 package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
 
 import android.content.Intent;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -20,13 +15,13 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.PhysicalFormulasDialogFragment;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
 
 public class VerticalProjectionActivity extends AppCompatActivity {
 
     //variables
     private EditText heightEditText,velocityEditText,accelerationEditText, resistanceEditText,massEditText;
-    private Button simulateButton, plotButton, sendScoreButton;
     private TextView scoreTextView;
     private Spinner multiScoreSpinner;
     private static String[] formulasVertical = {"v = v0 - g * t", "h = v0 * t - 1/2 * g * t^2"};
@@ -37,7 +32,7 @@ public class VerticalProjectionActivity extends AppCompatActivity {
     protected void onCreate(android.os.Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rzut_pionowy);
+        setContentView(R.layout.activity_vertical_projection);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -45,25 +40,19 @@ public class VerticalProjectionActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         //EditText
-        heightEditText = findViewById(R.id.wysokosc);
-        velocityEditText = findViewById(R.id.predkoscPoczatkowa);
-        accelerationEditText = findViewById(R.id.przyspieszenie);
-        resistanceEditText = findViewById(R.id.opor);
-        massEditText = findViewById(R.id.sprezystosc);
+        heightEditText = findViewById(R.id.height_vertical_projection_activity);
+        velocityEditText = findViewById(R.id.start_velocity_vertical_projection_activity);
+        accelerationEditText = findViewById(R.id.acceleration_vertical_projection_activity);
+        resistanceEditText = findViewById(R.id.resistance_vertical_projection_activity);
+        massEditText = findViewById(R.id.mass_vertical_projection_activity);
 
-        //Button
-        simulateButton = findViewById(R.id.symulacja);
-        plotButton = findViewById(R.id.wykresy);
-        sendScoreButton = findViewById(R.id.wyslij);
 
         //Spinner
         multiScoreSpinner = findViewById(R.id.spinner);
 
         //TextView
-        scoreTextView = findViewById(R.id.wyniki);
+        scoreTextView = findViewById(R.id.score_vertical_projection_activity);
 
-        //add listener to EditText
-        heightEditText.addTextChangedListener(generalTextWatcher);
     }
 
     public  boolean onCreateOptionsMenu(Menu menu)
@@ -85,34 +74,38 @@ public class VerticalProjectionActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickWykresy(View view)
+    public void onClickPlot(View view)
     {
-        WykresyObliczenia wykresyObliczenia = new WykresyObliczenia(
-                getHeight(),
-                getVelocity(),
-                getAcceleration(),
-                getResistance());
+
+        ProjectionCalculation projectionCalculation = new ProjectionCalculation.Builder(
+                getHeight(),getVelocity(), 1)
+                .acceleration(getAcceleration())
+                .mass(getMass())
+                .resistance(getResistance())
+                .build();
 
         Intent intent = new Intent(this, VerticalProjectionPlotActivity.class);
-        intent.putExtra("OBLICZENIA", wykresyObliczenia);
+        intent.putExtra(VerticalProjectionPlotActivity.CALCULATIONS, projectionCalculation);
         startActivity(intent);
     }
 
-    public void onClickSymulacja(View view)
+    public void onClickSimulation(View view)
     {
-        WykresyObliczenia wykresyObliczenia = new WykresyObliczenia(
-                getHeight(),
-                getVelocity(),
-                getAcceleration(),
-                getResistance()
-                ,0.01);
+        ProjectionCalculation projectionCalculation = new ProjectionCalculation.Builder(
+                getHeight(),getVelocity(), 0.01)
+                .acceleration(getAcceleration())
+                .mass(getMass())
+                .resistance(getResistance())
+                .build();
+
+
         Intent intent = new Intent(this, VerticalProjectionSimulationActivity.class);
-        intent.putExtra("atrybuty",wykresyObliczenia);
+        intent.putExtra(VerticalProjectionSimulationActivity.CALCULATIONS, projectionCalculation);
         startActivity(intent);
 
     }
 
-    public void onClickWyslij(android.view.View view)
+    public void onClickSend(android.view.View view)
     {
 
         String text = scoreTextView.getText().toString();
@@ -124,43 +117,7 @@ public class VerticalProjectionActivity extends AppCompatActivity {
         startActivity(chosenIntent);
     }
 
-    public void onClickRadioButton(android.view.View view)
-    {
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        int id = radioGroup.getCheckedRadioButtonId();
-
-        switch(id)
-        {
-            case R.id.m:
-                radioBox("km");
-                break;
-
-            case R.id.km:
-                radioBox("m");
-
-                break;
-        }
-
-    }
-
-    public void onClickCheckbox(android.view.View view)
-    {
-
-        boolean checked = ((CheckBox) view).isChecked();
-
-        switch(view.getId()) {
-            case R.id.checkBoxOpor:
-                if (checked) {
-                    resistanceEditText.setEnabled(true);
-                } else {
-                    resistanceEditText.setEnabled(false);
-
-                }
-                break;
-        }
-    }
-
-    public void onClickOblicz(View view)
+    public void onClickScore(View view)
     {
 
         WykresyObliczenia wykresyObliczenia = new WykresyObliczenia(
@@ -179,38 +136,6 @@ public class VerticalProjectionActivity extends AppCompatActivity {
     }
 
 
-    //zmiany związane z EdidText
-    private TextWatcher generalTextWatcher = new TextWatcher() {
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
-            int i = -1;
-            try {
-
-                i = Integer.parseInt(heightEditText.getText().toString());
-
-            }catch(NumberFormatException e){}
-
-            if(i >= 0)
-            {
-                plotButton.setEnabled(true);
-                sendScoreButton.setEnabled(true);
-                simulateButton.setEnabled(true);
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-
-    };
 
     private double getHeight()
     {
@@ -252,6 +177,16 @@ public class VerticalProjectionActivity extends AppCompatActivity {
         return 0;
     }
 
+    private double getMass()
+    {
+        if(checkLength(massEditText.getText().toString()))
+        {
+            return Double.parseDouble(massEditText.getText().toString());
+        }
+
+        return 1;
+    }
+
     private boolean checkLength(String word)
     {
         if(word.length()>0)
@@ -265,33 +200,9 @@ public class VerticalProjectionActivity extends AppCompatActivity {
     }
 
 
-    private void radioBox(String type)
-    {
-        double s;
-        double v;
-
-        if(type.equals("km"))
-        {
-            s = 1000;
-            v = 3600;
-        }
-        else
-        {
-            s = 1/1000;
-            v = 1/3600;
-        }
 
 
-        this.heightEditText.setText(String.valueOf(Double.parseDouble(heightEditText.getText().toString())*s));
-        if(!velocityEditText.getText().equals("")) {
-            this.velocityEditText.setText(String.valueOf(Double.parseDouble(heightEditText.getText().toString()) * s * v));
-        }
-        if(!accelerationEditText.getText().equals("")) {
-            this.accelerationEditText.setText(String.valueOf(Double.parseDouble(heightEditText.getText().toString()) * s * v * v));
-        }
 
-
-    }
 
 
 }

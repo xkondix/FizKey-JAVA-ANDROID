@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.horizontal;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,9 +11,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique.ObliqueSimulationFragment;
 
 
-public class HorizontalSimulationFragment extends Fragment {
+public class VerticalSimulationFragment extends Fragment {
 
     public static final String HEIGHT = "height";
     public static final String WIDTH = "width";
@@ -21,22 +22,20 @@ public class HorizontalSimulationFragment extends Fragment {
 
     private int width, height;
     private ProjectionCalculation projectionCalculation;
-    private HorizontalSimulationView horizontalSimulationView;
+    private VerticalSimulationView verticalSimulationView;
     private ProjectionViewModel projectionViewModel;
 
-
-
-    public HorizontalSimulationFragment() {
+    public VerticalSimulationFragment() {
         // Required empty public constructor
     }
 
-    public static HorizontalSimulationFragment newInstance(int width, int height, ProjectionCalculation projectionCalculation) {
-        HorizontalSimulationFragment fragment = new HorizontalSimulationFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(CALCULATIONS, projectionCalculation);
-        bundle.putInt(WIDTH, width);
-        bundle.putInt(HEIGHT, height);
-        fragment.setArguments(bundle);
+    public static VerticalSimulationFragment newInstance(int width, int height, ProjectionCalculation projectionCalculations) {
+        VerticalSimulationFragment fragment = new VerticalSimulationFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(CALCULATIONS, projectionCalculations);
+        args.putInt(WIDTH, width);
+        args.putInt(HEIGHT, height);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -47,40 +46,42 @@ public class HorizontalSimulationFragment extends Fragment {
             projectionCalculation = (ProjectionCalculation) getArguments().getSerializable(CALCULATIONS);
             height = getArguments().getInt(HEIGHT);
             width = getArguments().getInt(WIDTH);
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_horizontal_simulation, container, false);
+        View view =  inflater.inflate(R.layout.fragment_vertical_simulation, container, false);
 
         projectionViewModel = new ViewModelProvider(getActivity()).get(ProjectionViewModel.class);
 
 
-        horizontalSimulationView = (HorizontalSimulationView) view.findViewById(R.id.horizontal_simulation_view);
-        horizontalSimulationView.setConstans(projectionCalculation, width, height);
-        horizontalSimulationView.setViewModel(projectionViewModel);
+        verticalSimulationView = (VerticalSimulationView) view.findViewById(R.id.vertical_simulation_view);
+        verticalSimulationView.setConstans(projectionCalculation, width, height);
+        verticalSimulationView.setViewModel(projectionViewModel);
 
         return view;
 
     }
 
     public void start() {
-        horizontalSimulationView.start();
+        verticalSimulationView.start();
     }
 
     public void pause() {
-        horizontalSimulationView.pause();
+        verticalSimulationView.pause();
     }
 
     public void restart() {
-        horizontalSimulationView.finish();
-        horizontalSimulationView.setConstans(projectionCalculation, width, height);
+        verticalSimulationView.finish();
+        verticalSimulationView.setConstans(projectionCalculation, width, height);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
+
 }

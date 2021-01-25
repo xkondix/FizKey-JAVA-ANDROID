@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".menu.kinematyka.projection.vertical.VerticalSimulationFragment">
+
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frameFragment">
+
+        <com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical.VerticalSimulationView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/vertical_simulation_view"/>
+
+    </LinearLayout>
+
+</FrameLayout>

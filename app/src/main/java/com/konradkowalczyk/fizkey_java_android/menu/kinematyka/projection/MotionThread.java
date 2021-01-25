@@ -2,20 +2,20 @@ package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
 
 import java.util.List;
 
-public class ThreadFall extends Thread {
+public class MotionThread extends Thread {
 
     private volatile double time = 0.0;
     private static int counter;
-    private SubjectFall subjectFall;
+    private MotionBall motionBall;
 
     private Object pauseLock;
     private boolean paused;
     private boolean finished;
 
 
-    public ThreadFall(SubjectFall subjectFall) {
+    public MotionThread(MotionBall motionBall) {
 
-        this.subjectFall = subjectFall;
+        this.motionBall = motionBall;
         this.pauseLock = new Object();
         this.paused = true;
         this.finished = false;
@@ -25,8 +25,8 @@ public class ThreadFall extends Thread {
 
     public void run() {
 
-        List<Float> y = subjectFall.getScala().getValuesScaledFirstListY();
-        List<Float> x = subjectFall.getScala().getValuesScaledSecoundListX();
+        List<Float> y = motionBall.getScala().getValuesScaledFirstListY();
+        List<Float> x = motionBall.getScala().getValuesScaledSecoundListX();
 
 
         while (!finished) {
@@ -43,8 +43,8 @@ public class ThreadFall extends Thread {
 
             if(counter < y.size())
             {
-                subjectFall.setY(y.get(counter));
-                subjectFall.setX(x.get(counter));
+                motionBall.setY(y.get(counter));
+                motionBall.setX(x.get(counter));
 
                 time+=0.01;
                 counter++;

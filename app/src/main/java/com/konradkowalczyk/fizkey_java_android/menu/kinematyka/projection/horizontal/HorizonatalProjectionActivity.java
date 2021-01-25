@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 
 public class HorizonatalProjectionActivity extends AppCompatActivity {
 
@@ -48,35 +49,35 @@ public class HorizonatalProjectionActivity extends AppCompatActivity {
         multiScoreSpinner = findViewById(R.id.spinner);
 
         //TextView
-        scoreTextView = findViewById(R.id.wyniki);
+        //scoreTextView = findViewById(R.id.wyniki);
 
     }
 
     public void onClickPlot(View view) {
-        HorizontalCalculations horizontalCalculations = new HorizontalCalculations(
-                getHeight()
-                ,getVelocity()
-                ,getAcceleration()
-                ,getResistance()
-                ,getMass()
-                ,1);
+        ProjectionCalculation projectionCalculation = new ProjectionCalculation.Builder(
+                getHeight(),getVelocity(), 1)
+                .acceleration(getAcceleration())
+                .mass(getMass())
+                .resistance(getResistance())
+                .angle(0)
+                .build();
 
         Intent intent = new Intent(this, HorizonatalProjectionPlotActivity.class);
-        intent.putExtra(HorizonatalProjectionPlotActivity.CALCUALTIONS,  horizontalCalculations);
+        intent.putExtra(HorizonatalProjectionPlotActivity.CALCUALTIONS,  projectionCalculation);
         startActivity(intent);
     }
 
     public void onClickSimulation(View view) {
-        HorizontalCalculations horizontalCalculations = new HorizontalCalculations(
-                getHeight()
-                ,getVelocity()
-                ,getAcceleration()
-                ,getResistance()
-                ,getMass()
-                ,0.01);
+        ProjectionCalculation projectionCalculation = new ProjectionCalculation.Builder(
+                getHeight(),getVelocity(), 0.01)
+                .acceleration(getAcceleration())
+                .mass(getMass())
+                .resistance(getResistance())
+                .angle(0)
+                .build();
 
         Intent intent = new Intent(this, HorizonatalProjectionSimulationActivity.class);
-        intent.putExtra(HorizonatalProjectionSimulationActivity.CALCUALTIONS,  horizontalCalculations);
+        intent.putExtra(HorizonatalProjectionSimulationActivity.CALCUALTIONS,  projectionCalculation);
         startActivity(intent);
     }
 

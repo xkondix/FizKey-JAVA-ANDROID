@@ -4,13 +4,13 @@ import android.graphics.RectF;
 
 import com.konradkowalczyk.fizkey_java_android.simulation.ScreenScaleValueEquation;
 
-public class SubjectFall extends RectF {
+public class MotionBall extends RectF {
 
-    private ThreadFall threadFall;
+    private MotionThread motionThread;
     private ScreenScaleValueEquation scala;
     private Boolean[] changingParemeters;
 
-    public SubjectFall(float left, float right, ScreenScaleValueEquation scala, Boolean[] changingParemeters) {
+    public MotionBall(float left, float right, ScreenScaleValueEquation scala, Boolean[] changingParemeters) {
 
         // size and dimision of ball
         this.left = left;
@@ -31,12 +31,12 @@ public class SubjectFall extends RectF {
 
     public void createThread()
     {
-        if(threadFall == null) {
-            threadFall = new ThreadFall(this);
+        if(motionThread == null) {
+            motionThread = new MotionThread(this);
         }
         else {
-            threadFall.onFinish();
-            threadFall = new ThreadFall(this);
+            motionThread.onFinish();
+            motionThread = new MotionThread(this);
         }
 
         startThread();
@@ -44,25 +44,25 @@ public class SubjectFall extends RectF {
 
     public void startThread()
     {
-        threadFall.start();
+        motionThread.start();
     }
 
     public void onPause() {
-        threadFall.onPause();
+        motionThread.onPause();
     }
 
     public void onResume() {
-        threadFall.onResume();
+        motionThread.onResume();
     }
 
     public void onFinish() {
-        threadFall.onFinish();
+        motionThread.onFinish();
     }
 
 
     public double getTime()
     {
-        return threadFall.getTimeDouble();
+        return motionThread.getTimeDouble();
     }
 
     public ScreenScaleValueEquation getScala() {
@@ -87,11 +87,11 @@ public class SubjectFall extends RectF {
 
     public int getCounter()
     {
-        return threadFall.getCounter();
+        return motionThread.getCounter();
     }
 
     public boolean getStatus(){
-        return threadFall.getStatus();
+        return motionThread.getStatus();
     }
 
 

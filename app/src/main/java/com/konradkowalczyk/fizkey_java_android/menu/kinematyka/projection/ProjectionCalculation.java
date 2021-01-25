@@ -1,10 +1,11 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObliqueCalculations implements Serializable {
+
+public class ProjectionCalculation implements Serializable {
 
     private List<Double> times;
     private List<Double> accelerations;
@@ -26,6 +27,90 @@ public class ObliqueCalculations implements Serializable {
 
 
 
+
+    public static class Builder
+    {
+
+        //required varibles
+        private final double  h, v0, counter;
+
+        //optional varibles
+        private double angle = 90;
+        private double g = 9.81;
+        private double cX = 0;
+        private double mass = 1;
+
+        public Builder(double h, double v0, double counter){
+            this.h = h;
+            this.v0 = v0;
+            this.counter = counter;
+        }
+
+        public Builder angle(double angle)
+        {
+            this.angle = angle;
+            return this;
+        }
+        public Builder acceleration(double g)
+        {
+            this.g = g;
+            return this;
+        }
+
+        public Builder resistance(double cX)
+        {
+            this.cX = cX;
+            return this;
+        }
+
+        public Builder mass(double mass)
+        {
+            this.mass = mass;
+            return this;
+        }
+
+
+        public ProjectionCalculation build()
+        {
+            return new ProjectionCalculation(this);
+        }
+
+    }
+
+    private ProjectionCalculation(Builder builder)
+    {
+        this.y0 = builder.h;
+        this.x0 = 0;
+        this.angle = builder.angle;
+        this.v0y = builder.v0 * Math.sin((Math.PI* angle)/180);
+        this.v0x = builder.v0 * Math.cos((Math.PI* angle)/180);
+        this.v = builder.v0;
+        this.g = builder.g;
+        this.cX = builder.cX;
+        this.mass = builder.mass;
+        this.counter = builder.counter;
+
+
+        times = new ArrayList<>();
+        accelerations = new ArrayList<>();
+
+        velocityies = new ArrayList<>();
+        velocityiesX = new ArrayList<>();
+        velocityiesY = new ArrayList<>();
+
+        yPostions = new ArrayList<>();
+        xPositions = new ArrayList<>();
+
+        potentialEnergies = new ArrayList<>();
+        kineticEnergies = new ArrayList<>();
+        totalEnergies = new ArrayList<>();
+        degrees = new ArrayList<>();
+
+        calculate();
+
+    }
+
+
     private double countVy(double vY)
     {
         return vY - (g * dt) - (cX * vY * dt);
@@ -45,41 +130,6 @@ public class ObliqueCalculations implements Serializable {
     {
         return x + (vX *dt);
     }
-
-
-    public ObliqueCalculations(double h, double v0, double angle, double g, double cX, double mass, double counter)
-    {
-        this.y0 = h;
-        this.x0 = 0;
-        this.v0y = v0 * Math.sin((Math.PI* angle)/180);
-        this.v0x = v0 * Math.cos((Math.PI* angle)/180);
-        this.v = v0;
-        this.g = g;
-        this.cX = cX;
-        this.mass = mass;
-        this.counter = counter;
-        this.angle = angle;
-
-        times = new ArrayList<>();
-        accelerations = new ArrayList<>();
-
-        velocityies = new ArrayList<>();
-        velocityiesX = new ArrayList<>();
-        velocityiesY = new ArrayList<>();
-
-        yPostions = new ArrayList<>();
-        xPositions = new ArrayList<>();
-
-        potentialEnergies = new ArrayList<>();
-        kineticEnergies = new ArrayList<>();
-        totalEnergies = new ArrayList<>();
-        degrees = new ArrayList<>();
-
-
-        calculate();
-    }
-
-
 
 
     private void calculate()
@@ -163,7 +213,7 @@ public class ObliqueCalculations implements Serializable {
 
 
 
-    public String getString(double time, double velocity, double acceleration)
+    public String getVelocityScore(double time, double velocity, double acceleration)
     {
         StringBuilder sb = new StringBuilder();
         sb.append("t = ");
@@ -237,3 +287,4 @@ public class ObliqueCalculations implements Serializable {
         return degrees;
     }
 }
+

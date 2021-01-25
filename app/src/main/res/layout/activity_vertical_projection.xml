@@ -14,45 +14,42 @@
         tools:layout_editor_absoluteY="113dp"></include>
 
     <Button
-        android:id="@+id/wykresy"
+        android:id="@+id/plot_vertical_projection_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="20dp"
-        android:onClick="onClickWykresy"
-        android:enabled="false"
+        android:onClick="onClickPlot"
         android:text="@string/wykresy"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/symulacja" />
+        app:layout_constraintStart_toEndOf="@+id/simulation_vertical_projection_activity" />
 
     <Button
-        android:id="@+id/symulacja"
+        android:id="@+id/simulation_vertical_projection_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="20dp"
-        android:onClick="onClickSymulacja"
-        android:enabled="false"
+        android:onClick="onClickSimulation"
         android:text="@string/symuluj"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/wyslij"
+        android:id="@+id/send_vertical_projection_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="20dp"
-        android:onClick="onClickWyslij"
-        android:enabled="false"
+        android:onClick="onClickSend"
         android:text="@string/wyslij"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/wykresy" />
+        app:layout_constraintStart_toEndOf="@+id/plot_vertical_projection_activity" />
 
     <EditText
-        android:id="@+id/wysokosc"
+        android:id="@+id/height_vertical_projection_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -64,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <EditText
-        android:id="@+id/predkoscPoczatkowa"
+        android:id="@+id/start_velocity_vertical_projection_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -73,10 +70,10 @@
         android:hint="@string/predkoscPoczatkowa"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wysokosc" />
+        app:layout_constraintTop_toBottomOf="@+id/height_vertical_projection_activity" />
 
     <EditText
-        android:id="@+id/przyspieszenie"
+        android:id="@+id/acceleration_vertical_projection_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -85,10 +82,34 @@
         android:hint="@string/przyspieszenie"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/predkoscPoczatkowa" />
+        app:layout_constraintTop_toBottomOf="@+id/start_velocity_vertical_projection_activity" />
+
+    <EditText
+        android:id="@+id/mass_vertical_projection_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:ems="4"
+        android:hint="@string/mass"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acceleration_vertical_projection_activity" />
+
+    <EditText
+        android:id="@+id/resistance_vertical_projection_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:ems="4"
+        android:inputType="textPersonName"
+        android:hint="@string/resistance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mass_vertical_projection_activity" />
 
     <TextView
-        android:id="@+id/wyniki"
+        android:id="@+id/score_vertical_projection_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -97,100 +118,21 @@
         android:ems="10"
         android:hint="@string/wynik"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/przyspieszenie"
-        app:layout_constraintTop_toBottomOf="@+id/obliczenia" />
+        app:layout_constraintStart_toEndOf="@+id/acceleration_vertical_projection_activity"
+        app:layout_constraintTop_toBottomOf="@+id/calculation_vertical_projection_activity" />
 
     <Button
-        android:id="@+id/obliczenia"
+        android:id="@+id/calculation_vertical_projection_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
-        android:onClick="onClickOblicz"
+        android:onClick="onClickCalculate"
         android:text="@string/obliczenia"
-        app:layout_constraintEnd_toStartOf="@+id/radioGroup"
-        app:layout_constraintStart_toEndOf="@+id/wysokosc"
+        app:layout_constraintStart_toEndOf="@+id/height_vertical_projection_activity"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-        <RadioButton
-            android:id="@+id/m"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:onClick="onClickRadioButton"
-            android:text="m"></RadioButton>
-
-        <RadioButton
-            android:id="@+id/km"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClickRadioButton"
-            android:text="km"></RadioButton>
-    </RadioGroup>
-
-    <EditText
-        android:id="@+id/opor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:ems="4"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        android:hint="@string/opor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/przyspieszenie" />
-
-    <EditText
-        android:id="@+id/sprezystosc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:ems="4"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        android:hint="@string/sprezystosc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/opor" />
-
-    <CheckBox
-        android:id="@+id/checkBoxOpor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="40dp"
-        android:text="On/Off"
-        android:onClick="onClickCheckbox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/opor"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <CheckBox
-        android:id="@+id/checkBoxSprezystosc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="40dp"
-        android:text="On/Off"
-        android:onClick="onClickCheckbox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/sprezystosc"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxOpor" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 
 public class ObliqueProjectionActivity extends AppCompatActivity {
 
@@ -51,38 +52,37 @@ public class ObliqueProjectionActivity extends AppCompatActivity {
         multiScoreSpinner = findViewById(R.id.spinner);
 
         //TextView
-        scoreTextView = findViewById(R.id.wyniki);
+        //scoreTextView = findViewById(R.id.wyniki);
 
     }
 
 
     public void onClickPlot(View view) {
-        ObliqueCalculations obliqueCalculations = new ObliqueCalculations(
-                getHeight()
-                ,getVelocity()
-                ,getAngle()
-                ,getAcceleration()
-                ,getResistance()
-                ,getMass()
-                ,1);
+        ProjectionCalculation projectionCalculation = new ProjectionCalculation.Builder(
+                getHeight(),getVelocity(), 1)
+                .acceleration(getAcceleration())
+                .angle(getAngle())
+                .mass(getMass())
+                .resistance(getResistance())
+                .build();
 
         Intent intent = new Intent(this, ObliqueProjectionPlotActivity.class);
-        intent.putExtra(ObliqueProjectionPlotActivity.CALCUALTIONS,  obliqueCalculations);
+        intent.putExtra(ObliqueProjectionPlotActivity.CALCUALTIONS, projectionCalculation);
         startActivity(intent);
     }
 
     public void onClickSimulation(View view) {
-        ObliqueCalculations obliqueCalculations = new ObliqueCalculations(
-                getHeight()
-                ,getVelocity()
-                ,getAngle()
-                ,getAcceleration()
-                ,getResistance()
-                ,getMass()
-                ,0.01);
+        ProjectionCalculation projectionCalculation = new ProjectionCalculation.Builder(
+                getHeight(),getVelocity(), 0.01)
+                .acceleration(getAcceleration())
+                .angle(getAngle())
+                .mass(getMass())
+                .resistance(getResistance())
+                .build();
+
 
         Intent intent = new Intent(this, ObliqueProjectionSimulationActivity.class);
-        intent.putExtra(ObliqueProjectionSimulationActivity.CALCUALTIONS,  obliqueCalculations);
+        intent.putExtra(ObliqueProjectionSimulationActivity.CALCUALTIONS, projectionCalculation);
         startActivity(intent);
     }
 

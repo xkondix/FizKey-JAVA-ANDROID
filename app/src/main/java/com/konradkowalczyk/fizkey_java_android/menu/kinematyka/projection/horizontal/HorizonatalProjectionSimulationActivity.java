@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
 
 public class HorizonatalProjectionSimulationActivity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class HorizonatalProjectionSimulationActivity extends AppCompatActivity {
     public static final String CALCUALTIONS = "Calcualtions";
 
     private TextView timeTextView, xTextView, yTextView, angleTextView, velocityXTextView, velocityYTextView;
-    private HorizontalCalculations horizontalCalculations;
+    private ProjectionCalculation projectionCalculations;
     private Fragment horizontalSimulationFragment;
 
     private ProjectionViewModel projectionViewModel;
@@ -27,7 +28,7 @@ public class HorizonatalProjectionSimulationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horizonatl_projection_simulation);
-        horizontalCalculations = (HorizontalCalculations) getIntent().getExtras().getSerializable(CALCUALTIONS);
+        projectionCalculations = (ProjectionCalculation) getIntent().getExtras().getSerializable(CALCUALTIONS);
 
         timeTextView = findViewById(R.id.time_horizontal_projection_simulation_activity);
         xTextView = findViewById(R.id.x_horizontal_projection_simulation_activity);
@@ -83,7 +84,7 @@ public class HorizonatalProjectionSimulationActivity extends AppCompatActivity {
 
     private void initSimulationView(int width, int height) {
 
-        horizontalSimulationFragment = HorizontalSimulationFragment.newInstance(width, height, horizontalCalculations);
+        horizontalSimulationFragment = HorizontalSimulationFragment.newInstance(width, height, projectionCalculations);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.horizontal_simulation_frame_projection_simulation_activity, horizontalSimulationFragment);
         ft.commit();

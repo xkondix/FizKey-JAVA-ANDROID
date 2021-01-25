@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.plot.PlotFragment;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class HorizonatalProjectionPlotActivity extends AppCompatActivity {
 
     public static final String CALCUALTIONS = "Calcualtions";
 
-    private HorizontalCalculations horizontalCalculations;
+    private ProjectionCalculation projectionCalculations;
     private List<List<Double>> calculations;
     private int numberPhenomenonOne, numberPhenomenonTwo;
     private Spinner spinnerOne, spinnerTwo;
@@ -30,7 +31,7 @@ public class HorizonatalProjectionPlotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_horizonatl_projection_plot);
 
-        horizontalCalculations = (HorizontalCalculations) getIntent().getExtras().getSerializable(CALCUALTIONS);
+        projectionCalculations = (ProjectionCalculation) getIntent().getExtras().getSerializable(CALCUALTIONS);
         phenomenonNames = getResources().getStringArray(R.array.horizontal_projection);
 
 
@@ -43,7 +44,7 @@ public class HorizonatalProjectionPlotActivity extends AppCompatActivity {
         numberPhenomenonTwo = 3;
 
 
-        Fragment fragment = new PlotFragment(horizontalCalculations.getPostionsY(),horizontalCalculations.getPositionsX()
+        Fragment fragment = new PlotFragment(projectionCalculations.getPostionsY(), projectionCalculations.getPositionsX()
                 ,phenomenonNames[numberPhenomenonOne]
                 ,phenomenonNames[numberPhenomenonTwo]);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -86,15 +87,15 @@ public class HorizonatalProjectionPlotActivity extends AppCompatActivity {
     private void setCalculations()
     {
         calculations = new ArrayList<>();
-        calculations.add(horizontalCalculations.getTimes());
-        calculations.add(horizontalCalculations.getAccelerations());
-        calculations.add(horizontalCalculations.getPostionsY());
-        calculations.add(horizontalCalculations.getPositionsX());
-        calculations.add(horizontalCalculations.getVelocityiesY());
-        calculations.add(horizontalCalculations.getVelocityiesX());
-        calculations.add(horizontalCalculations.getKineticEnergies());
-        calculations.add(horizontalCalculations.getPotentialEnergies());
-        calculations.add(horizontalCalculations.getTotalEnergies());
+        calculations.add(projectionCalculations.getTimes());
+        calculations.add(projectionCalculations.getAccelerations());
+        calculations.add(projectionCalculations.getPostionsY());
+        calculations.add(projectionCalculations.getPositionsX());
+        calculations.add(projectionCalculations.getVelocityiesY());
+        calculations.add(projectionCalculations.getVelocityiesX());
+        calculations.add(projectionCalculations.getKineticEnergies());
+        calculations.add(projectionCalculations.getPotentialEnergies());
+        calculations.add(projectionCalculations.getTotalEnergies());
 
     }
 

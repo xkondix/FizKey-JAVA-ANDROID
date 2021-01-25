@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
 
 public class ObliqueProjectionSimulationActivity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class ObliqueProjectionSimulationActivity extends AppCompatActivity {
     public static final String CALCUALTIONS = "Calcualtions";
 
     private TextView timeTextView, xTextView, yTextView, angleTextView, velocityXTextView, velocityYTextView;
-    private ObliqueCalculations obliqueCalculations;
+    private ProjectionCalculation projectionCalculation;
     private Fragment obliqueSimulationFragment;
 
     private ProjectionViewModel projectionViewModel;
@@ -29,7 +30,7 @@ public class ObliqueProjectionSimulationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oblique_projection_simulation);
 
-        obliqueCalculations = (ObliqueCalculations) getIntent().getExtras().getSerializable(CALCUALTIONS);
+        projectionCalculation = (ProjectionCalculation) getIntent().getExtras().getSerializable(CALCUALTIONS);
 
         timeTextView = findViewById(R.id.time_oblique_projection_simulation_activity);
         xTextView = findViewById(R.id.x_oblique_projection_simulation_activity);
@@ -85,7 +86,7 @@ public class ObliqueProjectionSimulationActivity extends AppCompatActivity {
 
     private void initSimulationView(int width, int height) {
 
-        obliqueSimulationFragment = ObliqueSimulationFragment.newInstance(width, height, obliqueCalculations);
+        obliqueSimulationFragment = ObliqueSimulationFragment.newInstance(width, height, projectionCalculation);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.oblique_simulation_frame_projection_simulation_activity, obliqueSimulationFragment);
         ft.commit();

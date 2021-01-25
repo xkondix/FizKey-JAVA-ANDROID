@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.plot.PlotFragment;
 
 import java.util.ArrayList;
@@ -20,7 +20,10 @@ import java.util.List;
 
 public class VerticalProjectionPlotActivity extends AppCompatActivity {
 
-    private WykresyObliczenia wykresyObliczenia;
+    public static final String CALCULATIONS = "Calcualtions";
+
+
+    private ProjectionCalculation projectionCalculation;
     private List<List<Double>> calculations;
     private int numberPhenomenonOne, numberPhenomenonTwo;
     private Spinner spinnerOne, spinnerTwo;
@@ -29,12 +32,12 @@ public class VerticalProjectionPlotActivity extends AppCompatActivity {
     @Override
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rzut_pionowy_wykres);
+        setContentView(R.layout.activity_vertical_projection_plot);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        wykresyObliczenia = (WykresyObliczenia) getIntent().getExtras().getSerializable("OBLICZENIA");
+        projectionCalculation = (ProjectionCalculation) getIntent().getExtras().getSerializable(CALCULATIONS);
         phenomenonNames = getResources().getStringArray(R.array.motion);
 
 
@@ -47,7 +50,7 @@ public class VerticalProjectionPlotActivity extends AppCompatActivity {
         numberPhenomenonTwo = 0;
 
 
-        Fragment fragment = new PlotFragment(wykresyObliczenia.getListHeight(),wykresyObliczenia.getListTime()
+        Fragment fragment = new PlotFragment(projectionCalculation.getPostionsY(), projectionCalculation.getTimes()
                 ,phenomenonNames[numberPhenomenonOne]
                 ,phenomenonNames[numberPhenomenonTwo]);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -124,13 +127,13 @@ public class VerticalProjectionPlotActivity extends AppCompatActivity {
     private void setCalculations()
     {
         calculations = new ArrayList<>();
-        calculations.add(wykresyObliczenia.getListTime());
-        calculations.add(wykresyObliczenia.getListAcceleration());
-        calculations.add(wykresyObliczenia.getListHeight());
-        calculations.add(wykresyObliczenia.getListVelocity());
-        calculations.add(wykresyObliczenia.getListKineticEnergy());
-        calculations.add(wykresyObliczenia.getListPotentialEnergy());
-        calculations.add(wykresyObliczenia.getListTotalEnergy());
+        calculations.add(projectionCalculation.getTimes());
+        calculations.add(projectionCalculation.getAccelerations());
+        calculations.add(projectionCalculation.getPostionsY());
+        calculations.add(projectionCalculation.getVelocityiesY());
+        calculations.add(projectionCalculation.getKineticEnergies());
+        calculations.add(projectionCalculation.getPotentialEnergies());
+        calculations.add(projectionCalculation.getTotalEnergies());
 
     }
 

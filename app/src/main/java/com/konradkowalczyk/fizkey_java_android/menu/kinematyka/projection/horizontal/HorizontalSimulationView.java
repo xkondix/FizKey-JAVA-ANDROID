@@ -10,16 +10,17 @@ import android.util.AttributeSet;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModel;
 
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.MotionBall;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.SubjectFall;
 import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 import com.konradkowalczyk.fizkey_java_android.simulation.ScreenScaleValueEquation;
 
 public class HorizontalSimulationView extends BasicSimulation {
 
     private Paint paint = null;
-    private HorizontalCalculations horizontalCalculations;
-    private SubjectFall ball;
+    private ProjectionCalculation projectionCalculations;
+    private MotionBall ball;
     private ScreenScaleValueEquation screenScaleValueEquation;
     private int height,width;
 
@@ -31,14 +32,14 @@ public class HorizontalSimulationView extends BasicSimulation {
     }
 
 
-    public void setConstans(HorizontalCalculations horizontalCalculations, int width, int height) {
+    public void setConstans(ProjectionCalculation projectionCalculation, int width, int height) {
 
         this.height = height;
         this.width = width;
 
-        this.horizontalCalculations = horizontalCalculations;
+        this.projectionCalculations = projectionCalculation;
         this.screenScaleValueEquation = new ScreenScaleValueEquation.Builder
-                (horizontalCalculations.getPostionsY(),horizontalCalculations.getPositionsX())
+                (projectionCalculation.getPostionsY(),projectionCalculation.getPositionsX())
                 .height(height)
                 .width(width)
                 .spaceBetweenUnits(100)
@@ -53,7 +54,7 @@ public class HorizontalSimulationView extends BasicSimulation {
         paint.setColor(Color.rgb(22, 155, 222));
 
         //tworzenie obiektu, który się porusza
-        ball = new SubjectFall(screenScaleValueEquation.getPointsScaleY().get(0)
+        ball = new MotionBall(screenScaleValueEquation.getPointsScaleY().get(0)
                 , screenScaleValueEquation.getPointsScaleY().get(0) + 40
                 ,screenScaleValueEquation
                 ,new Boolean[]{true, true});
@@ -92,7 +93,7 @@ public class HorizontalSimulationView extends BasicSimulation {
         for(int i = 0; i<screenScaleValueEquation.getLenY();i++)
         {
             canvas.drawText(String.valueOf(screenScaleValueEquation.getPointsScaleY().get(i))
-                    , 30
+                    , 10
                     , i*100+screenScaleValueEquation.getChangeY()
                     , paint);
         }
@@ -156,17 +157,17 @@ public class HorizontalSimulationView extends BasicSimulation {
         if(!ball.getStatus()) {
             int counter = ball.getCounter() - 1;
             projectionViewModel.setAngleMutableLiveData(
-                    horizontalCalculations.getDegrees().get(counter));
+                    projectionCalculations.getDegrees().get(counter));
             projectionViewModel.setPositionXMutableLiveData(
-                    horizontalCalculations.getPositionsX().get(counter));
+                    projectionCalculations.getPositionsX().get(counter));
             projectionViewModel.setPositionYMutableLiveData(
-                    horizontalCalculations.getPostionsY().get(counter));
+                    projectionCalculations.getPostionsY().get(counter));
             projectionViewModel.setVelocityXMutableLiveData(
-                    horizontalCalculations.getVelocityiesX().get(counter));
+                    projectionCalculations.getVelocityiesX().get(counter));
             projectionViewModel.setVelocityYMutableLiveData(
-                    horizontalCalculations.getVelocityiesY().get(counter));
+                    projectionCalculations.getVelocityiesY().get(counter));
             projectionViewModel.setTimeMutableLiveData(
-                    horizontalCalculations.getTimes().get(counter));
+                    projectionCalculations.getTimes().get(counter));
         }
     }
 }

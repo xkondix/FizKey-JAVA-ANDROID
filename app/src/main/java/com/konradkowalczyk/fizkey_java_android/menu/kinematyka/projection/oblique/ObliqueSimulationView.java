@@ -10,16 +10,17 @@ import android.util.AttributeSet;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModel;
 
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.SubjectFall;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.MotionBall;
 import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 import com.konradkowalczyk.fizkey_java_android.simulation.ScreenScaleValueEquation;
 
 public class ObliqueSimulationView extends BasicSimulation {
 
     private Paint paint = null;
-    private ObliqueCalculations obliqueCalculations;
-    private SubjectFall ball;
+    private ProjectionCalculation projectionCalculation;
+    private MotionBall ball;
     private ScreenScaleValueEquation screenScaleValueEquation;
     private int height,width;
 
@@ -33,14 +34,14 @@ public class ObliqueSimulationView extends BasicSimulation {
 
 
 
-    public void setConstans(ObliqueCalculations obliqueCalculations, int width, int height) {
+    public void setConstans(ProjectionCalculation projectionCalculation, int width, int height) {
 
         this.width = width;
         this.height = height;
 
-        this.obliqueCalculations = obliqueCalculations;
+        this.projectionCalculation = projectionCalculation;
         this.screenScaleValueEquation = new ScreenScaleValueEquation.Builder
-                (obliqueCalculations.getPostionsY(),obliqueCalculations.getPositionsX())
+                (projectionCalculation.getPostionsY(), projectionCalculation.getPositionsX())
                 .height(height)
                 .width(width)
                 .spaceBetweenUnits(100)
@@ -55,7 +56,7 @@ public class ObliqueSimulationView extends BasicSimulation {
         paint.setColor(Color.rgb(22, 155, 222));
 
         //tworzenie obiektu, który się porusza
-        ball = new SubjectFall(screenScaleValueEquation.getValuesScaledSecoundListX().get(0)
+        ball = new MotionBall(screenScaleValueEquation.getValuesScaledSecoundListX().get(0)
                 , screenScaleValueEquation.getValuesScaledSecoundListX().get(0) + 40
                 ,screenScaleValueEquation
                 ,new Boolean[]{true, true});
@@ -95,7 +96,7 @@ public class ObliqueSimulationView extends BasicSimulation {
         for(int i = 0; i<screenScaleValueEquation.getLenY();i++)
         {
             canvas.drawText(String.valueOf(screenScaleValueEquation.getPointsScaleY().get(i))
-                    , 30
+                    , 10
                     , i*100+screenScaleValueEquation.getChangeY()
                     , paint);
         }
@@ -159,17 +160,17 @@ public class ObliqueSimulationView extends BasicSimulation {
         if(!ball.getStatus()) {
             int counter = ball.getCounter() - 1;
             projectionViewModel.setAngleMutableLiveData(
-                    obliqueCalculations.getDegrees().get(counter));
+                    projectionCalculation.getDegrees().get(counter));
             projectionViewModel.setPositionXMutableLiveData(
-                    obliqueCalculations.getPositionsX().get(counter));
+                    projectionCalculation.getPositionsX().get(counter));
             projectionViewModel.setPositionYMutableLiveData(
-                    obliqueCalculations.getPostionsY().get(counter));
+                    projectionCalculation.getPostionsY().get(counter));
             projectionViewModel.setVelocityXMutableLiveData(
-                    obliqueCalculations.getVelocityiesX().get(counter));
+                    projectionCalculation.getVelocityiesX().get(counter));
             projectionViewModel.setVelocityYMutableLiveData(
-                    obliqueCalculations.getVelocityiesY().get(counter));
+                    projectionCalculation.getVelocityiesY().get(counter));
             projectionViewModel.setTimeMutableLiveData(
-                    obliqueCalculations.getTimes().get(counter));
+                    projectionCalculation.getTimes().get(counter));
         }
     }
 }

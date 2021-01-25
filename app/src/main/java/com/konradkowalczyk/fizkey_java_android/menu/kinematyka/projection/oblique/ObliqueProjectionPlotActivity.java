@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.plot.PlotFragment;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class ObliqueProjectionPlotActivity extends AppCompatActivity {
 
     public static final String CALCUALTIONS = "Calcualtions";
 
-    private ObliqueCalculations obliqueCalculations;
+    private ProjectionCalculation projectionCalculation;
     private List<List<Double>> calculations;
     private int numberPhenomenonOne, numberPhenomenonTwo;
     private Spinner spinnerOne, spinnerTwo;
@@ -30,7 +31,7 @@ public class ObliqueProjectionPlotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oblique_projection_plot);
 
-        obliqueCalculations = (ObliqueCalculations) getIntent().getExtras().getSerializable(CALCUALTIONS);
+        projectionCalculation = (ProjectionCalculation) getIntent().getExtras().getSerializable(CALCUALTIONS);
         phenomenonNames = getResources().getStringArray(R.array.oblique_projection);
 
 
@@ -43,7 +44,7 @@ public class ObliqueProjectionPlotActivity extends AppCompatActivity {
         numberPhenomenonTwo = 3;
 
 
-        Fragment fragment = new PlotFragment(obliqueCalculations.getPostionsY(),obliqueCalculations.getPositionsX()
+        Fragment fragment = new PlotFragment(projectionCalculation.getPostionsY(), projectionCalculation.getPositionsX()
                 ,phenomenonNames[numberPhenomenonOne]
                 ,phenomenonNames[numberPhenomenonTwo]);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -88,16 +89,16 @@ public class ObliqueProjectionPlotActivity extends AppCompatActivity {
     private void setCalculations()
     {
         calculations = new ArrayList<>();
-        calculations.add(obliqueCalculations.getTimes());
-        calculations.add(obliqueCalculations.getAccelerations());
-        calculations.add(obliqueCalculations.getPostionsY());
-        calculations.add(obliqueCalculations.getPositionsX());
-        calculations.add(obliqueCalculations.getVelocityies());
-        calculations.add(obliqueCalculations.getVelocityiesY());
-        calculations.add(obliqueCalculations.getVelocityiesX());
-        calculations.add(obliqueCalculations.getKineticEnergies());
-        calculations.add(obliqueCalculations.getPotentialEnergies());
-        calculations.add(obliqueCalculations.getTotalEnergies());
+        calculations.add(projectionCalculation.getTimes());
+        calculations.add(projectionCalculation.getAccelerations());
+        calculations.add(projectionCalculation.getPostionsY());
+        calculations.add(projectionCalculation.getPositionsX());
+        calculations.add(projectionCalculation.getVelocityies());
+        calculations.add(projectionCalculation.getVelocityiesY());
+        calculations.add(projectionCalculation.getVelocityiesX());
+        calculations.add(projectionCalculation.getKineticEnergies());
+        calculations.add(projectionCalculation.getPotentialEnergies());
+        calculations.add(projectionCalculation.getTotalEnergies());
 
     }
 

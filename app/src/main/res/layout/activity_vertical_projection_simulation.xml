@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".menu.kinematyka.projection.vertical.VerticalProjectionSimulationActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></include>
+
+
+    <FrameLayout
+        android:id="@+id/vertical_simulation_frame_projection_simulation_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/stop_vertical_projection_simulation_activity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+
+    </FrameLayout>
+
+
+    <Button
+        android:id="@+id/play_vertical_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClickPlay"
+        android:text="@string/play"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vertical_simulation_frame_projection_simulation_activity"></Button>
+
+    <Button
+        android:id="@+id/stop_vertical_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClickStop"
+        android:text="@string/stop"
+        app:layout_constraintStart_toEndOf="@+id/play_vertical_projection_simulation_activity"
+        app:layout_constraintTop_toBottomOf="@+id/vertical_simulation_frame_projection_simulation_activity">
+        ></Button>
+
+    <Button
+        android:id="@+id/restart_vertical_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClickRestart"
+        android:text="@string/restart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/stop_vertical_projection_simulation_activity"
+        app:layout_constraintTop_toBottomOf="@+id/vertical_simulation_frame_projection_simulation_activity">
+
+    </Button>
+
+
+    <TextView
+        android:id="@+id/time_vertical_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/play_vertical_projection_simulation_activity">>
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/y_vertical_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/time_vertical_projection_simulation_activity"
+        app:layout_constraintTop_toBottomOf="@+id/stop_vertical_projection_simulation_activity">
+        ></TextView>
+
+    <TextView
+        android:id="@+id/velocity_vertical_projection_simulation_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/y_vertical_projection_simulation_activity"
+        app:layout_constraintTop_toBottomOf="@+id/restart_vertical_projection_simulation_activity">
+
+    </TextView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
