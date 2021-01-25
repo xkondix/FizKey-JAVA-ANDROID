@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.oblique;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
 
 public class ObliqueProjectionActivity extends AppCompatActivity {
 

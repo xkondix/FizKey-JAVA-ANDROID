@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.horizontal;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.horizontal;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +11,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionViewModel;
 
 public class HorizonatalProjectionSimulationActivity extends AppCompatActivity {
 

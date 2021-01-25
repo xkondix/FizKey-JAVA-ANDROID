@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.oblique;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,12 +9,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique.ObliqueSimulationFragment;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionViewModel;
 
 
-public class VerticalSimulationFragment extends Fragment {
+public class ObliqueSimulationFragment extends Fragment {
 
     public static final String HEIGHT = "height";
     public static final String WIDTH = "width";
@@ -22,15 +21,15 @@ public class VerticalSimulationFragment extends Fragment {
 
     private int width, height;
     private ProjectionCalculation projectionCalculation;
-    private VerticalSimulationView verticalSimulationView;
+    private ObliqueSimulationView obliqueSimulationView;
     private ProjectionViewModel projectionViewModel;
 
-    public VerticalSimulationFragment() {
+    public ObliqueSimulationFragment() {
         // Required empty public constructor
     }
 
-    public static VerticalSimulationFragment newInstance(int width, int height, ProjectionCalculation projectionCalculations) {
-        VerticalSimulationFragment fragment = new VerticalSimulationFragment();
+    public static ObliqueSimulationFragment newInstance(int width, int height, ProjectionCalculation projectionCalculations) {
+        ObliqueSimulationFragment fragment = new ObliqueSimulationFragment();
         Bundle args = new Bundle();
         args.putSerializable(CALCULATIONS, projectionCalculations);
         args.putInt(WIDTH, width);
@@ -53,30 +52,30 @@ public class VerticalSimulationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_vertical_simulation, container, false);
+        View view =  inflater.inflate(R.layout.fragment_oblique_simulation, container, false);
 
         projectionViewModel = new ViewModelProvider(getActivity()).get(ProjectionViewModel.class);
 
 
-        verticalSimulationView = (VerticalSimulationView) view.findViewById(R.id.vertical_simulation_view);
-        verticalSimulationView.setConstans(projectionCalculation, width, height);
-        verticalSimulationView.setViewModel(projectionViewModel);
+        obliqueSimulationView = (ObliqueSimulationView) view.findViewById(R.id.oblique_simulation_view);
+        obliqueSimulationView.setConstans(projectionCalculation, width, height);
+        obliqueSimulationView.setViewModel(projectionViewModel);
 
         return view;
 
     }
 
     public void start() {
-        verticalSimulationView.start();
+        obliqueSimulationView.start();
     }
 
     public void pause() {
-        verticalSimulationView.pause();
+        obliqueSimulationView.pause();
     }
 
     public void restart() {
-        verticalSimulationView.finish();
-        verticalSimulationView.setConstans(projectionCalculation, width, height);
+        obliqueSimulationView.finish();
+        obliqueSimulationView.setConstans(projectionCalculation, width, height);
     }
 
     @Override

@@ -6,14 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import  com.konradkowalczyk.fizkey_java_android.menu.kinematyka.KinematykaMenuActivity;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.KinematicsMenuActivity;
 import  com.konradkowalczyk.fizkey_java_android.R;
 import  com.konradkowalczyk.fizkey_java_android.RecyclerViewFragment;
 
-public class MenuGlowneActivity extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity {
 
 
-    private static Class[] classes = {KinematykaMenuActivity.class};
+    private static Class[] classes = {KinematicsMenuActivity.class};
 
 
     @Override

@@ -11,17 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionPlotActivity"
+        <activity android:name=".menu.kinematics.projection.horizontal.HorizonatalProjectionPlotActivity"
             android:screenOrientation="portrait" ></activity>
-        <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionSimulationActivity"
+        <activity android:name=".menu.kinematics.projection.horizontal.HorizonatalProjectionSimulationActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".menu.kinematyka.projection.horizontal.HorizonatalProjectionActivity"
+        <activity android:name=".menu.kinematics.projection.horizontal.HorizonatalProjectionActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionSimulationActivity"
+        <activity android:name=".menu.kinematics.projection.oblique.ObliqueProjectionSimulationActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionPlotActivity"
+        <activity android:name=".menu.kinematics.projection.oblique.ObliqueProjectionPlotActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".menu.kinematyka.projection.oblique.ObliqueProjectionActivity"
+        <activity android:name=".menu.kinematics.projection.oblique.ObliqueProjectionActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".quizzes.firebase.view.group.page_group.GroupActivity"
@@ -39,25 +39,25 @@
             android:name=".quizzes.QuizMenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".menu.kinematyka.projection.vertical.VerticalProjectionSimulationActivity"
+            android:name=".menu.kinematics.projection.vertical.VerticalProjectionSimulationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".menu.kinematyka.projection.vertical.VerticalProjectionPlotActivity"
+            android:name=".menu.kinematics.projection.vertical.VerticalProjectionPlotActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".menu.MenuGlowneActivity"
+            android:name=".menu.MainMenuActivity"
             android:label="@string/menuGlowne"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".menu.kinematyka.KinematykaMenuActivity"
+            android:name=".menu.kinematics.KinematicsMenuActivity"
             android:label="@string/menuKinematyka"
-            android:parentActivityName=".menu.MenuGlowneActivity"
+            android:parentActivityName=".menu.MainMenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".menu.kinematyka.projection.vertical.VerticalProjectionActivity"
+            android:name=".menu.kinematics.projection.vertical.VerticalProjectionActivity"
             android:label="@string/rzuty"
-            android:parentActivityName=".menu.kinematyka.KinematykaMenuActivity"
+            android:parentActivityName=".menu.kinematics.KinematicsMenuActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"

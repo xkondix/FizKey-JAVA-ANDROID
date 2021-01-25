@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.oblique;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +11,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionViewModel;
 
 public class ObliqueProjectionSimulationActivity extends AppCompatActivity {
 

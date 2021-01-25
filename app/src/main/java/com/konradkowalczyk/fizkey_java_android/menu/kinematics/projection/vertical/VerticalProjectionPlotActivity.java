@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.vertical;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.plot.PlotFragment;
 
 import java.util.ArrayList;

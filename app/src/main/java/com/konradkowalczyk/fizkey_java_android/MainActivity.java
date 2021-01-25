@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.konradkowalczyk.fizkey_java_android.menu.MenuGlowneActivity;
+import com.konradkowalczyk.fizkey_java_android.menu.MainMenuActivity;
 import com.konradkowalczyk.fizkey_java_android.quizzes.QuizMenuActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickStart(View view) {
-        Intent intent = new Intent(this, MenuGlowneActivity.class);
+        Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
 

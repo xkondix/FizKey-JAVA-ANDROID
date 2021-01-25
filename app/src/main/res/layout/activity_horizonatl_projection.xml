@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu.kinematyka.projection.horizontal.HorizonatalProjectionActivity">
+    tools:context=".menu.kinematics.projection.horizontal.HorizonatalProjectionActivity">
 
     <include
         android:id="@+id/toolbar"

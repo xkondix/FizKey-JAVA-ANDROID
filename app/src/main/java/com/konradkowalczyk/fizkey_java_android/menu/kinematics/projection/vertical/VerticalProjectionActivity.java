@@ -1,10 +1,9 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.vertical;
 
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -14,9 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.PhysicalFormulasDialogFragment;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.WykresyObliczenia;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.PhysicalFormulasDialogFragment;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
 
 public class VerticalProjectionActivity extends AppCompatActivity {
 
@@ -120,19 +118,19 @@ public class VerticalProjectionActivity extends AppCompatActivity {
     public void onClickScore(View view)
     {
 
-        WykresyObliczenia wykresyObliczenia = new WykresyObliczenia(
-                getHeight(),
-                getVelocity(),
-                getAcceleration(),
-                getResistance());
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this
-                ,android.R.layout.simple_list_item_1
-                ,wykresyObliczenia.getListOfPhenomeno());
-
-        multiScoreSpinner.setAdapter(adapter);
-        scoreTextView.setText(
-                wykresyObliczenia.getListOfPhenomeno()[wykresyObliczenia.getListOfPhenomeno().length-1]);
+//        WykresyObliczenia wykresyObliczenia = new WykresyObliczenia(
+//                getHeight(),
+//                getVelocity(),
+//                getAcceleration(),
+//                getResistance());
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this
+//                ,android.R.layout.simple_list_item_1
+//                ,wykresyObliczenia.getListOfPhenomeno());
+//
+//        multiScoreSpinner.setAdapter(adapter);
+//        scoreTextView.setText(
+//                wykresyObliczenia.getListOfPhenomeno()[wykresyObliczenia.getListOfPhenomeno().length-1]);
     }
 
 

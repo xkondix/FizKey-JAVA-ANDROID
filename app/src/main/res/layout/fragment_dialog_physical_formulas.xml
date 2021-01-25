@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="250dp"
-    tools:context=".menu.kinematyka.projection.PhysicalFormulasDialogFragment">
+    tools:context=".menu.kinematics.projection.PhysicalFormulasDialogFragment">
     >
 
 

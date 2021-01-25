@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.horizontal;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,17 +10,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
 import com.konradkowalczyk.fizkey_java_android.plot.PlotFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObliqueProjectionPlotActivity extends AppCompatActivity {
+public class HorizonatalProjectionPlotActivity extends AppCompatActivity {
 
     public static final String CALCUALTIONS = "Calcualtions";
 
-    private ProjectionCalculation projectionCalculation;
+    private ProjectionCalculation projectionCalculations;
     private List<List<Double>> calculations;
     private int numberPhenomenonOne, numberPhenomenonTwo;
     private Spinner spinnerOne, spinnerTwo;
@@ -29,32 +29,32 @@ public class ObliqueProjectionPlotActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_oblique_projection_plot);
+        setContentView(R.layout.activity_horizonatl_projection_plot);
 
-        projectionCalculation = (ProjectionCalculation) getIntent().getExtras().getSerializable(CALCUALTIONS);
-        phenomenonNames = getResources().getStringArray(R.array.oblique_projection);
+        projectionCalculations = (ProjectionCalculation) getIntent().getExtras().getSerializable(CALCUALTIONS);
+        phenomenonNames = getResources().getStringArray(R.array.horizontal_projection);
 
 
-        spinnerOne = findViewById(R.id.phenomenon_one_oblique_projection_plot_activity);
+        spinnerOne = findViewById(R.id.phenomenon_one_horizontal_projection_plot_activity);
         spinnerOne.setSelection(2);
         numberPhenomenonOne = 2;
 
-        spinnerTwo = findViewById(R.id.phenomenon_two_oblique_projection_plot_activity);
+        spinnerTwo = findViewById(R.id.phenomenon_two_horizontal_projection_plot_activity);
         spinnerTwo.setSelection(3);
         numberPhenomenonTwo = 3;
 
 
-        Fragment fragment = new PlotFragment(projectionCalculation.getPostionsY(), projectionCalculation.getPositionsX()
+        Fragment fragment = new PlotFragment(projectionCalculations.getPostionsY(), projectionCalculations.getPositionsX()
                 ,phenomenonNames[numberPhenomenonOne]
                 ,phenomenonNames[numberPhenomenonTwo]);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.plot_frame_layout_oblique_projection_plot_activity, fragment);
+        ft.add(R.id.plot_frame_layout_horizontal_projection_plot_activity, fragment);
         ft.commit();
 
         setCalculations();
 
         if (savedInstanceState != null) {
-            int  position= savedInstanceState.getInt("Key");
+            int  position = savedInstanceState.getInt("Key");
         }
 
         spinnerOne.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -84,21 +84,18 @@ public class ObliqueProjectionPlotActivity extends AppCompatActivity {
         });
     }
 
-
-
     private void setCalculations()
     {
         calculations = new ArrayList<>();
-        calculations.add(projectionCalculation.getTimes());
-        calculations.add(projectionCalculation.getAccelerations());
-        calculations.add(projectionCalculation.getPostionsY());
-        calculations.add(projectionCalculation.getPositionsX());
-        calculations.add(projectionCalculation.getVelocityies());
-        calculations.add(projectionCalculation.getVelocityiesY());
-        calculations.add(projectionCalculation.getVelocityiesX());
-        calculations.add(projectionCalculation.getKineticEnergies());
-        calculations.add(projectionCalculation.getPotentialEnergies());
-        calculations.add(projectionCalculation.getTotalEnergies());
+        calculations.add(projectionCalculations.getTimes());
+        calculations.add(projectionCalculations.getAccelerations());
+        calculations.add(projectionCalculations.getPostionsY());
+        calculations.add(projectionCalculations.getPositionsX());
+        calculations.add(projectionCalculations.getVelocityiesY());
+        calculations.add(projectionCalculations.getVelocityiesX());
+        calculations.add(projectionCalculations.getKineticEnergies());
+        calculations.add(projectionCalculations.getPotentialEnergies());
+        calculations.add(projectionCalculations.getTotalEnergies());
 
     }
 
@@ -109,7 +106,7 @@ public class ObliqueProjectionPlotActivity extends AppCompatActivity {
                 ,phenomenonNames[numberPhenomenonOne]
                 ,phenomenonNames[numberPhenomenonTwo]);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.plot_frame_layout_oblique_projection_plot_activity, fragment);
+        ft.replace(R.id.plot_frame_layout_horizontal_projection_plot_activity, fragment);
         ft.commit();
     }
 

@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.vertical;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,9 +10,9 @@ import android.util.AttributeSet;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModel;
 
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.MotionBall;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.MotionBall;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionViewModel;
 import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 import com.konradkowalczyk.fizkey_java_android.simulation.ScreenScaleValueEquation;
 

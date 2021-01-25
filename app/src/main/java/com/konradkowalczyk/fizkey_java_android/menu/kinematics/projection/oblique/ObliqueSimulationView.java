@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.horizontal;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.oblique;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,16 +10,16 @@ import android.util.AttributeSet;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModel;
 
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.MotionBall;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionViewModel;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.MotionBall;
 import com.konradkowalczyk.fizkey_java_android.simulation.BasicSimulation;
 import com.konradkowalczyk.fizkey_java_android.simulation.ScreenScaleValueEquation;
 
-public class HorizontalSimulationView extends BasicSimulation {
+public class ObliqueSimulationView extends BasicSimulation {
 
     private Paint paint = null;
-    private ProjectionCalculation projectionCalculations;
+    private ProjectionCalculation projectionCalculation;
     private MotionBall ball;
     private ScreenScaleValueEquation screenScaleValueEquation;
     private int height,width;
@@ -27,19 +27,21 @@ public class HorizontalSimulationView extends BasicSimulation {
     private ProjectionViewModel projectionViewModel;
 
 
-    public HorizontalSimulationView(Context context, AttributeSet attrs) {
+
+    public ObliqueSimulationView(Context context, AttributeSet attrs) {
         super(context, attrs, Type.SIMULATION);
     }
 
 
+
     public void setConstans(ProjectionCalculation projectionCalculation, int width, int height) {
 
-        this.height = height;
         this.width = width;
+        this.height = height;
 
-        this.projectionCalculations = projectionCalculation;
+        this.projectionCalculation = projectionCalculation;
         this.screenScaleValueEquation = new ScreenScaleValueEquation.Builder
-                (projectionCalculation.getPostionsY(),projectionCalculation.getPositionsX())
+                (projectionCalculation.getPostionsY(), projectionCalculation.getPositionsX())
                 .height(height)
                 .width(width)
                 .spaceBetweenUnits(100)
@@ -54,11 +56,12 @@ public class HorizontalSimulationView extends BasicSimulation {
         paint.setColor(Color.rgb(22, 155, 222));
 
         //tworzenie obiektu, który się porusza
-        ball = new MotionBall(screenScaleValueEquation.getPointsScaleY().get(0)
-                , screenScaleValueEquation.getPointsScaleY().get(0) + 40
+        ball = new MotionBall(screenScaleValueEquation.getValuesScaledSecoundListX().get(0)
+                , screenScaleValueEquation.getValuesScaledSecoundListX().get(0) + 40
                 ,screenScaleValueEquation
                 ,new Boolean[]{true, true});
         ball.createThread();
+
 
 
     }
@@ -157,19 +160,17 @@ public class HorizontalSimulationView extends BasicSimulation {
         if(!ball.getStatus()) {
             int counter = ball.getCounter() - 1;
             projectionViewModel.setAngleMutableLiveData(
-                    projectionCalculations.getDegrees().get(counter));
+                    projectionCalculation.getDegrees().get(counter));
             projectionViewModel.setPositionXMutableLiveData(
-                    projectionCalculations.getPositionsX().get(counter));
+                    projectionCalculation.getPositionsX().get(counter));
             projectionViewModel.setPositionYMutableLiveData(
-                    projectionCalculations.getPostionsY().get(counter));
+                    projectionCalculation.getPostionsY().get(counter));
             projectionViewModel.setVelocityXMutableLiveData(
-                    projectionCalculations.getVelocityiesX().get(counter));
+                    projectionCalculation.getVelocityiesX().get(counter));
             projectionViewModel.setVelocityYMutableLiveData(
-                    projectionCalculations.getVelocityiesY().get(counter));
+                    projectionCalculation.getVelocityiesY().get(counter));
             projectionViewModel.setTimeMutableLiveData(
-                    projectionCalculations.getTimes().get(counter));
+                    projectionCalculation.getTimes().get(counter));
         }
     }
 }
-
-

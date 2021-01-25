@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.vertical;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.vertical;
 
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -10,9 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.konradkowalczyk.fizkey_java_android.R;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionCalculation;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.ProjectionViewModel;
-import com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique.ObliqueSimulationFragment;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionViewModel;
 
 
 public class VerticalProjectionSimulationActivity extends AppCompatActivity {

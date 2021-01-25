@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu.kinematyka.projection.oblique.ObliqueSimulationFragment">
+    tools:context=".menu.kinematics.projection.oblique.ObliqueSimulationFragment">
 
     <LinearLayout
         android:layout_gravity="center_vertical"
@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:id="@+id/frameFragment">
 
-        <com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.oblique.ObliqueSimulationView
+        <com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.oblique.ObliqueSimulationView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

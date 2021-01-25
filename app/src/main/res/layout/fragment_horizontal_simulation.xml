@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu.kinematyka.projection.horizontal.HorizontalSimulationFragment">
+    tools:context=".menu.kinematics.projection.horizontal.HorizontalSimulationFragment">
 
 
     <LinearLayout
@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:id="@+id/frameFragment">
 
-        <com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection.horizontal.HorizontalSimulationView
+        <com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.horizontal.HorizontalSimulationView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

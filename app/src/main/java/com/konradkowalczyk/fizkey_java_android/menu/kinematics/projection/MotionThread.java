@@ -1,4 +1,4 @@
-package com.konradkowalczyk.fizkey_java_android.menu.kinematyka.projection;
+package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection;
 
 import java.util.List;
 
