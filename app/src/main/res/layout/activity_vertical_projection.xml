@@ -133,6 +133,15 @@
         app:layout_constraintStart_toEndOf="@+id/height_vertical_projection_activity"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+    <Spinner
+        android:id="@+id/score_per_secound_vertical_projection_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resistance_vertical_projection_activity" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -141,14 +150,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="281dp" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sprezystosc" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,7 +22,7 @@ public class ProjectionCalculation implements Serializable {
     private List<Double> totalEnergies;
 
     private double y0, v0y, x0, v0x, v;
-    private double g, cX, dt, counter, angle;
+    private double g, cX, dt, counter, angle, hMax, tw;
     private double mass;
 
 
@@ -136,6 +136,9 @@ public class ProjectionCalculation implements Serializable {
     {
         int n=1000;
         dt = 2.1/n;
+        hMax = y0;
+        tw = 0;
+
 
         double licznik = counter;
         double t=0;
@@ -152,7 +155,7 @@ public class ProjectionCalculation implements Serializable {
         kineticEnergies.add(ek);
         potentialEnergies.add(ep);
         totalEnergies.add(ec);
-        degrees.add(round(Math.atan2(v0y,v0x)));
+        degrees.add(round((Math.atan2(v0y,v0x) / Math.PI) * 180));
         times.add(t);
 
 
@@ -163,12 +166,18 @@ public class ProjectionCalculation implements Serializable {
             y0 = countY(y0, v0y);
             x0 = countX(x0, v0x);
             v = Math.sqrt(Math.pow(v0x,2) + Math.pow(v0y,2));
-            angle = Math.atan2(v0y, v0x);
+            angle = round((Math.atan2(v0y,v0x) / Math.PI) * 180);
             ep= 1 * g * y0;
             ek = (1* v0y * v0y)/2;
             ec = ep + ek;
             t+=dt;
 
+
+            if(v0y > 0)
+            {
+                hMax = y0;
+                tw = t;
+            }
 
             if(t>licznik)
             {
@@ -181,7 +190,7 @@ public class ProjectionCalculation implements Serializable {
                 kineticEnergies.add(round(ek));
                 potentialEnergies.add(round(ep));
                 totalEnergies.add(round(ec));
-                degrees.add(round(Math.atan2(v0y,v0x)));
+                degrees.add(angle);
                 times.add(round(t));
 
                 licznik += counter;
@@ -199,7 +208,7 @@ public class ProjectionCalculation implements Serializable {
         kineticEnergies.add(round(ek));
         potentialEnergies.add(round(ep));
         totalEnergies.add(round(ec));
-        degrees.add(round(Math.atan2(v0y,v0x)));
+        degrees.add(angle);
         times.add(round(t));
 
 
@@ -213,7 +222,135 @@ public class ProjectionCalculation implements Serializable {
 
 
 
-    public String getVelocityScore(double time, double velocity, double acceleration)
+    public String getVelocityString(double time, double velocity, double yPosition)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("t = ");
+        sb.append((String.format("%.2f", time)));
+        sb.append("s | ");
+        sb.append("vY = ");
+        sb.append((String.format("%.2f", velocity)));
+        sb.append("m/s | ");
+        sb.append("y = ");
+        sb.append((String.format("%.2f", yPosition)));
+        sb.append("m");
+
+        return sb.toString();
+    }
+
+
+    public String[] getVelocities()
+    {
+        String[] phenomenos = new String[times.size()];
+
+        for(int i = 0; i < times.size(); i++)
+        {
+            phenomenos[i] = getVelocityString(times.get(i),velocityiesY.get(i),getPostionsY().get(i));
+        }
+
+        return phenomenos;
+    }
+
+    public String getVelocityScore()
+    {
+
+        double s = yPostions.get(0) + 2 * (hMax - yPostions.get(0));
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("t_s = ");
+        sb.append((String.format("%.2f", times.get(times.size()-1))));
+        sb.append("s\n");
+        sb.append("t_w = ");
+        sb.append((String.format("%.2f", tw)));
+        sb.append("s\n");
+        sb.append("vY = ");
+        sb.append((String.format("%.2f", velocityiesY.get(times.size()-1))));
+        sb.append("m/s\n");
+        sb.append("hMax = ");
+        sb.append((String.format("%.2f", hMax)));
+        sb.append("m\n");
+        sb.append("s = ");
+        sb.append((String.format("%.2f", s)));
+        sb.append("m");
+
+        return sb.toString();
+    }
+
+    public String getHorizontalString(double time, double velocityX, double velocityY, double yPosition, double xPosition, double angle)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("t = ");
+        sb.append((String.format("%.2f", time)));
+        sb.append("s | ");
+        sb.append("vY = ");
+        sb.append((String.format("%.2f", velocityY)));
+        sb.append("m/s | ");
+        sb.append("vX = ");
+        sb.append((String.format("%.2f", velocityX)));
+        sb.append("m/s | ");
+        sb.append("y = ");
+        sb.append((String.format("%.2f", yPosition)));
+        sb.append("m | ");
+        sb.append("x = ");
+        sb.append((String.format("%.2f", xPosition)));
+        sb.append("m | ");
+        sb.append("Ω = ");
+        sb.append((String.format("%.2f", angle)));
+        sb.append("°");
+
+        return sb.toString();
+    }
+
+
+    public String[] getHorizontals()
+    {
+        String[] phenomenos = new String[times.size()];
+
+        for(int i = 0; i < times.size(); i++)
+        {
+            phenomenos[i] = getHorizontalString(times.get(i)
+                    , velocityiesX.get(i)
+                    , velocityiesY.get(i)
+                    , yPostions.get(i)
+                    , xPositions.get(i)
+                    , degrees.get(i));
+        }
+
+        return phenomenos;
+    }
+
+    public String getHorizontalScore()
+    {
+
+
+        double s = yPostions.get(0) + 2 * (hMax - yPostions.get(0));
+        int sizeOfArray = times.size()-1;
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("t_s = ");
+        sb.append((String.format("%.2f", times.get(sizeOfArray))));
+        sb.append("s\n");
+        sb.append("t_w = ");
+        sb.append((String.format("%.2f", tw)));
+        sb.append("s\n");
+        sb.append("vY = ");
+        sb.append((String.format("%.2f", velocityiesY.get(sizeOfArray))));
+        sb.append("m/s\n");
+        sb.append("hMax = ");
+        sb.append((String.format("%.2f", hMax)));
+        sb.append("m\n");
+        sb.append("s = ");
+        sb.append((String.format("%.2f", s)));
+        sb.append("m\n");
+        sb.append("Ω = ");
+        sb.append((String.format("%.2f", angle)));
+        sb.append("°");
+
+        return sb.toString();
+    }
+
+    public String getObliqueString(double time, double velocityX, double velocityY, double velocity, double yPosition, double xPosition, double angle)
     {
         StringBuilder sb = new StringBuilder();
         sb.append("t = ");
@@ -222,26 +359,79 @@ public class ProjectionCalculation implements Serializable {
         sb.append("v = ");
         sb.append((String.format("%.2f", velocity)));
         sb.append("m/s | ");
+        sb.append("vY = ");
+        sb.append((String.format("%.2f", velocityY)));
+        sb.append("m/s | ");
+        sb.append("vX = ");
+        sb.append((String.format("%.2f", velocityX)));
+        sb.append("m/s | ");
         sb.append("y = ");
-        sb.append((String.format("%.2f", acceleration)));
+        sb.append((String.format("%.2f", yPosition)));
+        sb.append("m | ");
+        sb.append("x = ");
+        sb.append((String.format("%.2f", xPosition)));
+        sb.append("m | ");
+        sb.append("Ω = ");
+        sb.append((String.format("%.2f", angle)));
+        sb.append("°");
+
+        return sb.toString();
+
+    }
+
+
+    public String[] getObliques()
+    {
+        String[] phenomenos = new String[times.size()];
+
+        for(int i = 0; i < times.size(); i++)
+        {
+            phenomenos[i] = getObliqueString(times.get(i)
+                    , velocityiesX.get(i)
+                    , velocityiesY.get(i)
+                    , velocityies.get(i)
+                    , yPostions.get(i)
+                    , xPositions.get(i)
+                    , degrees.get(i));
+        }
+
+        return phenomenos;
+    }
+
+    public String getObliqueScore()
+    {
+
+
+        int sizeOfArray = times.size()-1;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("t_s = ");
+        sb.append((String.format("%.2f", times.get(sizeOfArray))));
+        sb.append("s\n");
+        sb.append("t_w = ");
+        sb.append((String.format("%.2f", tw)));
+        sb.append("s\n");
+        sb.append("v = ");
+        sb.append((String.format("%.2f", velocityies.get(sizeOfArray))));
+        sb.append("m/s\n");
+        sb.append("vY = ");
+        sb.append((String.format("%.2f", velocityiesY.get(sizeOfArray))));
+        sb.append("m/s\n");
+        sb.append("vX = ");
+        sb.append((String.format("%.2f", velocityiesX.get(sizeOfArray))));
+        sb.append("m/s\n");
+        sb.append("hMax = ");
+        sb.append((String.format("%.2f", hMax)));
+        sb.append("m\n");
+        sb.append("Ω = ");
+        sb.append((String.format("%.2f", degrees.get(sizeOfArray))));
+        sb.append("°\n");
+        sb.append("z = ");
+        sb.append((String.format("%.2f", xPositions.get(sizeOfArray))));
         sb.append("m");
 
         return sb.toString();
     }
-
-
-//    public String[] getListOfPhenomeno()
-//    {
-//        String[] phenomenos = new String[times.size()];
-//
-//        for(int i = 0; i < times.size(); i++)
-//        {
-//            phenomenos[i] = getString(listTime.get(i),listVelocity.get(i),listHeight.get(i));
-//        }
-//
-//        return phenomenos;
-//    }
-
 
     public List<Double> getTimes() {
         return times;

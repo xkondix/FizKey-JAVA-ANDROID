@@ -62,7 +62,7 @@ public class HorizonatalProjectionSimulationActivity extends AppCompatActivity {
         });
 
         projectionViewModel.getAngleMutableLiveData().observe(this, angle -> {
-            angleTextView.setText( "angle : "+ angle);
+            angleTextView.setText( "Ω : "+ angle);
         });
 
         View simulationFrameView = findViewById(R.id.horizontal_simulation_frame_projection_simulation_activity);
@@ -77,8 +77,6 @@ public class HorizonatalProjectionSimulationActivity extends AppCompatActivity {
 
             }
         });
-
-
 
     }
 
@@ -103,3 +101,5 @@ public class HorizonatalProjectionSimulationActivity extends AppCompatActivity {
         ((HorizontalSimulationFragment) horizontalSimulationFragment).restart();
     }
 }
+
+

@@ -3,6 +3,7 @@ package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.obliq
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -49,10 +50,10 @@ public class ObliqueProjectionActivity extends AppCompatActivity {
         sendScoreButton = findViewById(R.id.send_oblique_projection_activity);
 
         //Spinner
-        multiScoreSpinner = findViewById(R.id.spinner);
+        multiScoreSpinner = findViewById(R.id.score_per_secound_oblique_projection_activity);
 
-        //TextView
-        //scoreTextView = findViewById(R.id.wyniki);
+
+        scoreTextView = findViewById(R.id.score_oblique_projection_activity);
 
     }
 
@@ -98,6 +99,21 @@ public class ObliqueProjectionActivity extends AppCompatActivity {
     }
 
     public void onClickCalculate(View view) {
+
+        ProjectionCalculation projectionCalculation = new ProjectionCalculation.Builder(
+                getHeight(),getVelocity(), 1)
+                .acceleration(getAcceleration())
+                .angle(getAngle())
+                .mass(getMass())
+                .resistance(getResistance())
+                .build();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this
+                ,android.R.layout.simple_list_item_1
+                ,projectionCalculation.getObliques());
+
+        multiScoreSpinner.setAdapter(adapter);
+        scoreTextView.setText(projectionCalculation.getObliqueScore());
     }
 
 

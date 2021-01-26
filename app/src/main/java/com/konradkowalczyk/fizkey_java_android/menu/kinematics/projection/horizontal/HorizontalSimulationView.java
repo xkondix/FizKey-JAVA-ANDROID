@@ -54,8 +54,8 @@ public class HorizontalSimulationView extends BasicSimulation {
         paint.setColor(Color.rgb(22, 155, 222));
 
         //tworzenie obiektu, który się porusza
-        ball = new MotionBall(screenScaleValueEquation.getPointsScaleY().get(0)
-                , screenScaleValueEquation.getPointsScaleY().get(0) + 40
+        ball = new MotionBall(screenScaleValueEquation.getValuesScaledSecoundListX().get(0)
+                , screenScaleValueEquation.getValuesScaledSecoundListX().get(0) + 40
                 ,screenScaleValueEquation
                 ,new Boolean[]{true, true});
         ball.createThread();

@@ -64,7 +64,7 @@ public class ObliqueProjectionSimulationActivity extends AppCompatActivity {
         });
 
         projectionViewModel.getAngleMutableLiveData().observe(this, angle -> {
-            angleTextView.setText( "angle : "+ angle);
+            angleTextView.setText( "Ω : "+ angle);
         });
 
         View simulationFrameView = findViewById(R.id.oblique_simulation_frame_projection_simulation_activity);
