@@ -113,7 +113,7 @@ public class ProjectionCalculation implements Serializable {
 
     private double countVy(double vY)
     {
-        return vY - (g * dt) - (cX * vY * dt);
+        return vY - (g * dt) - (cX * vY * dt)/mass;
     }
 
     private double countY(double y, double vY)
@@ -123,7 +123,7 @@ public class ProjectionCalculation implements Serializable {
 
     private double countVx(double vX)
     {
-        return vX - (cX * vX * dt);
+        return vX - (cX * vX * dt)/mass;
     }
 
     private double countX(double x, double vX)

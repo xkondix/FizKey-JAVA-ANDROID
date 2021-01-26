@@ -23,9 +23,7 @@ public class VerticalProjectionActivity extends AppCompatActivity {
     private EditText heightEditText,velocityEditText,accelerationEditText, resistanceEditText,massEditText;
     private TextView scoreTextView;
     private Spinner multiScoreSpinner;
-    private static String[] formulasVertical = {"v = v0 - g * t", "h = v0 * t - 1/2 * g * t^2"};
-
-
+    private String[] formulasVertical;
 
     @Override
     protected void onCreate(android.os.Bundle savedInstanceState) {
@@ -51,6 +49,18 @@ public class VerticalProjectionActivity extends AppCompatActivity {
 
         //TextView
         scoreTextView = findViewById(R.id.score_vertical_projection_activity);
+
+        formulasVertical = new String[]{getResources().getString(R.string.velocity_projection)
+                , "v = v0 - g * t"
+                , "h = v0 * t - 1/2 * g * t^2"
+                , "Hmax = v0^2 / 2 * g"
+                , "tw = v0 / g"
+                , "ts = 2 * v0 / g"
+                , "------------------"
+                , getResources().getString(R.string.free_fall)
+                , "y =  h0 - g / 2 * t^2"
+                , "v = g - t"
+                , "vk = √(2 * g * h0)"};
 
     }
 

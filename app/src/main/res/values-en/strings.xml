@@ -148,6 +148,10 @@
     <string name="play">Play</string>
     <string name="stop">Stop</string>
     <string name="restart">Restart</string>
+    <string name="free_fall">Free Fall</string>
+    <string name="velocity_projection">Velocity Projection</string>
+    <string name="oblique_projection">Oblique Projection</string>
+    <string name="horizontal_projection">Horizontal Projection</string>
 
 
 </resources>

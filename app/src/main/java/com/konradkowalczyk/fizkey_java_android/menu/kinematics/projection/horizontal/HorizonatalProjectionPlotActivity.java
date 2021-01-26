@@ -93,6 +93,7 @@ public class HorizonatalProjectionPlotActivity extends AppCompatActivity {
         calculations.add(projectionCalculations.getPositionsX());
         calculations.add(projectionCalculations.getVelocityiesY());
         calculations.add(projectionCalculations.getVelocityiesX());
+        calculations.add(projectionCalculations.getDegrees());
         calculations.add(projectionCalculations.getKineticEnergies());
         calculations.add(projectionCalculations.getPotentialEnergies());
         calculations.add(projectionCalculations.getTotalEnergies());

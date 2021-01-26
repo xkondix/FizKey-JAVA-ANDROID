@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
@@ -35,7 +36,9 @@ public class PhysicalFormulasDialogFragment extends DialogFragment {
 
         View view = inflater.inflate(R.layout.fragment_dialog_physical_formulas, container, false);
 
-        cancelTextView = view.findViewById(R.id.cancel);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+
         okTextView = view.findViewById(R.id.ok);
         formulasTextView = view.findViewById(R.id.formulas_fragment_text);
 
@@ -50,13 +53,6 @@ public class PhysicalFormulasDialogFragment extends DialogFragment {
         formulasTextView.setText(forms);
 
 
-        cancelTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getDialog().dismiss();
-            }
-        });
-
         okTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,4 +62,6 @@ public class PhysicalFormulasDialogFragment extends DialogFragment {
 
         return view;
     }
+
+
 }

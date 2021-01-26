@@ -135,13 +135,17 @@
     <string name="leave_group">Opuść grupę</string>
     <string name="members">Członkowie</string>
     <string name="send_an_invitation_to_the_group">"Wyślij zaproszenie do grupy"</string>
-    <string name="for_all">For everyone</string>
-    <string name="mass">Mass</string>
-    <string name="angle">Angle</string>
-    <string name="resistance">Resistance</string>
-    <string name="play">Play</string>
-    <string name="stop">Stop</string>
-    <string name="restart">Restart</string>
+    <string name="for_all">Dla wszystkich</string>
+    <string name="mass">Masa</string>
+    <string name="angle">Kąt</string>
+    <string name="resistance">Opór</string>
+    <string name="play">Rozpocznij</string>
+    <string name="stop">Zatrzymaj</string>
+    <string name="restart">Uruchom ponownie</string>
+    <string name="free_fall">Spadek swobodny</string>
+    <string name="velocity_projection">Rzut pionowy</string>
+    <string name="oblique_projection">Rzut ukośny</string>
+    <string name="horizontal_projection">Rzut pionowy</string>
 
 
 </resources>

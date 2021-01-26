@@ -2,6 +2,8 @@ package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.obliq
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.PhysicalFormulasDialogFragment;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
 
 public class ObliqueProjectionActivity extends AppCompatActivity {
@@ -23,6 +26,8 @@ public class ObliqueProjectionActivity extends AppCompatActivity {
     private Button simulateButton, plotButton, sendScoreButton;
     private TextView scoreTextView;
     private Spinner multiScoreSpinner;
+
+    private String[] formulasOblique;
 
 
     @Override
@@ -55,8 +60,43 @@ public class ObliqueProjectionActivity extends AppCompatActivity {
 
         scoreTextView = findViewById(R.id.score_oblique_projection_activity);
 
+        formulasOblique = new String[]{getResources().getString(R.string.oblique_projection)
+                , "v0x = v0 * cos α"
+                , "v0y = v0 * sin α"
+                , "vx = v0 * cos α"
+                , "vy = v0 * sin α - g * t"
+                , "x = v0x * t = v0 * t * cos α"
+                , "y = v0y * t - g / 2 * t^2"
+                , "y = v0 * t * sin α - g / 2 * t^2"
+                , "ts =  2 * v0y / g"
+                , "ts =  2 * v0y * sin α / g"
+                , "tw = v0y /  g"
+                , "tw = v0y * sin α /  g"
+                , "Z = v0^2 / g * sin 2 * α "
+                , "Hmax = v0y^2 / 2 * g"
+                , "Hmax = v0^2 * sin^2  α  / 2 * g"};
+
+
     }
 
+    public  boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item)    {
+        switch(item.getItemId())
+        {
+            case R.id.action_wzory:
+                PhysicalFormulasDialogFragment dialog = new PhysicalFormulasDialogFragment(formulasOblique);
+                dialog.show(getSupportFragmentManager(), "Projection Oblique Formulas");
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     public void onClickPlot(View view) {
         ProjectionCalculation projectionCalculation = new ProjectionCalculation.Builder(

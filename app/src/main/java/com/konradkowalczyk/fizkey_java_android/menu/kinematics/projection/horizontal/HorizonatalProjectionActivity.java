@@ -2,6 +2,8 @@ package com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.horiz
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.konradkowalczyk.fizkey_java_android.R;
+import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.PhysicalFormulasDialogFragment;
 import com.konradkowalczyk.fizkey_java_android.menu.kinematics.projection.ProjectionCalculation;
 
 public class HorizonatalProjectionActivity extends AppCompatActivity {
@@ -22,6 +25,9 @@ public class HorizonatalProjectionActivity extends AppCompatActivity {
     private Button simulateButton, plotButton, sendScoreButton;
     private TextView scoreTextView;
     private Spinner multiScoreSpinner;
+
+    private String[] formulasHorizontal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +58,36 @@ public class HorizonatalProjectionActivity extends AppCompatActivity {
 
         scoreTextView = findViewById(R.id.score_horizontal_projection_activity);
 
+        formulasHorizontal = new String[]{getResources().getString(R.string.horizontal_projection)
+                , "vx = v0"
+                , "vy = g * t"
+                , "x = v0 * t"
+                , "y = g / 2 * t^2"
+                , "t =  √(2 * y / g)"
+                , "Z = v0 * t = v0 * √(2 * y / g)"};
+
+
     }
+
+    public  boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item)    {
+        switch(item.getItemId())
+        {
+            case R.id.action_wzory:
+                PhysicalFormulasDialogFragment dialog = new PhysicalFormulasDialogFragment(formulasHorizontal);
+                dialog.show(getSupportFragmentManager(), "Projection Oblique Formulas");
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     public void onClickPlot(View view) {
         ProjectionCalculation projectionCalculation = new ProjectionCalculation.Builder(

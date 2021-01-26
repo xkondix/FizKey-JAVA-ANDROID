@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="250dp"
-    tools:context=".menu.kinematics.projection.PhysicalFormulasDialogFragment">
-    >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="200dp"
+    android:minHeight="200dp"
+    android:background="@drawable/border"
+    tools:context=".menu.kinematics.projection.PhysicalFormulasDialogFragment"
+    android:orientation="vertical">
 
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_formulas"
-        android:layout_marginLeft="2dp"
         android:textSize="18sp"
         android:textColor="#000"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:id="@+id/heding"/>
 
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/heding"
+        android:layout_marginTop="30dp"
         android:textColor="#000"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
         android:id="@+id/formulas_fragment_text"/>
 
 
@@ -31,27 +37,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ok"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/formulas_fragment_text"
         android:layout_alignParentRight="true"
         android:layout_marginRight="2dp"
+        android:layout_gravity="center_horizontal"
         android:textColor="#000"
         android:textSize="18dp"
         android:id="@+id/ok"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/cancel"
-        android:layout_marginTop="100dp"
-        android:layout_below="@+id/formulas_fragment_text"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="2dp"
-        android:textSize="18dp"
-        android:textColor="#000"
-        android:id="@+id/cancel"/>
 
-</RelativeLayout>
+
+</LinearLayout>
 
 
 

@@ -23,6 +23,7 @@
         <item>Velocity</item>
         <item>Y (Velocity)</item>
         <item>X (Velocity)</item>
+        <item>Angle</item>
         <item>Kinetic Energy</item>
         <item>Potential Energy</item>
         <item>Total Energy</item>
@@ -35,6 +36,7 @@
         <item>X (Distance)</item>
         <item>Y (Velocity)</item>
         <item>X (Velocity)</item>
+        <item>Angle</item>
         <item>Kinetic Energy</item>
         <item>Potential Energy</item>
         <item>Total Energy</item>

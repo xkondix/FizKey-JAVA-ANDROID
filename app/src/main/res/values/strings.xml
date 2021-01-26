@@ -110,7 +110,7 @@
     <string name="empty_field">This field cannot be empty</string>
     <string name="topic">Topic</string>
     <string name="description">Description</string>
-    <string name="title_activity_custom_result">CustomResultActivity</string>
+    <string name="title_activity_custom_result" translatable="false">CustomResultActivity</string>
     <!-- Strings used for fragments for navigation -->
 
     <string name="answer">Answer</string>
@@ -128,7 +128,7 @@
     <string name="my_group">My groups</string>
     <string name="groups">Groups</string>
     <string name="code_group_fragment">Enter the code here</string>
-    <string name="title_activity_group">GroupActivity</string>
+    <string name="title_activity_group" translatable="false">GroupActivity</string>
     <string name="bad_enter_code">The code is invalid</string>
     <string name="already_exist_in_group">You are already in this group</string>
     <string name="joined_the_grouo">You joined the group</string>
@@ -150,6 +150,10 @@
     <string name="play">Play</string>
     <string name="stop">Stop</string>
     <string name="restart">Restart</string>
+    <string name="free_fall">Free Fall</string>
+    <string name="velocity_projection">Velocity Projection</string>
+    <string name="oblique_projection">Oblique Projection</string>
+    <string name="horizontal_projection">Horizontal Projection</string>
 
 
 </resources>

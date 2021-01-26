@@ -23,6 +23,7 @@
         <item>Prędkość</item>
         <item>Y (Prędkość)</item>
         <item>X (Prędkość)</item>
+        <item>Kąt</item>
         <item>Energia Kinetyczna</item>
         <item>Energia Potencialna</item>
         <item>Energia Całkowita</item>
@@ -35,6 +36,7 @@
         <item>X (Dystans)</item>
         <item>Y (Prędkość)</item>
         <item>X (Prędkość)</item>
+        <item>Kąt</item>
         <item>Energia Kinetyczna</item>
         <item>Energia Potencialna</item>
         <item>Energia Całkowita</item>

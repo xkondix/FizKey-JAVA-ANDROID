@@ -96,6 +96,7 @@ public class ObliqueProjectionPlotActivity extends AppCompatActivity {
         calculations.add(projectionCalculation.getVelocityies());
         calculations.add(projectionCalculation.getVelocityiesY());
         calculations.add(projectionCalculation.getVelocityiesX());
+        calculations.add(projectionCalculation.getDegrees());
         calculations.add(projectionCalculation.getKineticEnergies());
         calculations.add(projectionCalculation.getPotentialEnergies());
         calculations.add(projectionCalculation.getTotalEnergies());
