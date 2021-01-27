@@ -13,7 +13,7 @@ public abstract class AbstractKinematics extends AbstractQuestion {
     protected static final double ACCELERATION = 9.81;
 
 
-    private List<String> unitsBaseName = new ArrayList<>(Arrays.asList(new String[]{"m","m/s","s","m/s^2"}));
+    private List<String> unitsBaseName = new ArrayList<>(Arrays.asList(new String[]{"m", "m/s", "s", "m/s^2", "°"}));
 
     private static final Map<Integer,Map<String,Double>> UNITS_CONVERT = new HashMap<Integer,Map<String,Double>>() {{
         put(0, new HashMap<String,Double>() {{
@@ -34,6 +34,10 @@ public abstract class AbstractKinematics extends AbstractQuestion {
         put(2, new HashMap<String,Double>() {{
             put("min", 0.0166666667);
             put("h", 0.000277777778);
+        }});
+
+        put(3, new HashMap<String,Double>() {{
+            put("°", 1.0);
         }});
 
     }};

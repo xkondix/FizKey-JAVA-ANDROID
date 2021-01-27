@@ -5,6 +5,8 @@ import android.content.Context;
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.Question;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.kinematics.FallDown;
+import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.kinematics.HorizontalProjection;
+import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.kinematics.ObliqueProjection;
 import com.konradkowalczyk.fizkey_java_android.quizzes.menu.phenomenon.kinematics.ThrowUp;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ public class QuizFactory {
 
     public static enum Level {NORMAL, HARD};
 
-    private static final int QUANITY_FORTUNE = 2;
+    private static final int QUANITY_FORTUNE = 4;
 
     private Random random;
     private Context context;
@@ -24,7 +26,6 @@ public class QuizFactory {
     private List<Question> dataQuestionAnwser;
     private List<Integer> acceptedForceNumbers;
     private String[] resourceForces;
-    private List<String> activesPhenomena;
     private Level level;
 
 
@@ -61,6 +62,14 @@ public class QuizFactory {
             case 1:
             {
                 return new ThrowUp(context,quanityBlocks,level);
+            }
+            case 2:
+            {
+                return new ObliqueProjection(context,quanityBlocks,level);
+            }
+            case 3:
+            {
+                return new HorizontalProjection(context,quanityBlocks,level);
             }
             default:
                 return new FallDown(context,quanityBlocks,level);

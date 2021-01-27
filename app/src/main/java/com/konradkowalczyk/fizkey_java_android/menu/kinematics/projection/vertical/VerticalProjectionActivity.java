@@ -50,7 +50,7 @@ public class VerticalProjectionActivity extends AppCompatActivity {
         //TextView
         scoreTextView = findViewById(R.id.score_vertical_projection_activity);
 
-        formulasVertical = new String[]{getResources().getString(R.string.velocity_projection)
+        formulasVertical = new String[]{getResources().getString(R.string.vertical_projection)
                 , "v = v0 - g * t"
                 , "h = v0 * t - 1/2 * g * t^2"
                 , "Hmax = v0^2 / 2 * g"

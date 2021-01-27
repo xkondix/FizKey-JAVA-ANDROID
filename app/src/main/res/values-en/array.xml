@@ -2,10 +2,9 @@
 <resources>
     <string-array name="phenomenon">
         <item>Kinematics</item>
-        <item>Electricity</item>
     </string-array>
 
-    <string-array name="motion">
+    <string-array name="vertical_projection">
         <item>Time</item>
         <item>Acceleration</item>
         <item>Height</item>
@@ -58,18 +57,22 @@
     </string-array>
 
     <string-array name="phenomenons_for_quizzes">
-        <item>Kinematics 2</item>
+        <item>Kinematics 4</item>
     </string-array>
 
     <string-array name="force_for_quizzes">
         <item>Free fall</item>
         <item>Vertical projection</item>
+        <item>Oblique projection</item>
+        <item>Horizontal projection</item>
     </string-array>
 
     <string-array name="force_for_quizzes_result">
         <item>No choice</item>
         <item>Free fall</item>
         <item>Vertical projection</item>
+        <item>Oblique projection</item>
+        <item>Horizontal projection</item>
     </string-array>
 
 </resources>

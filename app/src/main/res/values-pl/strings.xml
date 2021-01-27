@@ -57,6 +57,45 @@
         i początkowej wysokości równej 0 0.
         Jaka jest maksymalna wysokość rzutu?</string>
 
+
+    <string name="oblique_projection_one">Prędkość początkowa wynosi 0 0, przy sile grawitacji 0 0
+        , oraz kątowi wynoszącemu 0 ° i początkowej wysokości równej 0 0.
+         Ile czasu obiekt będzie leciał?</string>
+    <string name="oblique_projection_two">Prędkość początkowa wynosi 0 0, przy sile grawitacji 0 0
+        , oraz kątowi wynoszącemu 0 ° i początkowej wysokości równej 0 0.
+         Ile wyniesie maxymalna wysokość?</string>
+    <string name="oblique_projection_three">Prędkość początkowa wynosi 0 0, przy sile grawitacji 0 0
+        , oraz kątowi wynoszącemu 0 ° i początkowej wysokości równej 0 0.
+         Ile wyniesie zasięg ruchu?</string>
+    <string name="oblique_projection_four">Prędkość początkowa wynosi 0 0, przy sile grawitacji 0 0
+        , oraz kątowi wynoszącemu 0 ° i początkowej wysokości równej 0 0.
+         Ile czasu obiekt będzie się wznosił</string>
+    <string name="oblique_projection_five">Prędkość początkowa wynosi 0 0, przy sile grawitacji 0 0
+        , oraz kątowi wynoszącemu 0 ° i początkowej wysokości równej 0 0.
+         Ile wyniesie vY w 0 0 rzutu?</string>
+    <string name="oblique_projection_six">Prędkość początkowa wynosi 0 0, przy sile grawitacji 0 0
+        , oraz kątowi wynoszącemu 0 ° i początkowej wysokości równej 0 0.
+        Ile wyniesie y w 0 0 rzutu?</string>
+    <string name="oblique_projection_seven">Prędkość początkowa wynosi 0 0, przy sile grawitacji 0 0
+        , oraz kątowi wynoszącemu 0 ° i początkowej wysokości równej 0 0.
+        Ile wyniesie kąt w 0 0 rzutu?</string>
+
+    <string name="horizontal_projection_one">Prędkość początkowa składowej X wynosi 0 0, przy sile grawitacji 0 0
+         i początkowej wysokości równej 0 0.
+         Ile czasu obiekt będzie leciał?</string>
+    <string name="horizontal_projection_two">Prędkość początkowa składowej X wynosi 0 0, przy sile grawitacji 0 0
+         i początkowej wysokości równej 0 0.
+         Ile wyniesie zasięg ruchu?</string>
+    <string name="horizontal_projection_three">Prędkość początkowa składowej X wynosi 0 0, przy sile grawitacji 0 0
+         i początkowej wysokości równej 0 0.
+         Ile wyniesie vY w 0 0 rzutu?</string>
+    <string name="horizontal_projection_four">Prędkość początkowa składowej X wynosi 0 0, przy sile grawitacji 0 0
+         i początkowej wysokości równej 0 0.
+        Ile wyniesie y w 0 0 rzutu?</string>
+    <string name="horizontal_projection_five">Prędkość początkowa składowej X wynosi 0 0, przy sile grawitacji 0 0
+         i początkowej wysokości równej 0 0.
+      Ile wyniesie kąt w 0 0 rzutu?</string>
+
     <string name="quiz_menu_welcome">Witam w części związanej z quizami \nDostosuj swój quiz</string>
     <string name="select_quiz_range">Wybierz zakres quizu</string>
     <string name="begin_quizzes">Rozpocznij quiz</string>
@@ -143,7 +182,7 @@
     <string name="stop">Zatrzymaj</string>
     <string name="restart">Uruchom ponownie</string>
     <string name="free_fall">Spadek swobodny</string>
-    <string name="velocity_projection">Rzut pionowy</string>
+    <string name="vertical_projection">Rzut pionowy</string>
     <string name="oblique_projection">Rzut ukośny</string>
     <string name="horizontal_projection">Rzut pionowy</string>
 

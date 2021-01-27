@@ -24,8 +24,15 @@ public class KinematicsMenuActivity extends AppCompatActivity {
 
 
         //tworzenie fragmentu
-        Fragment fragment = new RecyclerViewFragment(new String[]{"Rzut pionowy","Rzut ukosny","Rzut poziomy"},
-                new Class[]{VerticalProjectionActivity.class, ObliqueProjectionActivity.class, HorizonatalProjectionActivity.class});
+        Fragment fragment = new RecyclerViewFragment(new String[]{
+                  getResources().getString(R.string.vertical_projection)
+                , getResources().getString(R.string.oblique_projection)
+                , getResources().getString(R.string.horizontal_projection)},
+                new Class[]{
+                          VerticalProjectionActivity.class
+                        , ObliqueProjectionActivity.class
+                        , HorizonatalProjectionActivity.class});
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_frame_kinematyka, fragment);
         ft.commit();

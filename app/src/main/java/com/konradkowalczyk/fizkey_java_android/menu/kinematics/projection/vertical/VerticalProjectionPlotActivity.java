@@ -38,7 +38,7 @@ public class VerticalProjectionPlotActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         projectionCalculation = (ProjectionCalculation) getIntent().getExtras().getSerializable(CALCULATIONS);
-        phenomenonNames = getResources().getStringArray(R.array.motion);
+        phenomenonNames = getResources().getStringArray(R.array.vertical_projection);
 
 
         spinnerOne = findViewById(R.id.phenomenon_one);

@@ -63,6 +63,47 @@
     <string name="throwup_six">The starting speed is 0 0, under acceleration 0 0
         and an initial height equal to 0 0.
         What is the maximum height?</string>
+
+
+    <string name="oblique_projection_one">The starting velocity is 0 0, under gravity equals 0 0
+        , with angle 0 ° and an initial height equal to 0 0.
+         How much time until the body fly?</string>
+    <string name="oblique_projection_two">The starting velocity is 0 0, under gravity equals 0 0
+        , with angle 0 ° and an initial height equal to 0 0.
+         What is the maximum height?</string>
+    <string name="oblique_projection_three">The starting velocity is 0 0, under gravity equals 0 0
+        , with angle 0 ° and an initial height equal to 0 0.
+         What is the maximum range?</string>
+    <string name="oblique_projection_four">The starting velocity is 0 0, under gravity equals 0 0
+        , with angle 0 ° and an initial height equal to 0 0.
+         How much time the object will be rising</string>
+    <string name="oblique_projection_five">The starting velocity is 0 0, under gravity equals 0 0
+        , with angle 0 ° and an initial height equal to 0 0.
+         What is its vY in the 0 0 throw?</string>
+    <string name="oblique_projection_six">The starting velocity is 0 0, under gravity equals 0 0
+        , with angle 0 ° and an initial height equal to 0 0.
+        What is its y in the 0 0 throw?</string>
+    <string name="oblique_projection_seven">The starting velocity is 0 0, under gravity equals 0 0
+        , with angle 0 ° and an initial height equal to 0 0.
+        What is its angle in the 0 0 throw?</string>
+
+
+    <string name="horizontal_projection_one">The starting velocity X is 0 0, under gravity equals 0 0
+         and an initial height equal to 0 0.
+         How much time until the body fly?</string>
+    <string name="horizontal_projection_two">The starting velocity X is 0 0, under gravity equals 0 0
+         and an initial height equal to 0 0.
+         What is the maximum range?</string>
+    <string name="horizontal_projection_three">The starting velocity X is 0 0, under gravity equals 0 0
+         and an initial height equal to 0 0.
+         What is its vY in the 0 0 throw?</string>
+    <string name="horizontal_projection_four">The starting velocity X is 0 0, under gravity equals 0 0
+         and an initial height equal to 0 0.
+        What is its y in the 0 0 throw?</string>
+    <string name="horizontal_projection_five">The starting velocity X is 0 0, under gravity equals 0 0
+         and an initial height equal to 0 0.
+        What is its angle in the 0 0 throw?</string>
+
     <string name="quiz_menu_welcome">Welcome to quizzes part \nCustom your quiz</string>
     <string name="select_quiz_range">Select a quiz range</string>
     <string name="begin_quizzes">Start quiz</string>
@@ -149,7 +190,7 @@
     <string name="stop">Stop</string>
     <string name="restart">Restart</string>
     <string name="free_fall">Free Fall</string>
-    <string name="velocity_projection">Velocity Projection</string>
+    <string name="vertical_projection">Velocity Projection</string>
     <string name="oblique_projection">Oblique Projection</string>
     <string name="horizontal_projection">Horizontal Projection</string>
 
