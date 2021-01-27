@@ -234,7 +234,7 @@ public class CustomResultActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    QuizFactory quizFactory = new QuizFactory(getApplicationContext(),numberOfFields);
+                    QuizFactory quizFactory = new QuizFactory(CustomResultActivity.this, numberOfFields);
                     quizFactory.setLevel(QuizFactory.Level.NORMAL);
                     quizFactory.acceptForces(Arrays.asList(force));
                     quizFactory.generateQuestions(1);
