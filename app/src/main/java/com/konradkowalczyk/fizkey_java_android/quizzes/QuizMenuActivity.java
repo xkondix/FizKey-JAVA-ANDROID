@@ -101,9 +101,11 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
                 if(!account.getEmail().equals(""))
                 {
                     authViewModel.loginUser(account);
+
                     authViewModel.getLoginUserLiveData().observe(this, auth -> {
                         userViewModel.getUserByUuid(auth.getUid());
                     });
+
                     authViewModel.setIsLogedLiveData(true);
                 }
                 else {

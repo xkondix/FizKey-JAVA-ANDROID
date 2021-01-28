@@ -197,6 +197,8 @@
     <string name="not_connected">You are not connected to the internet, not all functions are available</string>
     <string name="offline">Offline</string>
     <string name="online">Online</string>
+    <string name="invitation_to_group">Invitation to a group called \"</string>
+    <string name="invitation_to_group_message">"invites you to join the group, the join code - "</string>
 
 
 </resources>
