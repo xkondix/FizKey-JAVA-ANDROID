@@ -166,5 +166,8 @@ public class GroupFragment extends Fragment implements CreateGroupDialogFragment
         });
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

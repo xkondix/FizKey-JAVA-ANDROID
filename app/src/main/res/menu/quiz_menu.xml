@@ -12,7 +12,7 @@
 
 
     <item
-        android:id="@+id/solve_custom_quiz_fragment"
+        android:id="@+id/solve_custom_quiz"
         android:title="@string/solve_custom_quiz_fragment"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"
@@ -23,7 +23,7 @@
         android:checkable="false"></item>
 
     <item
-        android:id="@+id/create_custom_quiz_fragment"
+        android:id="@+id/create_custom_quiz"
         android:title="@string/create_custom_quiz_fragment"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"

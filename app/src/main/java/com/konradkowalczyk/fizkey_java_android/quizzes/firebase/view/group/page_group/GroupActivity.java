@@ -83,7 +83,9 @@ public class GroupActivity extends AppCompatActivity implements NavigationView.O
                 navigationView.getMenu().findItem(R.id.leave_group).setVisible(true);
             }
             else{
-                groupViewModel.setTasksAndGradesCurrentlyUserMutableLiveData(group.getStudents().get(0).getId());
+                if(group.getStudents().size() > 0) {
+                    groupViewModel.setTasksAndGradesCurrentlyUserMutableLiveData(group.getStudents().get(0).getId());
+                }
                 navigationView.getMenu().findItem(R.id.ask_a_task).setVisible(true);
                 navigationView.getMenu().findItem(R.id.task_to_be_solved).setVisible(false);
                 navigationView.getMenu().findItem(R.id.my_grades).setVisible(true);
@@ -131,6 +133,9 @@ public class GroupActivity extends AppCompatActivity implements NavigationView.O
                 fragment = SendInvitationToGroupFragment.newInstance();
                 break;
             case R.id.leave_group:
+                userViewModel.leaveGroup(groupViewModel.getGroupLiveData());
+                groupViewModel.leaveUser(userViewModel.getUuid());
+                finish();
                 break;
             default:
                 fragment =  HomeGroupFragment.newInstance();

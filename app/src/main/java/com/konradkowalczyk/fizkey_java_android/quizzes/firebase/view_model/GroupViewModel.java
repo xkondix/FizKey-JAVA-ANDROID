@@ -142,7 +142,6 @@ public class GroupViewModel extends ViewModel {
     {
         Map<String, Map<String, QuizResults>> tasksAndGrades = groupLiveData.getValue().getStudentGrades().get(userUuid);
 
-        System.out.println(tasksAndGrades);
         if(tasksAndGrades == null)
         {
             return;
@@ -163,6 +162,9 @@ public class GroupViewModel extends ViewModel {
             if (taskDocument.isSuccessful()) {
                 DocumentSnapshot document = taskDocument.getResult();
                 Task task = document.toObject(Task.class);
+                if(task == null) {
+                    return;
+                }
                 CustomQuizModel customQuizModel = TaskViewModel.TaskToCustomQuizModel(task);
                 customQuizModel.setUuid(task.getUuid());
 
@@ -260,9 +262,10 @@ public class GroupViewModel extends ViewModel {
     public List<String> getNamesOfUsers()
     {
         List<String> students = new ArrayList<>();
-        for(User user : usersMutableLiveData.getValue())
-        {
-            students.add(user.getNameAndSurname());
+        if(usersMutableLiveData.getValue() != null) {
+            for (User user : usersMutableLiveData.getValue()) {
+                students.add(user.getNameAndSurname());
+            }
         }
 
         return students;
@@ -270,9 +273,28 @@ public class GroupViewModel extends ViewModel {
 
     public void onDestroy()
     {
-        tasksToDoCurrentlyUserMutableLiveData.setValue(null);
-        tasksDoneCurrentlyUserMutableLiveData.setValue(null);
-        tasksAndGradesCurrentlyUserMutableLiveData.setValue(null);
+        tasksToDoCurrentlyUserMutableLiveData.postValue(null);
+        tasksDoneCurrentlyUserMutableLiveData.postValue(null);
+        tasksAndGradesCurrentlyUserMutableLiveData.postValue(null);
+        usersMutableLiveData.setValue(new ArrayList<>());
+
+
+    }
+
+    public void leaveUser(String studentUuid) {
+        Group group = groupLiveData.getValue();
+
+        List<DocumentReference> students = group.getStudents();
+        for(int i = 0; i < students.size(); i++) {
+            if(students.get(i).getId().equals(studentUuid))
+            {
+                students.remove(i);
+                break;
+            }
+        }
+
+        group.setStudents(students);
+        groupRepository.updateGroup(group);
     }
 }
 

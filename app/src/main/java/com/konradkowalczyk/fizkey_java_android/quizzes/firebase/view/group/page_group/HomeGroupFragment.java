@@ -58,8 +58,9 @@ public class HomeGroupFragment extends Fragment {
             if(group != null) {
                 nameOfGroupTextView.setText(group.getNameOfGroup());
                 descricptionTextView.setText(group.getDescription());
+                groupViewModel.setUsers();
             }
-            groupViewModel.setUsers();
+
 
         });
 

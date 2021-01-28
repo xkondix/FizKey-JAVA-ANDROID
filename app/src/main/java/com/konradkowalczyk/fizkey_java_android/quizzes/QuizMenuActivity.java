@@ -16,11 +16,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseUser;
 import com.konradkowalczyk.fizkey_java_android.R;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.help_class.AccountSharedPreferences;
 import com.konradkowalczyk.fizkey_java_android.quizzes.firebase.model.entity.Account;
@@ -42,12 +40,13 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
 
 
     private Toolbar toolbar;
-    private TextView status;
+    private TextView statusLoggedTextView, statusOnlineTextView;
 
     private AuthViewModel authViewModel;
     private UserViewModel userViewModel;
     private TaskViewModel taskViewModel;
     private GroupViewModel groupViewModel;
+    private NetworkViewModel networkViewModel;
     private NavigationView navigationView;
 
 
@@ -83,50 +82,83 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
         groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
         groupViewModel.init();
 
+        networkViewModel = new ViewModelProvider(this).get(NetworkViewModel.class);
+
 
         //textview w nagłówku
         View headerView = navigationView.getHeaderView(0);
-        status = (TextView) headerView.findViewById(R.id.status);
-        //status.setText(authViewModel.getLoginUserLiveData().getValue() != null ? getResources().getString(R.string.login) : getResources().getString(R.string.logout));
-
-
+        statusLoggedTextView = (TextView) headerView.findViewById(R.id.status_logged);
+        statusOnlineTextView = (TextView) headerView.findViewById(R.id.status_online);
 
         Account account = AccountSharedPreferences.getData(getApplicationContext());
+
+
+
+        networkViewModel.getIsNetworkLiveData().observe(this, network ->{
+            if(network) {
+
+                statusOnlineTextView.setText(getResources().getString(R.string.online));
+                if(!account.getEmail().equals(""))
+                {
+                    authViewModel.loginUser(account);
+                    authViewModel.getLoginUserLiveData().observe(this, auth -> {
+                        userViewModel.getUserByUuid(auth.getUid());
+                    });
+                    authViewModel.setIsLogedLiveData(true);
+                }
+                else {
+                    authViewModel.setIsLogedLiveData(false);
+
+                }
+
+                navigationView.getMenu().findItem(R.id.solve_custom_quiz).setEnabled(true);
+                navigationView.getMenu().findItem(R.id.register).setEnabled(true);
+
+            }
+            else {
+                statusOnlineTextView.setText(getResources().getString(R.string.offline));
+
+                navigationView.getMenu().findItem(R.id.solve_custom_quiz).setEnabled(false);
+                navigationView.getMenu().findItem(R.id.register).setEnabled(false);
+                navigationView.getMenu().findItem(R.id.logout).setEnabled(false);
+                navigationView.getMenu().findItem(R.id.group).setEnabled(false);
+                navigationView.getMenu().findItem(R.id.create_custom_quiz).setEnabled(false);
+                navigationView.getMenu().findItem(R.id.login).setEnabled(false);
+
+
+            }
+        });
+
         if(!account.getEmail().equals(""))
         {
-            authViewModel.loginUser(account);
-            authViewModel.setIsLogedLiveData(true);
+            statusLoggedTextView.setText(getResources().getString(R.string.login));
         }
         else {
-            authViewModel.setIsLogedLiveData(false);
+            statusLoggedTextView.setText(getResources().getString(R.string.logout));
         }
 
         authViewModel.getIsLogedLiveData().observe(this, isLoged ->{
             if(isLoged == false)
             {
                 navigationView.getMenu().findItem(R.id.group).setEnabled(false);
-                navigationView.getMenu().findItem(R.id.login).setEnabled(true);
                 navigationView.getMenu().findItem(R.id.logout).setEnabled(false);
-                navigationView.getMenu().findItem(R.id.create_custom_quiz_fragment).setEnabled(false);
-                status.setText(getResources().getString(R.string.logout));
+                navigationView.getMenu().findItem(R.id.create_custom_quiz).setEnabled(false);
+                statusLoggedTextView.setText(getResources().getString(R.string.logout));
 
             }
             else {
                 navigationView.getMenu().findItem(R.id.group).setEnabled(true);
                 navigationView.getMenu().findItem(R.id.login).setEnabled(false);
                 navigationView.getMenu().findItem(R.id.logout).setEnabled(true);
-                navigationView.getMenu().findItem(R.id.create_custom_quiz_fragment).setEnabled(true);
-                status.setText(getResources().getString(R.string.login));
+                navigationView.getMenu().findItem(R.id.create_custom_quiz).setEnabled(true);
+                statusLoggedTextView.setText(getResources().getString(R.string.login));
+
+
 
             }
         });
 
-        authViewModel.getLoginUserLiveData().observe(this, new Observer<FirebaseUser>() {
-            @Override
-            public void onChanged(FirebaseUser firebaseUser) {
-                userViewModel.getUserByUuid(firebaseUser.getUid());
-            }
-        });
+
 
         Fragment fragment = new QuizMenuFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -152,10 +184,10 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
             case R.id.login:
                 fragment = LoginFragment.newInstance();
                 break;
-            case R.id.create_custom_quiz_fragment:
+            case R.id.create_custom_quiz:
                 fragment = CreateCustomQuizFragment.newInstance();
                 break;
-            case R.id.solve_custom_quiz_fragment:
+            case R.id.solve_custom_quiz:
                 fragment = SolveCustomQuizFragment.newInstance();
                 break;
             case R.id.group:
@@ -218,4 +250,5 @@ public class QuizMenuActivity extends AppCompatActivity implements NavigationVie
 
 
 }
+
 

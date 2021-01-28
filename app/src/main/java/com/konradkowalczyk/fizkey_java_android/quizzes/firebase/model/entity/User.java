@@ -49,6 +49,10 @@ public class User implements Serializable, Comparable<User> {
         return groups;
     }
 
+    public void setGroups(List<DocumentReference> groups) {
+        this.groups = groups;
+    }
+
     public void addToGroup(DocumentReference groupReference)
     {
         groups.add(groupReference);

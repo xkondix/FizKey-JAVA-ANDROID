@@ -3,6 +3,7 @@ package com.konradkowalczyk.fizkey_java_android;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         setScreenDimension();
+        isNetworkConnected();
+
 
     }
 
@@ -71,4 +74,9 @@ public class MainActivity extends AppCompatActivity {
         Constants.SCREEN_WIDTH = dm.widthPixels;
     }
 
+    private void isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        Constants.isInternet = cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+        Constants.isInternetMutableLiveData.postValue(Constants.isInternet);
+    }
 }

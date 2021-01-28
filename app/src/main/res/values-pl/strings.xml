@@ -185,6 +185,10 @@
     <string name="vertical_projection">Rzut pionowy</string>
     <string name="oblique_projection">Rzut ukośny</string>
     <string name="horizontal_projection">Rzut pionowy</string>
+    <string name="connected">Masz połączenie z internetem, wszystkie funkcje dostępne</string>
+    <string name="not_connected">Nie masz połączenia z internetem, pewne funkcje są już nie dostępne</string>
+    <string name="offline">Offline</string>
+    <string name="online">Online</string>
 
 
 </resources>

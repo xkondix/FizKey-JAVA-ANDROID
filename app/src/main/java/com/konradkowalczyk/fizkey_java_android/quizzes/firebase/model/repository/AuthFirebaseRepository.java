@@ -80,18 +80,18 @@ public class AuthFirebaseRepository implements AuthFirebaseRepositoryInterface {
                     if (loginTask.isSuccessful()) {
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                         if (firebaseUser.isEmailVerified()) {
-                            accountMutableLiveData.setValue(firebaseUser);
+                            accountMutableLiveData.postValue(firebaseUser);
                             Log.i("login", "Logged in account");
                             Constants.LOGIN = true;
                         }
                         else {
-                            accountMutableLiveData.setValue(null);
+                            accountMutableLiveData.postValue(null);
                             Log.i("login", "Email not verified");
                             firebaseAuth.signOut();
                         }
                     }
                     else {
-                        accountMutableLiveData.setValue(null);
+                        accountMutableLiveData.postValue(null);
                         Log.i("login", "Login error");
                     }
                 });

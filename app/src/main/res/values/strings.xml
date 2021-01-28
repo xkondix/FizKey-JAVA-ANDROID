@@ -194,6 +194,10 @@
     <string name="vertical_projection">Vertical Projection</string>
     <string name="oblique_projection">Oblique Projection</string>
     <string name="horizontal_projection">Horizontal Projection</string>
+    <string name="connected">You are connected to the internet, all functions are available</string>
+    <string name="not_connected">You are not connected to the internet, not all functions are available</string>
+    <string name="offline">Offline</string>
+    <string name="online">Online</string>
 
 
 </resources>

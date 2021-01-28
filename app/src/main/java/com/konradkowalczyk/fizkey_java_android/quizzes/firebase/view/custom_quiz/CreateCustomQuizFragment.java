@@ -58,7 +58,7 @@ public class CreateCustomQuizFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_create_custom_quiz, container, false);
 
-        createQuizButton = view.findViewById(R.id.create_custom_quiz_fragment);
+        createQuizButton = view.findViewById(R.id.create_custom_quiz);
         numberOfFieldsSpinner = view.findViewById(R.id.number_of_fields_create_custom_quiz_fragment);
         timerRadioGroup = view.findViewById(R.id.timer_create_custom_quiz_fragment);
         secondsValueEditText = view.findViewById(R.id.timer_value_create_custom_quiz_fragment);

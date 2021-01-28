@@ -101,4 +101,21 @@ public class UserViewModel extends ViewModel {
     public String getUuid() {
         return userLiveData.getValue().getUuid();
     }
+
+    public void leaveGroup(LiveData<Group> groupLiveData) {
+        Group group = groupLiveData.getValue();
+        User user = userLiveData.getValue();
+
+        List<DocumentReference> groups = user.getGroups();
+        for(int i = 0; i < groups.size(); i++) {
+            if(groups.get(i).getId().equals(group.getUuid()))
+            {
+                groups.remove(i);
+                break;
+            }
+        }
+
+        user.setGroups(groups);
+        userRepository.updateUser(user);
+    }
 }
